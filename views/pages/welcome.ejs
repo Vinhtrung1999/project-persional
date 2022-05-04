@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi! Welcome...</title>
+    <!-- link css -->
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/welcome.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="wall"></div>
+    <div class="img-title">
+        <div class="title-container">
+            <div class="title-nav">
+                <i class="fa-solid fa-bars"></i>
+                <div class="nav-bar">
+                    <a href="/" class="nav-item-link"><div class="nav-items">Home</div></a>
+                    <a href="#" class="nav-item-link"><div class="nav-items">Stadiums</div></a>
+                    <a href="#" class="nav-item-link"><div class="nav-items">Log-out</div></a>
+                </div>
+            </div>
+            <div class="title-logo">
+                <img src="/images/XztNn3f.png" alt="Logo" width="120%">
+            </div>
+            <div class="title-action">
+                <% if(!name) {%>
+                    <div class="action-login"><a class="action-login-link" href="/loginCus"><i class="fa-solid fa-user"></i> Log-in</a></div>
+                <% } else { %>
+                    <div class="action-login"><i class="fa-solid fa-user"></i> Hi, <%= name %></div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="stadium mg-t-50">
+        <h2 class="t-center">Standard stadiums</h2>
+        <div class="stadium-1">
+            <% locals.data_svd.forEach((val) => { %>
+                <% if(val.type == 0){ %> 
+                    <div class="std-1-items">
+                        <a href="/view-details/<%= val.idSvd %>"><img src="/images/san-van-dong-wembley-623408.jpg" width="500px" height="250px"></a>
+                        <div class="std-1-items-info"><%= val.name %> | <span id="money"><%= val.price %></span></div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+
+        <h2 class="t-center">VIP stadiums</h2>
+        <div class="stadium-1">
+            <% locals.data_svd.forEach((val) => { %>
+                <% if(val.type == 1){ %> 
+                    <div class="std-1-items">
+                        <img src="https://www.the-possible.com/wp-content/uploads/2019/08/NEW-Miami-Dolphins_72-Club.jpg" width="500px" height="250px">
+                        <div class="std-1-items-info"><%= val.name %> | <span id="money"><%= val.price %></span></div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    </div>
+
+    <div class="t-center btn-area mg-t">
+        <button class="btn-show-all">Show all</button>
+    </div>
+    <div class="stadium-2 mg-t-50">
+        <img class="img-show-action" src="https://thumbs.dreamstime.com/b/night-stadium-arena-soccer-field-d-render-57408871.jpg" width="80%">
+    </div>
+
+    <div class="info-shop mg-t">
+        <img class="img-show-action" src="https://thumbs.dreamstime.com/b/night-stadium-arena-soccer-field-d-render-57408871.jpg" width="40%">
+        <img class="img-show-action" src="https://cdn-img.thethao247.vn/upload/cuongnm/2020/04/17/san-trung-quoc.jpg" width="40%">
+    </div>
+
+    <div class="footer mg-t-50">
+        <div class="footer-logo">
+            <img src="/images/XztNn3f-2.png" alt="">
+        </div>
+        <div class="footer-content">
+            <div>CÔNG TY TNHH CUNG CẤP SÂN BÓNG ĐÁ TVT-STADIUM</div>
+            <div>ĐỊA CHỈ: XXX LÊ THÁNH TÔN, PHƯỜNG XXX, QUẬN XX, TP HỒ CHÍ MINH</div>
+            <div>THÔNG TIN LIÊN HỆ: (+84) 55022404</div>
+            <div>EMAIL: TVT_STADIUM.OFFICAL@gmail.com</div>
+            <div>QUY ĐỊNH ĐẶT SÂN: THEO DÕI THÔNG TIN TRÊN WEBSITE</div>
+            <div>THỜI GIAN MỞ CỬA: 5:00 A.M - 23:59 P.M</div>
+            <div>THÔNG TIN CUNG CẤP CHÍNH THỐNG - CHỐNG CHỈ ĐỊNH TRÊN TẤT CẢ WEBSITE KHÁC</div>
+            <div>SẢN PHẨM ĐỘC QUYỀN ĐƯỢC ĐĂNG KÝ - COPYRIGHT © 2022 TVT-STADIUM ® ALL RIGHT RESERVED</div>
+            <div>NGƯỜI ĐẠI DIỆN: TRẦN VĨNH TRUNG</div>
+        </div>
+        <div class="social-media">
+            <div class="pd-5"><i class="fa-brands fa-facebook"></i></div>
+            <div class="pd-5"><i class="fa-brands fa-facebook-messenger"></i></div>
+            <div class="pd-5"><i class="fa-brands fa-instagram-square"></i></div>
+            <div class="pd-5"><i class="fa-brands fa-twitter"></i></div>
+        </div>
+    </div>
+</body>
+
+</html>

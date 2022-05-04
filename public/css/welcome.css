@@ -1,0 +1,226 @@
+
+/* scroll bar */
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey; 
+    border-radius: 5px;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(211, 211, 211); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #000000; 
+  }
+/* ------ */
+.img-title{
+    background-image: linear-gradient(#ffffffa4, #ffffff00),url('https://cms.thainguyen.vn/documents/130176/0/Anh+1.1.jpg/d01e2c4c-01c6-4e45-b016-49884eba4e5e?t=1631690537672');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: static;
+}
+
+.title-container{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.title-nav{
+    position: relative;
+    padding-left: 10px;
+}
+
+.title-nav:hover .nav-bar{
+    display: block;
+}
+
+.nav-bar{
+    background-color: #ffffff;
+    display: none;
+    position: absolute;
+    
+}
+
+.nav-items{
+    padding: 10px 50px 10px 10px;
+}
+
+.nav-item-link{
+    color: #454545;
+    text-decoration: none;
+}
+
+.nav-items:hover{
+    background-color: #727272d0;
+    cursor: pointer;
+}
+
+.title-logo{
+    text-align: center;
+}
+
+.title-action{
+    color: rgb(0, 89, 255);
+    text-align: end;
+    padding-right: 10px;
+}
+
+.action-login-link{
+    text-decoration: none;
+    color: #000000;
+}
+
+.action-login-link:hover{
+    opacity: 60%;
+}
+
+.wall{
+    background-image: url('https://i.pinimg.com/originals/2a/49/7b/2a497b70eddae8f4b6c4e526468961e7.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -100;
+}
+
+.btn-show-all{
+    padding: 10px 100px;
+    color: #000000b1;
+    font-size: 1.2rem;
+    border: solid 1px #000000;
+    background-color: #ffffff85;
+    border: solid 1px #000000b1;
+}
+
+.btn-show-all:hover{
+    cursor: pointer;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.btn-show-all:active{
+    opacity: 80%;
+}
+
+.stadium-1{
+    display: flex;
+    overflow-x: scroll;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.std-1-items{
+    padding: 10px;
+}
+
+.std-1-items-info{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.stadium-2{
+    text-align: center;  
+    position: relative;  
+}
+.stadium-2::after{
+    content: 'Fanpage: https://facebook.com/tvt-stadium';
+    color: #ffffff;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 10%;
+    right: 20%;
+}
+
+.img-show-action{
+    filter: grayscale(100%);
+}
+.img-show-action:hover{
+    cursor: pointer;
+    filter: grayscale(10%);
+}
+
+.info-shop{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.info-shop::before{
+    content: 'FanClub';
+    color: #ffffff;
+    font-size: 1.2rem;
+    position: absolute;
+    z-index: 20;
+    top: 5%;
+    left: 10%;
+}
+
+.info-shop::after{
+    content: 'Pages';
+    color: #ffffff;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 5%;
+    right: 10%;
+}
+
+.footer{
+    width: 100%;
+    background-color: #000000;
+    color: #d2d1d1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.social-media{
+    font-size: 1.5rem;
+}
+
+.pd-5{
+    padding: 5px;
+}
+
+.mg-t{
+    margin-top: 10px;
+}
+
+.mg-t-50{
+    margin-top: 50px;
+}
+
+.t-center{
+    text-align: center;
+}
+
+/* responsive */
+@media only screen and (max-width: 600px) {
+    .footer{
+        display: block;
+    }
+    .footer-logo{
+        text-align: center;
+    }
+    .social-media{
+        display: flex;
+        justify-content: start;
+    }
+}

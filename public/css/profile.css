@@ -1,0 +1,32 @@
+.profile-content{
+    
+}
+.profile-header-name{
+    text-align: start;
+    font-size: 1.8rem;
+}
+
+.profile-detail-items{
+    display: flex;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.profile-detail-items-title{
+    width: 200px;
+}
+
+.profile-detail{
+    margin: auto;
+    width: 50%;
+    border: solid black;
+}
+
+.btn-profile-area{
+    padding: 10px;
+    text-align: end;
+
+}
+.btn-profile{
+    font-size: 1.2rem;
+}

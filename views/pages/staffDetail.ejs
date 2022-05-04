@@ -1,0 +1,277 @@
+<link rel="stylesheet" href="/css/staff-detail.css">
+<div class="detail-container">
+    <div class="detail-container-header" id="name">admin</div>
+    <div class="detail-container-content">
+        <div class="detail-content-items">
+            <div class="detail-items-title">ID</div>
+            <div class="detail-items-content" id="idStaff"></div>            
+        </div>
+        <div class="detail-content-items">
+            <div class="detail-items-title">Gender</div>
+            <div id="gender" class="detail-items-content"></div>
+        </div>
+        <div class="detail-content-items">
+            <div class="detail-items-title">Age</div>
+            <div id="age" class="detail-items-content"></div>
+        </div>
+        <div class="detail-content-items">
+            <div class="detail-items-title">Shift</div>
+            <div id="shift" class="detail-items-content"></div>
+        </div>
+        <div class="detail-content-items">
+            <div class="detail-items-title">Position</div>
+            <div id="position" class="detail-items-content"></div>
+        </div>
+        <div class="detail-content-items">
+            <div class="detail-items-title">Salary</div>
+            <div id="salary" class="detail-items-content"></div>
+        </div>
+        <div class="btn-detail-area">
+            <button id="btn" type="button" class="btn-custom btn-detail bg-yl">Reset password</button>
+            <button id="btn_delete" type="button" class="btn-custom btn-detail bg-red cl-white">Remove</button>
+            <button type="button" class="btn-custom btn-detail bg-green cl-white" data-toggle="modal" data-target="#myModal">Update</button>        
+            <a href="/listStaffs"><button class="btn-custom btn-detail" type="button">Back</button></a>
+        </div>
+    </div>
+</div>
+
+<!-- <h2 class="text-center" style="padding: 10px;" id="head"></h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>ID</td>
+            <td id="idStaff"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="name"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td id="gender"></td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td id="age"></td>
+        </tr>
+        <tr>
+            <td>Salery</td>
+            <td id="salery"></td>
+        </tr>
+        <tr>
+            <td>Shift</td>
+            <td id="shift"></td>
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td id="position"></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <button id="btn" type="button" class="btn btn-light">Reset password</button>
+    <button id="btn_delete" type="button" class="btn btn-danger">Delete</button>
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Update</button>
+    <a href="/listStaffs"><button class="btn btn-dark">Back</button></a>
+    <div style="color: chartreuse;" id="mess"></div>
+</div> -->
+
+
+<!-- <div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Update</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <table class="table table-hover">
+                    <tbody id="tb">
+                        <tr>
+                            <td>ID</td>
+                            <td id="idStaff_MD"></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Salery</td>
+                            <td><input type="number" id="salery_MD" name="salery" required></td>
+                        </tr>
+                        <tr>
+                            <td>Shift</td>
+                            <td>
+                                <select name="shift" id="shift_MD">
+                                    <option value="Ca1">Ca1</option>
+                                    <option value="Ca2">Ca2</option>
+                                    <option value="Ca3">Ca3</option>
+                                    <option value="Ca4">Ca4</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Position</td>
+                            <td>
+                                <select name="position" id="position_MD">
+                                    <option value="0">Manager</option>
+                                    <option value="1">Saler</option>
+                                    <option value="2">Employee</option>
+                                </select>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div class="text-center" style="color: red;" id="err"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btn_update" type="button" class="btn btn-light">update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div> -->
+
+
+<script>
+    var url = new URL(window.location)
+    var idStaff = url.searchParams.get('idStaff')
+    // var btn = document.getElementById('btn')
+    // var btn_delete = document.getElementById("btn_delete")
+
+    // btn.addEventListener('click', ()=>{
+    //     var url = new URL(window.location)
+    //     var idStaff = url.searchParams.get('idStaff')
+        
+    //     fetch('/resetPass', {
+    //             method: "POST",
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body:JSON.stringify({
+    //                 idStaff : idStaff,
+    //                 password : idStaff,
+    //                 token:"<%= token %>"                    
+    //             })
+    //         })
+    //         .then(req => req.json())
+    //         .then(json => {
+    //             if(json.code === 0){
+    //                 document.getElementById('mess').innerHTML =  json.message
+    //             }  
+    //         })
+    //         .catch(e => console.log(e))
+    // })
+
+    fetch('/getStaffs/'+idStaff+'?token=<%= token %>', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data[0]
+            var idStaff = document.getElementById('idStaff')
+            var name = document.getElementById('name')
+            var age = document.getElementById('age')
+            var gender = document.getElementById('gender')
+            var shift = document.getElementById('shift')
+            var salary = document.getElementById('salary')
+            var position = document.getElementById('position')
+
+            idStaff.innerHTML = data.idStaff
+            name.innerHTML = data.name
+            age.innerHTML = data.age
+            salary.innerHTML = data.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            shift.innerHTML = data.shift
+
+            if(data.gender === 0)
+                gender.innerHTML = "Male"
+            else
+                gender.innerHTML = "Femail"
+
+            if(data.position === 0)
+                position.innerHTML = "Manager"
+            else if(data.position === 1)
+                position.innerHTML = "Saler"
+            else position.innerHTML = "Employee"
+
+            document.getElementById('head').innerHTML = data.idStaff
+
+
+            var idStaff_MD = document.getElementById('idStaff_MD')
+            var salery_MD = document.getElementById('salery_MD')
+
+            idStaff_MD.innerHTML = data.idStaff
+            salery_MD.value = parseInt(data.salery)
+
+        }  
+    })
+    .catch(e => console.log(e))
+
+    // btn_delete.addEventListener('click', ()=>{
+    //     var url = new URL(window.location)
+    //     var idStaff = url.searchParams.get('idStaff')
+        
+    //     fetch('/deleteStaff', {
+    //             method: "DELETE",
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body:JSON.stringify({
+    //                 idStaff : idStaff,
+    //                 token:"<%= token %>"                    
+    //             })
+    //         })
+    //         .then(req => req.json())
+    //         .then(json => {
+    //             if(json.code === 0){
+    //                 return window.location.href = "/"
+    //             }  
+    //         })
+    //         .catch(e => console.log(e))
+    // })
+
+    // var btn_update = document.getElementById('btn_update')
+
+    // btn_update.addEventListener("click", () =>{
+    //     document.getElementById("err").innerHTML = ''
+    //     var idStaff_MD = document.getElementById('idStaff_MD').innerHTML
+    //     var salery_MD = document.getElementById('salery_MD').value
+    //     var shift_MD = document.getElementById('shift_MD').value
+    //     var position_MD = document.getElementById('position_MD').value
+
+    //     if (idStaff_MD && salery_MD && shift_MD && position_MD) {
+    //         fetch('/updateStaff', {
+    //             method: "POST",
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 idStaff: idStaff_MD,
+    //                 salery: salery_MD,
+    //                 position: position_MD,
+    //                 shift: shift_MD,
+    //                 token: "<%= token %>"
+    //             })
+    //         })
+    //             .then(res => res.json())
+    //             .then(json => {
+    //                 if (json.code === 0) {
+    //                     return window.location.href = ''
+    //                 }
+    //                 else
+    //                     document.getElementById('err').innerHTML = "update fail!"
+    //             })
+    //             .catch(err => console.log(err))
+    //     }
+    //     else
+    //         document.getElementById('err').innerHTML = "please check infomation again"
+
+    // })
+</script>

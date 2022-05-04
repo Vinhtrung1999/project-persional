@@ -1,0 +1,101 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Add staff</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>Name</td>
+            <td><input placeholder="Enter staff name" type="text" id="name" name="name" required></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <select name="gender" id="gender">
+                    <option value="0">Male</option>
+                    <option value="1">Femail</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Age</td>
+            <td><input type="number" placeholder="Enter age" id="age" name="age" required></td>
+        </tr>
+        <tr>
+            <td>Salery</td>
+            <td><input type="number" placeholder="Enter salery" id="salery" name="salery" required></td>
+        </tr>
+        <tr>
+            <td>Shift</td>
+            <td>
+                <select name="shift" id="shift">
+                    <option value="Ca1">Ca1</option>
+                    <option value="Ca2">Ca2</option>
+                    <option value="Ca3">Ca3</option>
+                    <option value="Ca4">Ca4</option>
+                </select>
+            </td>
+            
+        </tr>
+        <tr>
+            <td>Position</td>
+            <td>
+                <select name="position" id="position">
+                    <option value="0">Manager</option>
+                    <option value="1">Saler</option>
+                    <option value="2">Employee</option>
+                </select>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center" style="margin-top: 10px;">
+    <button type="button" id="btn" class="btn btn-dark">Add</button>
+    <div id="mess" style="color: green;"></div>
+    <div id="err" style="color: red;"></div>
+</div>
+<script>
+    var btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () =>{
+        document.getElementById("mess").innerHTML = ''
+        document.getElementById("err").innerHTML = ''
+
+        var idStaff = String(Math.floor(Math.random() * (99999999 - 10000000 + 1)))
+        var name = document.getElementById('name').value
+        var age = document.getElementById('age').value
+        var gender = document.getElementById('gender').value
+        var shift = document.getElementById('shift').value
+        var salery = document.getElementById('salery').value
+        var position = document.getElementById('position').value
+        if(idStaff && name && gender && age && salery&& shift && position){
+            fetch('/addStaff', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    idStaff : idStaff,
+                    password : idStaff,
+                    name : name,
+                    gender : gender,
+                    age : age,
+                    salery: salery,
+                    shift: shift,
+                    position: position,
+                    token:"<%= token %>"                            
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('name').value = ''
+                    document.getElementById('age').value = ''
+                    document.getElementById('salery').value = ''
+                    document.getElementById('mess').innerHTML = 'add '+idStaff+' succeed'
+                }else
+                    document.getElementById('err').innerHTML = 'add new staff fail! Please check infomation again'
+
+            })
+            .catch(e => console.log(e))
+        }else
+            document.getElementById('err').innerHTML = 'please check infomation again'
+    })
+</script>

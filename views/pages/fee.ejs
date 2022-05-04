@@ -1,0 +1,232 @@
+<div class="container">
+    <h2 class="text-center">Cost</h2>
+    <h5>Session input Products</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id session</th>
+                <th>Name</th>
+                <th>Quatity</th>
+                <th>Total bill</th>
+            </tr>
+        </thead>
+        <tbody id="tb_session_input">
+        </tbody>
+    </table>
+    <div class="text-right" id="sum_session_input" style="margin: 20px; color: red; font-weight: bold; font-size: 20px;"></div>
+    
+    <h5>Salery staffs</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id staff</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Salery</th>
+            </tr>
+        </thead>
+        <tbody id="tb_salery_staff">
+        </tbody>
+    </table>
+    <div class="text-right" id="sum_salery" style="margin: 20px; color: red; font-weight: bold; font-size: 20px;"></div>
+
+    <h5>Input equipment</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID equipment</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="tb_input_equip">
+        </tbody>
+    </table>
+    <div class="text-right" id="sum_equip" style="margin: 20px; color: red; font-weight: bold; font-size: 20px;"></div>
+
+    <h5>Damaged equipment</h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID equipment</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="tb_input_DMequip">
+        </tbody>
+    </table>
+    <div class="text-right" id="sum_DMequip" style="margin: 20px; color: red; font-weight: bold; font-size: 20px;"></div>
+
+</div>
+<script>
+    fetch('/getSessionInputPro?token=<%= token %>',{
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data
+            var tb_session_input = document.getElementById('tb_session_input')
+            var sum_session_input = document.getElementById('sum_session_input')
+            var sum_session = 0
+            data.forEach(val => {
+                var tr = document.createElement("tr")
+
+                var td1 = document.createElement("td")
+                var td2 = document.createElement("td")
+                var td3 = document.createElement("td")
+                var td4 = document.createElement("td")
+
+                td1.innerHTML = val.idcount
+                td2.innerHTML = val.name
+                td3.innerHTML = val.qty
+                td4.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+                tb_session_input.appendChild(tr)
+                sum_session += parseInt(val.sum)
+            })
+            
+            sum_session_input.innerHTML = "Total: " + sum_session.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+        } 
+    })
+    .catch(err => console.log(err))
+
+
+    fetch('/getStaffs?token=<%= token %>',{
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data
+            var tb_salery_staff = document.getElementById('tb_salery_staff')
+            var all_salery = document.getElementById('sum_salery')
+            var sum_salery = 0
+            data.forEach(val => {
+                var tr = document.createElement("tr")
+
+                var td1 = document.createElement("td")
+                var td2 = document.createElement("td")
+                var td3 = document.createElement("td")
+                var td4 = document.createElement("td")
+
+                td1.innerHTML = val.idStaff
+                td2.innerHTML = val.name
+                if(val.position === 0)
+                    td3.innerHTML = "Manager"
+                else if(val.position === 1)
+                    td3.innerHTML = "Saler"
+                else
+                    td3.innerHTML = "Employee"
+                td4.innerHTML = val.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+                tb_salery_staff.appendChild(tr)
+                sum_salery += parseInt(val.salery)
+            })
+            
+            all_salery.innerHTML = "Total: " + sum_salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+        } 
+    })
+    .catch(err => console.log(err))
+
+    fetch('/getTTB?token=<%= token %>',{
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data
+            var tb_input_equip = document.getElementById('tb_input_equip')
+            var sum_equip = document.getElementById('sum_equip')
+            var all_equip = 0
+
+            data.forEach(val => {
+                var tr = document.createElement("tr")
+
+                var td1 = document.createElement("td")
+                var td2 = document.createElement("td")
+                var td3 = document.createElement("td")
+                var td4 = document.createElement("td")
+
+                td1.innerHTML = val.idTTB
+                td2.innerHTML = val.name
+                td3.innerHTML = val.qty
+                td4.innerHTML =(parseInt(val.qty) * parseInt(val.priceIn)).toLocaleString('vi', {style : 'currency', currency : 'VND'})
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+                tb_input_equip.appendChild(tr)
+                all_equip += (parseInt(val.qty) * parseInt(val.priceIn))
+            })
+            sum_equip.innerHTML = "Total: " + all_equip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+        } 
+    })
+    .catch(err => console.log(err))
+
+
+    fetch('/getTTB_Broken?token=<%= token %>',{
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data
+            var tb_input_DMequip = document.getElementById('tb_input_DMequip')
+            var sum_DMequip = document.getElementById('sum_DMequip')
+            var all_DMequip = 0
+
+            data.forEach(val => {
+                var tr = document.createElement("tr")
+
+                var td1 = document.createElement("td")
+                var td2 = document.createElement("td")
+                var td3 = document.createElement("td")
+                var td4 = document.createElement("td")
+
+                td1.innerHTML = val.idTTB_Br
+                td2.innerHTML = val.name
+                td3.innerHTML = val.qty
+                td4.innerHTML =(parseInt(val.qty) * parseInt(val.priceIn)).toLocaleString('vi', {style : 'currency', currency : 'VND'})
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+                tb_input_DMequip.appendChild(tr)
+                all_DMequip += (parseInt(val.qty) * parseInt(val.priceIn))
+            })
+            sum_DMequip.innerHTML = "Total: " + all_DMequip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+        } 
+    })
+    .catch(err => console.log(err))
+
+</script>

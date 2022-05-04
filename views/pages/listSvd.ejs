@@ -1,0 +1,266 @@
+<h2 class="text-center" style="padding: 10px;">List stadiums</h2>
+<!-- search -->
+<div class="row">
+    <div class="col-lg-6">
+        <form class="form-inline" style="padding: 10px;">
+            <input class="form-control mr-sm-2" type="text" id="idSvdSearch" placeholder="Enter ID svd" aria-label="Search">
+            <button id="btn" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    </div>
+    <div class="col-lg-6 text-right">
+        <button class="btn btn-dark" id="ordered">Ordered</button>
+        <button class="btn btn-light" id="NotOrder">Empty</button>
+    </div>
+</div>
+
+<!-- table -->
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>name</th>
+            <th>Capacity</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+
+    </tbody>
+</table>
+
+<script>
+    var btn = document.getElementById('btn')
+    var ordered = document.getElementById('ordered')
+    var NotOrder = document.getElementById('NotOrder')
+
+    ordered.addEventListener('click', () => {
+        var idSvd = document.getElementById('idSvdSearch').value
+        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(req => req.json())
+        .then(json => {
+            console.log(json)
+            data = json.data
+            var tb = document.getElementById('tb')
+            tb.innerHTML = ''
+            if(json.code === 0){          
+                data.forEach(val => {
+                    if(val.status === 1){
+                        var tr = document.createElement('tr')
+
+                        var td1 = document.createElement('td')
+                        var td2 = document.createElement('td')
+                        var td3 = document.createElement('td')
+                        var td4 = document.createElement('td')
+
+                        var a1 = document.createElement('a')
+                        var a2 = document.createElement('a')
+                        var a3 = document.createElement('a')
+                        var a4 = document.createElement('a')
+
+                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+
+                        a1.innerHTML = val.idSvd 
+                        a2.innerHTML = val.name 
+                        a3.innerHTML = val.capacity + " people"
+                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
+
+                        td1.appendChild(a1)
+                        td2.appendChild(a2)
+                        td3.appendChild(a3)
+                        td4.appendChild(a4)
+
+                        tr.appendChild(td1)
+                        tr.appendChild(td2)
+                        tr.appendChild(td3)
+                        tr.appendChild(td4)
+
+
+
+                        tb.appendChild(tr)
+                    }
+                })
+
+            }  
+        })
+        .catch(e => console.log(e))
+    })
+
+    NotOrder.addEventListener('click', () => {
+        var idSvd = document.getElementById('idSvdSearch').value
+        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(req => req.json())
+        .then(json => {
+            console.log(json)
+            data = json.data
+            var tb = document.getElementById('tb')
+            tb.innerHTML = ''
+            if(json.code === 0){          
+                data.forEach(val => {
+                    if(val.status === 0){
+                        var tr = document.createElement('tr')
+
+                        var td1 = document.createElement('td')
+                        var td2 = document.createElement('td')
+                        var td3 = document.createElement('td')
+                        var td4 = document.createElement('td')
+
+                        var a1 = document.createElement('a')
+                        var a2 = document.createElement('a')
+                        var a3 = document.createElement('a')
+                        var a4 = document.createElement('a')
+
+                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+
+                        a1.innerHTML = val.idSvd 
+                        a2.innerHTML = val.name 
+                        a3.innerHTML = val.capacity + " people"
+                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
+
+                        td1.appendChild(a1)
+                        td2.appendChild(a2)
+                        td3.appendChild(a3)
+                        td4.appendChild(a4)
+
+                        tr.appendChild(td1)
+                        tr.appendChild(td2)
+                        tr.appendChild(td3)
+                        tr.appendChild(td4)
+
+
+
+                        tb.appendChild(tr)
+
+                    }
+                })
+
+            }  
+        })
+        .catch(e => console.log(e))
+    })
+
+    btn.addEventListener('click', () => {
+        var idSvd = document.getElementById('idSvdSearch').value
+        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(req => req.json())
+        .then(json => {
+            console.log(json)
+            data = json.data
+            var tb = document.getElementById('tb')
+            tb.innerHTML = ''
+            if(json.code === 0){          
+                data.forEach(val => {
+                        var tr = document.createElement('tr')
+
+                        var td1 = document.createElement('td')
+                        var td2 = document.createElement('td')
+                        var td3 = document.createElement('td')
+                        var td4 = document.createElement('td')
+
+                        var a1 = document.createElement('a')
+                        var a2 = document.createElement('a')
+                        var a3 = document.createElement('a')
+                        var a4 = document.createElement('a')
+
+                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+
+                        a1.innerHTML = val.idSvd 
+                        a2.innerHTML = val.name 
+                        a3.innerHTML = val.capacity + " people"
+                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
+
+                        td1.appendChild(a1)
+                        td2.appendChild(a2)
+                        td3.appendChild(a3)
+                        td4.appendChild(a4)
+
+                        tr.appendChild(td1)
+                        tr.appendChild(td2)
+                        tr.appendChild(td3)
+                        tr.appendChild(td4)
+
+
+
+                        tb.appendChild(tr)
+                });
+
+                }  
+            })
+        .catch(e => console.log(e))
+    })
+
+    fetch('/getSvd?token=<%= token %>', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(req => req.json())
+        .then(json => {
+            data = json.data
+            var tb = document.getElementById('tb')
+            data.forEach(val => {
+                var tr = document.createElement('tr')
+
+                var td1 = document.createElement('td')
+                var td2 = document.createElement('td')
+                var td3 = document.createElement('td')
+                var td4 = document.createElement('td')
+
+                var a1 = document.createElement('a')
+                var a2 = document.createElement('a')
+                var a3 = document.createElement('a')
+                var a4 = document.createElement('a')
+
+                a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+                a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
+
+                a1.innerHTML = val.idSvd 
+                a2.innerHTML = val.name 
+                a3.innerHTML = val.capacity + " people"
+                a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
+
+                td1.appendChild(a1)
+                td2.appendChild(a2)
+                td3.appendChild(a3)
+                td4.appendChild(a4)
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+
+
+                tb.appendChild(tr)
+
+            });
+
+        })
+        .catch(e => console.log(e))
+</script>

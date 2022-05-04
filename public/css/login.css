@@ -1,0 +1,139 @@
+.container{
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.881) 50%, rgba(97, 97, 97, 0.267)), url('https://thumbs.dreamstime.com/b/soccer-player-kicking-ball-low-polygonal-footballer-geometric-isolated-vector-illustration-triangles-side-view-soccer-player-219835900.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    height: 100vh;
+    position: relative;
+    /* clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); */
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.model-login{
+    position: absolute;
+    background-color: #ffffff;
+    top: 20%;
+    left: 35%;
+    padding: 20px;
+    font-family: 'Rowdies', cursive;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: #000000 3px solid;
+}
+
+.input-area{
+    display: flex;
+}
+.tag-form-login{
+    min-width: 150px;
+}
+.input-area input{
+    flex: 1;
+    border: none;
+    color: #000000;
+    border-bottom: 3px solid #000000;
+    outline: none;
+    font-size: 1.2rem;
+    font-family: 'Rowdies', cursive;
+}
+
+.btn-login-form{
+    margin-top: 20px;
+    padding: 5px 10px;
+    background-color: #ffffff;
+    border: solid 3px #000000;
+    box-shadow: #000000 3px 3px;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Rowdies', cursive;
+}
+
+.btn-login-form:hover{
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.btn-login-form:active{
+    opacity: 80%;
+}
+
+.alert-login{
+    position: absolute;
+    background-color: #ffffffe1;
+    color: #000000;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    border-left: solid 10px rgba(255, 0, 0, 0.829);
+    padding: 5px 0px;
+    box-shadow: 10px 10px 10px 1px #000000a6;
+    width: 20rem;
+    top: 10%;
+    right: 10px;
+    color: red;
+    font-size: 18px;
+    font-weight: 600;
+    animation: show-alert 0.5s ease-in;
+}
+/* action */
+/* responsive */
+@media only screen and (max-width: 1000px) {
+    .alert-login{
+        top: 50%;
+        right: 25%;
+    }
+
+    .model-login{
+        top: 20%;
+        left: 25%;
+        padding: 20px;
+        border-radius: 20px;
+        font-family: 'Rowdies', cursive;
+        font-weight: 600;
+        font-size: 1.5rem;
+    }
+
+    .input-area input{
+        font-size: 1rem;
+    }
+
+    .tag-form-login{
+        min-width: 150px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .alert-login{
+        top: 50%;
+        right: 10%;
+    }
+
+    .model-login{
+        top: 20%;
+        left: 15%;
+        padding: 10px;
+        border-radius: 20px;
+        font-family: 'Rowdies', cursive;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .input-area input{
+        font-size: 0.8rem;
+    }
+
+    .tag-form-login{
+        min-width: 100px;
+    }
+}
+
+/* animation */
+@keyframes show-alert {
+    0%{
+        transform: translateX(100px);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}

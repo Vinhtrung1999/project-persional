@@ -1,0 +1,80 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Add Customer</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>CMND</td>
+            <td><input type="number" placeholder="Enter CMND" id="CMND" name="CMND" required></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" id="name" placeholder="Enter name" name="name" required></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <select name="gender" id="gender">
+                    <option value="0">Male</option>
+                    <option value="1">Femail</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Tel</td>
+            <td><input type="tel" placeholder="Enter tel" id="tel" name="tel" required></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email" placeholder="Enter email" id="email" name="email" required></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center" style="margin-top: 10px;">
+    <button type="button" id="btn" class="btn btn-dark">Add</button>
+    <div id="mess" style="color: green;"></div>
+    <div id="err" style="color: rgb(248, 15, 15);"></div>
+</div>
+<script>
+    var btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () =>{
+        document.getElementById('mess').innerHTML = ""
+        document.getElementById('err').innerHTML = ""
+
+        var name = document.getElementById('name').value
+        var gender = document.getElementById('gender').value
+        var email = document.getElementById('email').value
+        var tel = document.getElementById('tel').value
+        var CMND = document.getElementById('CMND').value
+        if(name && gender && email && tel && CMND){
+            fetch('/addCustomers', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    name : name,
+                    gender : gender,
+                    CMND : CMND,
+                    phone: tel,
+                    email: email,
+                    token:"<%= token %>"                            
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('name').value = ''
+                    document.getElementById('CMND').value = ''
+                    document.getElementById('tel').value = ''
+                    document.getElementById('email').value = ''
+                    document.getElementById('mess').innerHTML = 'add '+CMND+' succeed'
+                }  
+                else
+                    document.getElementById('err').innerHTML = 'please check information again'
+            })
+            .catch(e => console.log(e))
+        }
+        else
+            document.getElementById('err').innerHTML = 'please check information again'
+    })
+</script>

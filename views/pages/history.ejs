@@ -1,0 +1,117 @@
+<h2 class="text-center" style="padding: 10px;">List bills</h2>
+<!-- search -->
+<form class="form-inline" style="padding: 10px;">
+    <input class="form-control mr-sm-2" type="text" id="idBillSearch" placeholder="Enter ID bill" aria-label="Search">
+    <button id="btn" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+</form>
+
+<!-- table -->
+<table class="table table-hover text-center">
+    <thead>
+        <tr>
+            <th>Id bill</th>
+            <th>Total bill</th>
+            <th>Date order</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+
+    </tbody>
+</table>
+
+<script>
+    var btn = document.getElementById('btn')
+    btn.addEventListener('click', () => {
+        var idBill = document.getElementById('idBillSearch').value
+        fetch('/getBillsCus/'+idBill+'?token=<%= token %>', {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(req => req.json())
+        .then(json => {
+            data = json.data
+            var tb = document.getElementById('tb')
+            tb.innerHTML = ''
+            if(json.code === 0){          
+                data.forEach(val => {
+                    var tr = document.createElement('tr')
+                    var td1 = document.createElement('td')
+                    var td2 = document.createElement('td')
+                    var td3 = document.createElement('td')
+
+                    var a1 = document.createElement('a')
+                    var a2 = document.createElement('a')
+                    var a3 = document.createElement('a')
+
+                    a1.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+                    a2.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+                    a3.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+
+                    a1.innerHTML = val.idBill
+                    a2.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+                    a3.innerHTML = val.dateOrder
+            
+
+                    td1.appendChild(a1)
+                    td2.appendChild(a2)
+                    td3.appendChild(a3)
+
+                    tr.appendChild(td1)
+                    tr.appendChild(td2)
+                    tr.appendChild(td3)
+
+                    tb.appendChild(tr)
+
+                });
+
+            }
+        })
+        .catch(e => console.log(e))
+    })
+
+    fetch('/getBillsCus/?token=<%= token %>', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(req => req.json())
+        .then(json => {
+            data = json.data
+            var tb = document.getElementById('tb')
+            data.forEach(val => {
+                var tr = document.createElement('tr')
+                var td1 = document.createElement('td')
+                var td2 = document.createElement('td')
+                var td3 = document.createElement('td')
+
+                var a1 = document.createElement('a')
+                var a2 = document.createElement('a')
+                var a3 = document.createElement('a')
+
+                a1.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+                a2.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+                a3.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
+
+
+                a1.innerHTML = val.idBill
+                a2.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+                a3.innerHTML = val.dateOrder
+        
+
+                td1.appendChild(a1)
+                td2.appendChild(a2)
+                td3.appendChild(a3)
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+
+                tb.appendChild(tr)
+            });
+
+        })
+        .catch(e => console.log(e))
+</script>

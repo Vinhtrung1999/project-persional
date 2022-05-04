@@ -1,0 +1,71 @@
+<h2 class="text-center" style="padding: 10px;" id="head"></h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>ID</td>
+            <td id="idTTB_Br"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="name"></td>
+        </tr>
+        <tr>
+            <td>ID equipment</td>
+            <td id="idTTB"></td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td id="qty"></td>
+        </tr>
+        <tr>
+            <td>Price input</td>
+            <td id="priceInput"></td>
+        </tr>
+        <tr>
+            <td>Date input</td>
+            <td id="date"></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="/listTTBBr"><button class="btn btn-dark">Back</button></a>
+</div>
+
+
+<script>
+    var url = new URL(window.location)
+    var idTTB_Br = url.searchParams.get('idTTB_Br')    
+
+
+    fetch('/getTTB_Broken/'+idTTB_Br+"?token=<%= token %>", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            
+            data = json.data[0]
+            console.log(data)
+            var idTTB_Br = document.getElementById('idTTB_Br')
+            var idTTB = document.getElementById('idTTB')
+            var name = document.getElementById('name')
+            var qty = document.getElementById('qty')
+            var priceIn = document.getElementById('priceInput')
+            var date = document.getElementById('date')
+
+            idTTB_Br.innerHTML = data.idTTB_Br
+            idTTB.innerHTML = data.idTTB
+            name.innerHTML = data.name
+            qty.innerHTML = data.qty
+            priceIn.innerHTML = parseInt(data.priceIn).toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            date.innerHTML = data.dateIn
+
+            document.getElementById('head').innerHTML = data.idTTB_Br
+
+        }  
+    })
+    .catch(e => console.log(e))
+</script>

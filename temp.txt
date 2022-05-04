@@ -1,0 +1,9 @@
+        <% if(locals.position == 0){ %>
+            <%- include('../pages/managersNav') %>
+        <% }else if (locals.position == 1){ %>
+            <%- include('../pages/salersNav') %>
+        <% }else if (locals.position == 99){ %>
+            <%- include('../pages/cusNav') %>
+        <% }else{ %>
+            <%- include('../pages/employeeNav') %>
+        <% } %>

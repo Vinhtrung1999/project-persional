@@ -1,0 +1,105 @@
+<h2 class="text-center" style="padding: 10px;" id="head"></h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>ID</td>
+            <td id="idPro"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="name"></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td id="type"></td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td id="qty"></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td id="price"></td>
+        </tr>
+        <tr>
+            <td>Date input</td>
+            <td id="date"></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="/listProducts"><button class="btn btn-dark">Back</button></a>
+    <% if(locals.position === 2){ %>
+    <button class="btn btn-danger" id="btn_delete">Delete</button>
+
+    <% } %>
+</div>
+<script>
+    var url = new URL(window.location)
+    var idPro = url.searchParams.get('idPro')    
+
+
+    fetch('/getPro/'+idPro+"?token=<%= token %>", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(req => req.json())
+    .then(json => {
+        console.log(json)
+        if(json.code === 0){
+            data = json.data[0]
+            console.log(data)
+            var idPro = document.getElementById('idPro')
+            var name = document.getElementById('name')
+            var type = document.getElementById('type')
+            var qty = document.getElementById('qty')
+            var price = document.getElementById('price')
+            var date = document.getElementById('date')
+
+            idPro.innerHTML = data.idPro
+            name.innerHTML = data.name
+            qty.innerHTML = data.qty
+            price.innerHTML = data.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            date.innerHTML = data.dateIn
+
+            if(data.type === 0)
+                type.innerHTML = "Drink"
+            else if(data.type === 1)
+                type.innerHTML = "Food"
+            else
+                type.innerHTML = "Item"
+
+            document.getElementById('head').innerHTML = data.idPro
+        }  
+    })
+    .catch(e => console.log(e))
+
+
+    var btn_delete = document.getElementById('btn_delete')
+
+    btn_delete.addEventListener("click",() => {
+        var url = new URL(window.location)
+        var idPro = url.searchParams.get('idPro')  
+
+        fetch('/deletePro/', {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify({
+                token : "<%= token %>",
+                idPro : idPro
+            })
+        })
+        .then(req => req.json())
+        .then(json => {
+            if(json.code === 0){
+                return window.location.href = "/listProducts"
+            }  
+        })
+        .catch(e => console.log(e))
+    })
+
+</script>

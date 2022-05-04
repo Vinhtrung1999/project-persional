@@ -1,0 +1,90 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Add stadium</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>name</td>
+            <td><input type="text" id="name" placeholder="Enter stadium name" name="name" required></td>
+        </tr>
+        <tr>
+            <td>status</td>
+            <td>
+                <select name="status" id="status">
+                    <option value="0">empty</option>
+                    <option value="1">ordered</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Capacity</td>
+            <td><input type="number" placeholder="Enter capacity" id="capacity" name="capacity" required></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>
+                <select name="type" id="type">
+                    <option value="0">normal</option>
+                    <option value="1">VIP</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>price</td>
+            <td><input type="number" placeholder="Enter price" id="price" name="price" required></td>
+        </tr>
+
+    </tbody>
+</table>
+<div class="text-center" style="margin-top: 10px;">
+    <button type="button" id="btn" class="btn btn-dark">Add</button>
+    <div id="mess" style="color: green;"></div>
+    <div id="err" style="color: rgb(248, 15, 15);"></div>
+</div>
+<script>
+    var btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () =>{
+        document.getElementById('mess').innerHTML = ""
+        document.getElementById('err').innerHTML = ""
+
+        var idSvd = String(Math.floor(Math.random() * (99999999 - 10000000 + 1)))
+        var name = document.getElementById('name').value
+        var status = document.getElementById('status').value
+        var type = document.getElementById('type').value
+        var capacity = document.getElementById('capacity').value
+        var price = document.getElementById('price').value
+        if(idSvd && name && type && capacity && name && type){
+            fetch('/addSvd', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    idSvd : idSvd,
+                    name : name,
+                    type : type,
+                    capacity : capacity,
+                    status: status,
+                    price: price,
+                    token:"<%= token %>"                            
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('name').value = ''
+                    document.getElementById('status').value = ''
+                    document.getElementById('type').value = ''
+                    document.getElementById('capacity').value = ''
+                    document.getElementById('price').value = ''
+
+                    document.getElementById('mess').innerHTML = 'add '+ json.data.idSvd + " succeed"
+                }  
+                else
+                    document.getElementById('err').innerHTML = 'please check information again'
+            })
+            .catch(e => console.log(e))
+        }
+        else
+            document.getElementById('err').innerHTML = 'please check information again'
+    })
+</script>

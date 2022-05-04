@@ -1,0 +1,61 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Out put products warehouse</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>Id product</td>
+            <td><input type="text" placeholder="Enter ID product" id="idPro" name="idPro" required></td>
+        </tr>
+
+        <tr>
+            <td>Quantity</td>
+            <td><input type="number" placeholder="Enter quantity" id="qty" name="qty" required></td>
+        </tr>
+
+    </tbody>
+</table>
+<div class="text-center" style="margin-top: 10px;">
+    <button type="button" id="btn" class="btn btn-dark">Add</button>
+    <div id="mess" style="color: green;"></div>
+    <div id="err" style="color: red;"></div>
+</div>
+<script>
+    var btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () =>{
+        document.getElementById('err').innerHTML = ''
+        document.getElementById('mess').innerHTML = ''
+        
+        var idPro = document.getElementById('idPro').value
+        var qty = document.getElementById('qty').value
+
+        if(idPro && qty){
+            fetch('/addProduct', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    idPro : idPro,
+                    qty: qty,
+                    token:"<%= token %>"                            
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('idPro').value = ''
+                    document.getElementById('qty').value = ''
+                    document.getElementById('mess').innerHTML = 'add '+idPro+' succeed - quantity ' + qty
+
+                }
+                else if(json.code === 10)
+                    document.getElementById('err').innerHTML = json.message
+                else
+                    document.getElementById('err').innerHTML = "please check information again"
+            })
+            .catch(e => console.log(e))
+        }
+        else
+            document.getElementById('err').innerHTML = "please check information again1"
+    })
+</script>

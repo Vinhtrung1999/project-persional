@@ -1,0 +1,54 @@
+*{
+    box-sizing: inherit;
+}
+
+html{
+    box-sizing: border-box;
+    font-size: 100%;
+    font-family: 'Rowdies', cursive;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.btn-custom{
+    font-family: 'Rowdies', cursive;
+    border: 3px #000000 solid;
+    box-shadow: 3px 3px #000000;
+}
+
+.btn-custom:hover{
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.btn-custom:active{
+    opacity: 50%;
+}
+
+.cl-white{
+    color: #ffffff;
+}
+
+.cl-blue{
+    color: #005eff;
+}
+
+.bg-yl{
+    background-color: #ffd000;
+}
+
+.bg-red{
+    background-color: #fd1a1a;
+}
+
+.bg-green{
+    background-color: green;
+}
+
+.input-custom{
+    font-family: 'Rowdies', cursive;
+    outline: solid 3px #000000;
+}

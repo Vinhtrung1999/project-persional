@@ -1,0 +1,52 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Change Password</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>New password</td>
+            <td><input placeholder="Enter new password" type="password" id="password" name="password" required></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <button type="button" id="btn" class="btn btn-dark">Change</button>
+    <div style="color: chartreuse;" id="mess"></div>
+    <div style="color: red;" id="err"></div>
+</div>
+
+<script>
+    var btn = document.getElementById('btn')
+    
+    btn.addEventListener('click', ()=>{
+        document.getElementById("mess").innerHTML = ''
+        document.getElementById("err").innerHTML = ''
+
+        var password = document.getElementById('password').value
+        if(password){
+            fetch('/changePass', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    password : password,
+                    token:"<%= token %>"                    
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('mess').innerHTML =  json.message
+                    document.getElementById('password').value = ''
+                }
+                else
+                    document.getElementById("err").innerHTML = 'Change password fail!'
+
+            })
+            .catch(e => console.log(e))
+
+        }
+        else
+            document.getElementById("err").innerHTML = 'Please enter new password'
+
+    })
+</script>

@@ -1,0 +1,87 @@
+<h2 class="text-center" style="padding: 10px;" id="head">Input products warehouse</h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>Name</td>
+            <td><input type="text" placeholder="Enter product name" id="name" name="name" required></td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>
+                <select name="type" id="type">
+                    <option value="0">Drink</option>
+                    <option value="1">Food</option>
+                    <option value="2">Item</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td><input placeholder="Enter quantity" type="number" id="qty" name="qty" required></td>
+        </tr>
+        <tr>
+            <td>Price input</td>
+            <td><input type="number" placeholder="Enter price input" id="priceIn" name="priceIn" required></td>
+        </tr>
+
+        <tr>
+            <td>Price sale</td>
+            <td><input type="number" id="price" placeholder="Enter price sale" name="price" required></td>
+        </tr>
+
+
+    </tbody>
+</table>
+<div class="text-center" style="margin-top: 10px;">
+    <button type="button" id="btn" class="btn btn-dark">Add</button>
+    <div id="mess" style="color: green;"></div>
+    <div id="err" style="color: red;"></div>
+</div>
+<script>
+    var btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () =>{
+        document.getElementById('err').innerHTML = ''
+        document.getElementById('mess').innerHTML = ''
+        
+        var idProWH = String(Math.floor(Math.random() * (99999999 - 10000000 + 1)))
+        var name = document.getElementById('name').value
+        var type = document.getElementById('type').value
+        var priceIn = document.getElementById('priceIn').value
+        var price = document.getElementById('price').value
+        var qty = document.getElementById('qty').value
+
+        if(idProWH && name && priceIn && type && qty && price){
+            fetch('/addWh', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    idProWH : idProWH,
+                    name : name,
+                    type : type,
+                    qty: qty,
+                    priceIn: priceIn,
+                    price: price,
+                    token:"<%= token %>"                            
+                })
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    document.getElementById('name').value = ''
+                    document.getElementById('qty').value = ''
+                    document.getElementById('price').value = ''
+                    document.getElementById('priceIn').value = ''
+                    document.getElementById('mess').innerHTML = 'add '+idProWH+' succeed'
+                }
+                else
+                    document.getElementById('err').innerHTML = "please check information again"
+            })
+            .catch(e => console.log(e))
+        }
+        else
+            document.getElementById('err').innerHTML = "please check information again"
+    })
+</script>

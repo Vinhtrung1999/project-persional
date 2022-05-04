@@ -1,0 +1,42 @@
+<div class="block-task-area">
+	<div class="block-task-box">
+		<a href="/profile-manager"><button class="block-task-box-items">Profile</button></a>
+		
+	<% if(locals.position == 0){ %>
+        <a href="/staff-manager"><button class="block-task-box-items" type="button">Staffs</button></a>
+		<a href="/statistic-manager"><button class="block-task-box-items" type="button">Statistic</button></a>
+    <% }else if (locals.position == 1){ %>
+        <a href="/pay"><button class="block-task-box-items">Transaction</button></a>
+		<a href="/customer-manager"><button class="block-task-box-items" type="button">Customers</button></a>
+		<a href="/view-info-manager"><button class="block-task-box-items" type="button">View</button></a>
+    <% }else{ %>
+        <a href="/stadium-manager"><button class="block-task-box-items">Stadiums</button></a>
+		<a href="/product-manager"><button class="block-task-box-items" type="button">Products</button></a>
+		<a href="/warehouse-manager"><button class="block-task-box-items" type="button">Stored</button></a>
+        <a href="/equipment-manager"><button class="block-task-box-items">Equipment</button></a>        
+    <% } %>
+	<a href="#"><button class="block-task-box-items" type="button" id="btn-logout">Logout</button></a>        
+
+	</div>
+	<div class="block-task-content">	
+		<%- include(locals.content) %>
+	</div>
+	<script>
+		btn_logout = document.getElementById('btn-logout')
+		
+		btn_logout.addEventListener('click',()=>{
+			fetch('/logout',{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+			.then(json => json.json())
+			.then(data => {
+				if(data.code === 0)
+					location.reload()
+			})
+			.catch(err => console.log(err))
+		})
+	</script>
+</div>

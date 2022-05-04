@@ -1,0 +1,161 @@
+<form class="form-inline" style="padding: 10px;">
+    <input class="input-custom" type="text" id="search" placeholder="Enter staff name" aria-label="Search">
+</form>
+
+<div class="list-staff-block" id="list-staff">
+    <!-- <a class="text-link" href="/staffDetail?idStaff=admin">
+        <div class="list-staff-items">
+            <div class="list-staff-item-id">51800256</div>
+            <div class="list-staff-item-name">Trần Vĩnh Trung</div>
+            <div class="list-staff-item-position">Saler</div>
+        </div>
+    </a> -->
+</div>
+
+<!-- table -->
+<!-- <table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+
+    </tbody>
+</table> -->
+
+<script>
+    // find staff
+    // var btn = document.getElementById('btn')
+    // btn.addEventListener('click', () => {
+    //     var idStaff = document.getElementById('idStaffSearch').value
+    //     fetch('/getStaffs/'+idStaff+'?token=<%= token %>', {
+    //         method: "GET",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //     })
+    //     .then(req => req.json())
+    //     .then(json => {
+    //         console.log(json)
+    //         data = json.data
+    //         var tb = document.getElementById('tb')
+    //         tb.innerHTML = ''
+    //         if(json.code === 0){          
+    //             data.forEach(val => {
+    //                 var tr = document.createElement('tr')
+    //                 var td1 = document.createElement('td')
+    //                 var td2 = document.createElement('td')
+    //                 var td3 = document.createElement('td')
+    //                 var a1 = document.createElement('a')
+    //                 var a2 = document.createElement('a')
+    //                 var a3 = document.createElement('a')
+    //                 a1.setAttribute('href', '/staffDetail?idStaff=' + val.idStaff)
+    //                 a2.setAttribute('href', '/staffDetail?idStaff=' + val.idStaff)
+    //                 a3.setAttribute('href', '/staffDetail?idStaff=' + val.idStaff)
+
+    //                 a1.innerHTML = val.idStaff
+    //                 a2.innerHTML = val.name
+    //                 if (val.position == 0)
+    //                     a3.innerHTML = "Manager"
+    //                 else if (val.position == 1)
+    //                     a3.innerHTML = "Saler"
+    //                 else
+    //                     a3.innerHTML = "Employee"
+
+    //                 td1.appendChild(a1)
+    //                 td2.appendChild(a2)
+    //                 td3.appendChild(a3)
+
+    //                 tr.appendChild(td1)
+    //                 tr.appendChild(td2)
+    //                 tr.appendChild(td3)
+
+
+
+    //                 tb.appendChild(tr)
+    //             });
+
+    //             }  
+    //         })
+    //     .catch(e => console.log(e))
+    // })
+    
+    var list_staffs_temp = []
+    let search = document.getElementById('search')
+
+    fetch('/getStaffs?token=<%= token %>', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(req => req.json())
+        .then(json => {
+            if(json.code === 0){
+                list_staffs_temp = json.data
+                data = json.data
+                let list_staff = document.getElementById('list-staff')
+                data.forEach((val, index) => {
+                    let a = document.createElement('a')
+                    let div1 = document.createElement('div')
+                    let div2 = document.createElement('div')
+                    let div3 = document.createElement('div')
+                    let div4 = document.createElement('div')
+                    a.setAttribute('href', '/staffDetail?idStaff=' + val.idStaff)
+                    a.setAttribute('class', 'text-link')
+                    if(index % 2 === 0)
+                        div1.setAttribute('class', 'list-staff-items bg-green cl-white')                
+                    else
+                        div1.setAttribute('class', 'list-staff-items')
+                    div2.setAttribute('class', 'list-staff-item-id')
+                    div3.setAttribute('class', 'list-staff-item-name')
+                    div4.setAttribute('class', 'list-staff-item-position')
+
+                    // set color
+
+
+                    div2.innerHTML = val.idStaff
+                    div3.innerHTML = val.name
+                    if (val.position == 0)
+                        div4.innerHTML = "Manager"
+                    else if (val.position == 1)
+                        div4.innerHTML = "Saler"
+                    else
+                        div4.innerHTML = "Employee"
+
+                    div1.appendChild(div2)
+                    div1.appendChild(div3)
+                    div1.appendChild(div4)
+                    a.appendChild(div1)
+
+
+
+                    list_staff.appendChild(a)
+                });
+            }
+        })
+        .catch(e => console.log(e))
+
+    search.addEventListener('keyup', (e) => {
+        let list_staff_2 = document.getElementById('list-staff')
+        let word = e.target.value
+        let temp = []
+        let tag = ''
+        list_staffs_temp.forEach((val, index) => {
+            if(val.name.toLowerCase().indexOf(word.toLowerCase()) != -1){
+                    tag += `<a class="text-link" href="/staffDetail?idStaff=${val.idStaff}">
+                                <div class="${index % 2 == 0 ? 'list-staff-items bg-green cl-white' : 'list-staff-items'}">
+                                    <div class="list-staff-item-id">${val.idStaff}</div>
+                                    <div class="list-staff-item-name">${val.name}</div>
+                                    <div class="list-staff-item-position">${val.position == 0 ? 'Manager' : (val.position == 1 ? 'Saler' : 'Employee')}</div>
+                                </div>
+                            </a>`
+            }
+            list_staff_2.innerHTML = tag
+            
+        })
+    })
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Login</title>
+</head>
+<style>
+    form {
+        width: 50%;
+        margin: auto;
+        margin-top: 50px;
+        border-radius: 10px;
+        padding: 30px;
+        background-color: #ee56f333;
+    }
+
+    #mess{
+        color: red;
+        padding-top: 10px;
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <form action="/action_page.php">
+            <h2>Login customer</h2>
+            <div class="form-group">
+                <label for="CMND">CMND:</label>
+                <input type="email" class="form-control" id="CMND" placeholder="Enter CMND" name="CMND" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+            </div>
+            <button id="btn" type="button" class="btn btn-light">Login</button>
+            <div id="mess" class="form-group"></div>
+        </form>
+    </div>
+</body>
+<script>
+    var btn = document.getElementById('btn')
+
+
+    btn.addEventListener('click',() =>{
+        var CMND = document.getElementById('CMND').value
+        var password = document.getElementById('password').value
+
+        if(CMND === '' || password === '')
+            document.getElementById('mess').innerHTML = 'CMND or pass not empty'
+        else{
+            fetch('/loginCus',{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({CMND:CMND, password:password})
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code == 0)
+                    return window.location="/"
+                else
+                    document.getElementById('mess').innerHTML = 'CMND or password wrong!'
+            })
+            .catch(e => console.log(e))
+        }
+
+    })
+
+</script>
+</html>

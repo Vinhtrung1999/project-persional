@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/base.css">
+
+    <!-- gg font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="alert-login" id="alert">
+            <div class="alert-img">
+                <img src="/images/error-icon-png-4.jpg" alt="" width="50px" height="50px">
+            </div>
+            <div class="alert-msg" id="mess"></div>
+        </div>
+        <div class="model-login">
+            <div class="model-login-header text-center mg-bt-10">
+                <img src="/images/XztNn3f.png" alt="" width="300px">
+            </div>
+            <div class="model-login-body">
+                <form class="form-login">
+                    <div class="input-area mg-bt-10">
+                        <div class="tag-form-login">Username</div>
+                        <input type="email" id="username" placeholder="Tên đăng nhập" name="username" required>
+                    </div>
+                    <div class="input-area">
+                        <div class="tag-form-login">Password</div>
+                        <input type="password" id="password" placeholder="Mật khẩu" name="password" required>
+                    </div>
+                    <div class="btn-area-form text-center">
+                        <button id="btn" type="button" class="btn-login-form">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    var btn = document.getElementById('btn')
+
+
+    btn.addEventListener('click',() =>{
+        var username = document.getElementById('username').value
+        var password = document.getElementById('password').value
+        var alert = document.getElementById('alert') 
+
+        alert.style.display = 'none'
+
+        if(username === '' || password === ''){
+            document.getElementById('mess').innerHTML = 'username or pass not empty'
+            alert.style.display = 'flex'
+        }
+            
+        else{
+            fetch('/login',{
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({username:username, password:password})
+            })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code == 0)
+                    return window.location="/"
+                else{
+                    document.getElementById('mess').innerHTML = 'username or password wrong!'
+                    alert.style.display = 'flex'
+                }
+                    
+            })
+            .catch(e => console.log(e))
+        }
+
+    })
+
+</script>
+</html>

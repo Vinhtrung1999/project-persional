@@ -1,0 +1,40 @@
+.profile-manager-box-title,
+.stadium-manager-box-title,
+.product-manager-box-title,
+.WH-manager-box-title,
+.equipment-manager-box-title,
+.customer-manager-box-title,
+.view-info-manager-box-title,
+.statistic-manager-box-title,
+.staff-manager-box-title{
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn-profile-manager,
+.btn-stadium-manager,
+.btn-product-manager,
+.btn-WH-manager,
+.btn-equipment-manager,
+.btn-customer-manager,
+.btn-view-info-manager,
+.btn-statistic-manager,
+.btn-staff-manager{
+    padding: 5px 10px;
+    font-size: 1.2rem;
+}
+
+.profile-manager-box-content,
+.stadium-manager-box-content,
+.product-manager-box-content,
+.WH-manager-box-content,
+.equipment-manager-box-content,
+.customer-manager-box-content,
+.view-info-manager-box-content,
+.statistic-manager-box-content,
+.staff-manager-box-content{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}

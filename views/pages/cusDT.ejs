@@ -1,0 +1,72 @@
+<h2 class="text-center" style="padding: 10px;" id="head"></h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>ID</td>
+            <td id="idCus"></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="name"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td id="gender"></td>
+        </tr>
+        <tr>
+            <td>CMND</td>
+            <td id="CMND"></td>
+        </tr>
+        <tr>
+            <td>Tel</td>
+            <td id="tel"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td id="email"></td>
+        </tr>
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="/listCustomers"><button class="btn btn-light">Back</button></a>
+    <!-- <button id="btn" type="button" class="btn btn-danger">Reset password</button> -->
+    <!-- <div style="color: chartreuse;" id="mess"></div> -->
+</div>
+<script>
+    var url = new URL(window.location)
+    var idCus = url.searchParams.get('idCus')
+    
+    fetch('/getCus/'+idCus+"?token=<%= token %>", {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(req => req.json())
+    .then(json => {
+        if(json.code === 0){
+            data = json.data[0]
+            var idCus = document.getElementById('idCus')
+            var name = document.getElementById('name')
+            var CMND = document.getElementById('CMND')
+            var gender = document.getElementById('gender')
+            var email = document.getElementById('email')
+            var tel = document.getElementById('tel')
+
+            idCus.innerHTML = data.idCus
+            name.innerHTML = data.name
+            tel.innerHTML = data.phone
+            email.innerHTML = data.email
+            CMND.innerHTML = data.CMND
+
+            if(data.gender === 0)
+                gender.innerHTML = "Male"
+            else
+                gender.innerHTML = "Femail"
+
+            document.getElementById('head').innerHTML = data.idCus
+        }  
+    })
+    .catch(e => console.log(e))
+
+</script>

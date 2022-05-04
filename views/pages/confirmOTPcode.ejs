@@ -1,0 +1,36 @@
+<div class="container">
+  <h2 class="text-center">Confirm OTP</h2>
+  <form action="#" style="width: 50%; margin: auto;">
+    <div class="form-group">
+      <label for="OTP">OTP code:</label>
+      <input type="number" class="form-control" id="OTP" placeholder="OTP code" name="OTP">
+    </div>
+    <button id="btn" type="button" class="btn btn-dark">Sent</button>
+  </form>
+</div>
+
+<script>
+  var btn = document.getElementById("btn")
+  btn.addEventListener('click', () => {
+    var OTP = document.getElementById('OTP').value
+
+    if (OTP !== '') {
+      fetch("/confirmOTP", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "OTP": OTP, token: "<%= token %>" })
+      })
+        .then(req => req.json())
+        .then(json => {
+          if (json.code === 0)
+            return window.location.href = "/pay?mess=Pay success"
+          return window.location.href = "/OTPwrong";
+        })
+    }
+    else
+      alert("Please enter OTP code!")
+
+  })
+</script>

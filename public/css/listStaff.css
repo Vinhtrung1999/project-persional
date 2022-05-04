@@ -1,0 +1,33 @@
+.list-staff-block{
+    width: 50%;
+    height: 200px;
+    margin: auto;
+    overflow-y: scroll;
+    border: 3px #000000 solid;
+}
+
+.list-staff-items{
+    display: flex;
+    padding: 10px 20px;
+}
+
+.list-staff-item-id{
+    width: 20%;
+}
+
+.list-staff-item-name{
+    width: 60%;
+}
+
+.text-link{
+    text-decoration: none;
+    color: #000;
+}
+
+.list-staff-items:hover{
+    opacity: 80%;
+}
+
+.list-staff-items:active{
+    opacity: 50%;
+}

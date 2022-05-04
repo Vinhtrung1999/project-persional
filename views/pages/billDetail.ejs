@@ -1,0 +1,127 @@
+<h2 class="text-center" style="padding: 10px;" id="head"></h2>
+<table class="table table-hover" style="width: 50%; margin: auto;">
+    <tbody id="tb">
+        <tr>
+            <td>ID bill</td>
+            <td id="idBill"></td>
+        </tr>
+        <tr>
+            <td>ID customer</td>
+            <td id="idCus"></td>
+        </tr>
+        <tr>
+            <td>ID staff</td>
+            <td id="idStaff"></td>
+        </tr>
+        <tr>
+            <td>List stadiums</td>
+            <td id="listSvd"></td>
+        </tr>
+        <tr>
+            <td>List products</td>
+            <td id="listPro"></td>
+        </tr>
+        <tr>
+            <td>Tatal</td>
+            <td id="sum"></td>
+        </tr>
+        <tr>
+            <td>Date use stadium</td>
+            <td id="dateUse"></td>
+        </tr>
+
+        <tr>
+            <td>Date order</td>
+            <td id="dateOrder"></td>
+        </tr>
+
+    </tbody>
+</table>
+<div class="text-center">
+    <a href="/listBills"><button class="btn btn-light">Back</button></a>
+</div>
+<script>
+    var url = new URL(window.location)
+    var idBill = url.searchParams.get('idBill')
+    
+    fetch('/getBills/'+idBill+'/?token=<%= token %>', {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(req => req.json())
+    .then(json => {
+        console.log(json)
+        if(json.code === 0){
+            data = json.data[0]
+            var idBill = document.getElementById('idBill')
+            var idCus = document.getElementById('idCus')
+            var idStaff = document.getElementById('idStaff')
+            var dateOrder = document.getElementById('dateOrder')
+            var sum = document.getElementById('sum')
+            var dateUse = document.getElementById('dateUse')
+            var listSvd = document.getElementById('listSvd')
+            var listPro = document.getElementById('listPro')
+
+            idBill.innerHTML = data.idBill
+            idCus.innerHTML = data.idCus
+            idStaff.innerHTML = data.idStaff
+            dateOrder.innerHTML = data.dateOrder
+            sum.innerHTML = data.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            dateUse.innerHTML = data.dateUse
+
+            if(data.listSvd.length){
+                var ul = document.createElement('ul')
+                
+                
+                data.listSvd.forEach((val, i)=> {
+                    var li1 = document.createElement('li')
+                    var li2 = document.createElement('li')
+                    li1.innerHTML = "id svd: "+val.idSvd
+                    li2.innerHTML = "price svd: " + (parseInt(val.price).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+                    li1.setAttribute('style','color:red')
+                    ul.appendChild(li1)
+                    ul.appendChild(li2)
+
+                    
+                })
+                listSvd.appendChild(ul)
+                
+            }
+
+
+            if(data.listProducts.length){
+                var ulPro = document.createElement('ul')
+                data.listProducts.forEach((val, i)=> {
+                    var liPro1 = document.createElement('li')
+                    var liPro2 = document.createElement('li')
+                    var liPro3 = document.createElement('li')
+                    var liPro4 = document.createElement('li')
+
+                    liPro1.innerHTML = "id product: "+val.idPro
+                    liPro2.innerHTML = "name product: "+val.name
+                    liPro3.innerHTML = "quantity product: "+val.qty
+                    liPro4.innerHTML = "price product: "+(parseInt(val.price).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+
+                    liPro1.setAttribute('style','color:red')
+                    ulPro.appendChild(liPro1)
+                    ulPro.appendChild(liPro2)
+                    ulPro.appendChild(liPro3)
+                    ulPro.appendChild(liPro4)
+                });
+
+                listPro.appendChild(ulPro)
+            }
+
+            
+
+
+
+
+            document.getElementById('head').innerHTML = data.idBill
+        }  
+    })
+    .catch(e => console.log(e))
+
+</script>

@@ -1,0 +1,60 @@
+/* header */
+.header-page{
+    background-image: url('https://cdnimg.vietnamplus.vn/uploaded/bokttj/2020_12_14/ttxvn_san_cam_pha.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 200px;
+    position: relative;
+}
+
+.header-name{
+    position: absolute;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background-color: #0eff22a1;
+    left: 45%;
+    border-radius: 0px 0px 80px 80px;
+}
+
+.header-board{
+    position: absolute;
+    font-size: 1rem;
+    display: none;
+    background-color: #f7e928de;
+    width: 80%;
+}
+
+.header-board-element{
+    text-align: center;
+    color: #535353;
+    padding: 10px;
+    border-bottom: solid 1px #bebebe;
+}
+
+.header-name:hover .header-board{
+    display: block;
+}
+
+/* ------------------------------------------------------ */
+footer{
+    background-color: rgba(0, 0, 0, 0.678);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+#bill{
+    margin-top: 10px;
+    padding: 20px
+}
+
+#tb-info{
+    width: 90%;
+    margin: auto;
+}
+
+#tb-info tr td{
+    padding: 3px;
+}
