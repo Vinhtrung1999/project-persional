@@ -25,7 +25,7 @@ const TTB_Br = require('./models/TTB_Br')
 const jwtr = require('jwt-redis')
 const { exists } = require('./models/staffs')
 const { parse } = require('dotenv')
-
+const staffRouter = require('./router/staff-router')
 //set
 app.set('view engine', 'ejs')
 db.connect()
@@ -35,6 +35,8 @@ app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(session({secret:"final"}))
+
+app.use('/stff', staffRouter)
 
 //--------common-------------
 app.get('/', (req, res) => {
