@@ -4,7 +4,20 @@ const CheckGet = require('../auth/CheckGet')
 
 const ctlStaff = require('../controller/staff')
 //[GET]
-Router.get('/getStaffs/:idStaff?', CheckGet, ctlStaff.getStaffs)
+//[../staff]
+Router.get('/profile', ctlStaff.profile)
+
+Router.get('/login', ctlStaff.login)
+
+Router.get('/destroySs', ctlStaff.destroySS)
+
+Router.get('/changePass', ctlStaff.changePass)
+
+Router.get('/listStaffs', ctlStaff.listStaff)
+
+Router.get('/staffDetail', ctlStaff.staffDetail)
+
+Router.get('/addStaff', ctlStaff.addStaff)
 //[POST]
 
 module.exports = Router

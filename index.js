@@ -26,6 +26,10 @@ const jwtr = require('jwt-redis')
 const { exists } = require('./models/staffs')
 const { parse } = require('dotenv')
 const staffRouter = require('./router/staff-router')
+const commonRouter = require('./router/common-router')
+const managerRouter = require('./router/manager-router')
+const customerRouter = require('./router/customer-router')
+const statisticRouter = require('./router/statistic-router')
 //set
 app.set('view engine', 'ejs')
 db.connect()
@@ -36,218 +40,29 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(session({secret:"final"}))
 
-app.use('/stff', staffRouter)
-
+app.use('/staff', staffRouter)
 //--------common-------------
-app.get('/', (req, res) => {
-    if(!req.session.username)
-        return res.redirect('/welcome') //fix route
-    if(req.session.position === 0)
-        return res.redirect('/staff-manager')
-    if(req.session.position === 1)
-        return res.redirect('/pay')   
-    return res.redirect('/stadium-manager')
-})
-//--------welcome page-----------
-app.get('/welcome', async (req, res) => {
-    let name = req.session.name || ''
-    let getSvd = (url) => {
-        return new Promise((resolve, reject) => {
-            fetch(url , {
-                method: 'get',
-                headers: {'Content-Type': 'application/json'}
-            })
-            .then(data => data.json())
-            .then(d => resolve(d))
-            .catch(err => reject(err))
-        })
-    }
-    
-    let data_svd = []
-
-    await getSvd('http://localhost:5000/getSvd')
-    .then(data => {
-        data.data.forEach((val) => {
-            data_svd.push(val)
-        })
-    })
-    .catch(err => console.log(err))  
-    return res.render('pages/welcome', {data_svd, name})
-})
-
-// ---------------view details customer--------
+app.use('/', commonRouter)
+//--------manager------------
+app.use('/manager', managerRouter)
+//--------customer action----
+app.use('/customer', customerRouter)
+//--------statistic----------
+app.use('/statistic', customerRouter)
+//---------------view details customer--------
 app.get('/view-details/:idSvd', (req, res) => {
     let idSvd = req.params.idSvd
     return res.render('pages/viewDetails', {idSvd})
 })
 
-app.get('/profile',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    
-    var content = '../pages/profile'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
+//--------------------------------------
 
-app.get('/login', (req, res) =>{
-    if(req.session.username)
-        return res.redirect('/')
-    return res.render('pages/login')
-})
-
-app.get('/loginCus', (req, res) =>{
-    if(req.session.username)
-        return res.redirect('/')
-    return res.render('pages/loginCus')
-})
-
-app.get('/changePass',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    
-    var content = '../pages/changePass'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/destroySs',(req, res)=>{
-    req.session.destroy()
-    return res.redirect('/login')
-})
-
-app.get('/destroySsCus',(req, res)=>{
-    req.session.destroy()
-    return res.redirect('/loginCus')
-})
-
-//---managers----------------------------------------
-app.get('/profile-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    var content = '../page-managers/profile-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/staff-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../page-managers/staff-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/statistic-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../page-managers/statistic-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/stadium-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../page-managers/stadium-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/product-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../page-managers/product-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/equipment-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../page-managers/equipment-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/warehouse-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../page-managers/warehouse-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/customer-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../page-managers/customer-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/view-info-manager',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../page-managers/view-info-manager'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listStaffs',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../pages/listStaffs'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/staffDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../pages/staffDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addStaff',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../pages/addStaff'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/fee',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../pages/fee'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/profit',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/login')
-    if(req.session.position !== 0)
-        return res.redirect('/')
-    var content = '../pages/profit'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
+//----------------------------------------------------------
 
 //---salers----------------------------------------
 app.get('/listCustomers',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/listCustomers'
@@ -256,7 +71,7 @@ app.get('/listCustomers',(req, res)=>{
 
 app.get('/listBills',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/listBills'
@@ -265,7 +80,7 @@ app.get('/listBills',(req, res)=>{
 
 app.get('/CusDT',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/CusDT'
@@ -274,7 +89,7 @@ app.get('/CusDT',(req, res)=>{
 
 app.get('/billDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/billDetail'
@@ -283,7 +98,7 @@ app.get('/billDetail',(req, res)=>{
 
 app.get('/pay',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/pay'
@@ -292,7 +107,7 @@ app.get('/pay',(req, res)=>{
 
 app.get('/listSvd',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
         return res.redirect('/')
     var content = '../pages/listSvd'
@@ -301,7 +116,7 @@ app.get('/listSvd',(req, res)=>{
 
 app.get('/svdDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
         return res.redirect('/')
     var content = '../pages/svdDetail'
@@ -310,7 +125,7 @@ app.get('/svdDetail',(req, res)=>{
 
 app.get('/addCustomers',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/addCustomers'
@@ -319,7 +134,7 @@ app.get('/addCustomers',(req, res)=>{
 
 app.get('/confirmOTPcode',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/confirmOTPcode'
@@ -328,7 +143,7 @@ app.get('/confirmOTPcode',(req, res)=>{
 
 app.get('/OTPwrong',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 1)
         return res.redirect('/')
     return res.render('pages/OTPwrong')
@@ -337,7 +152,7 @@ app.get('/OTPwrong',(req, res)=>{
 //---------employee view----------------------------------
 app.get('/listProducts',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2 && req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/listProducts'
@@ -346,7 +161,7 @@ app.get('/listProducts',(req, res)=>{
 
 app.get('/ProDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2 && req.session.position !== 1)
         return res.redirect('/')
     var content = '../pages/ProDetail'
@@ -355,7 +170,7 @@ app.get('/ProDetail',(req, res)=>{
 
 app.get('/listWH',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/listWH'
@@ -364,7 +179,7 @@ app.get('/listWH',(req, res)=>{
 
 app.get('/listTTB',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/listTTB'
@@ -373,7 +188,7 @@ app.get('/listTTB',(req, res)=>{
 
 app.get('/listTTBBr',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/listTTBBr'
@@ -382,7 +197,7 @@ app.get('/listTTBBr',(req, res)=>{
 
 app.get('/WHDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/WHDetail'
@@ -391,7 +206,7 @@ app.get('/WHDetail',(req, res)=>{
 
 app.get('/TTBBrDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/TTBBrDetail'
@@ -400,7 +215,7 @@ app.get('/TTBBrDetail',(req, res)=>{
 
 app.get('/TTBDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/TTBDetail'
@@ -409,7 +224,7 @@ app.get('/TTBDetail',(req, res)=>{
 
 app.get('/addSvd',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/addSvd'
@@ -418,7 +233,7 @@ app.get('/addSvd',(req, res)=>{
 
 app.get('/addProWH',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/addProWH'
@@ -427,7 +242,7 @@ app.get('/addProWH',(req, res)=>{
 
 app.get('/addTTB',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/addTTB'
@@ -436,7 +251,7 @@ app.get('/addTTB',(req, res)=>{
 
 app.get('/addProduct',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 2)
         return res.redirect('/')
     var content = '../pages/addProduct'
@@ -446,7 +261,7 @@ app.get('/addProduct',(req, res)=>{
 //----------customers view------------------
 app.get('/history',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 99)
         return res.redirect('/')
     var content = '../pages/history'
@@ -455,7 +270,7 @@ app.get('/history',(req, res)=>{
 
 app.get('/historyDetail',(req, res)=>{
     if(!req.session.username)
-        return res.redirect('/login')
+        return res.redirect('/staff/login')
     if(req.session.position !== 99)
         return res.redirect('/')
     var content = '../pages/historyDetail'
