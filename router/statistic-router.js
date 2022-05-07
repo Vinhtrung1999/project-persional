@@ -5,9 +5,9 @@ const CheckGet = require('../auth/CheckGet')
 const ctlStatistic = require('../controller/statistic')
 //[GET]
 //[../statistic]
-app.get('/fee', ctlStatistic.fee)
+Router.get('/fee', ctlStatistic.fee)
 
-app.get('/profit', ctlStatistic.profit)
+Router.get('/profit', ctlStatistic.profit)
 //[POST]
 
 module.exports = Router

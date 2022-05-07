@@ -32,7 +32,7 @@ class ctlCommon{
         if(req.session.position === 0)
             return res.redirect('/manager/staff-manager')
         if(req.session.position === 1)
-            return res.redirect('/pay')   
+            return res.redirect('/transaction/pay')   
         return res.redirect('/manager/stadium-manager')
     }
 }

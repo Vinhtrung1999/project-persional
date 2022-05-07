@@ -1,42 +1,30 @@
-class customer {
-    login = (req, res) =>{
-        if(req.session.username)
-            return res.redirect('/')
-        return res.render('pages/loginCus')
-    }
-
-    destroySS = (req, res) => {
-        req.session.destroy()
-        return res.redirect('/customer/loginCus')
-    }
-
-//only staff 
-    listCustomer = (req, res)=>{
+class transaction {
+    //[../staff/pay]
+    pay = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
         if(req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/listCustomers'
+        var content = '../pages/pay'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    customerDetail = (req, res) => {
+    confirmOTPcode = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
         if(req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/CusDT'
+        var content = '../pages/confirmOTPcode'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    addCustomer = (req, res)=>{
+    OTPwrong = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
         if(req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/addCustomers'
-        return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
+        return res.render('pages/OTPwrong')
     }
 }
 
-module.exports = new customer
+module.exports = new transaction

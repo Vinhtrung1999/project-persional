@@ -1,42 +1,40 @@
-class customer {
-    login = (req, res) =>{
-        if(req.session.username)
-            return res.redirect('/')
-        return res.render('pages/loginCus')
-    }
-
-    destroySS = (req, res) => {
-        req.session.destroy()
-        return res.redirect('/customer/loginCus')
-    }
-
-//only staff 
-    listCustomer = (req, res)=>{
+class bill {
+    listBill = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
         if(req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/listCustomers'
+        var content = '../pages/listBills'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    customerDetail = (req, res) => {
+    billDetail = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
         if(req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/CusDT'
+        var content = '../pages/billDetail'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    addCustomer = (req, res)=>{
+    //history
+    history = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 99)
             return res.redirect('/')
-        var content = '../pages/addCustomers'
+        var content = '../pages/history'
+        return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
+    }
+
+    historyDetail = (req, res)=>{
+        if(!req.session.username)
+            return res.redirect('/staff/login')
+        if(req.session.position !== 99)
+            return res.redirect('/')
+        var content = '../pages/historyDetail'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 }
 
-module.exports = new customer
+module.exports = new bill

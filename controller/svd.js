@@ -1,42 +1,30 @@
-class customer {
-    login = (req, res) =>{
-        if(req.session.username)
-            return res.redirect('/')
-        return res.render('pages/loginCus')
-    }
-
-    destroySS = (req, res) => {
-        req.session.destroy()
-        return res.redirect('/customer/loginCus')
-    }
-
-//only staff 
-    listCustomer = (req, res)=>{
+class svd {
+    listSvd = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
             return res.redirect('/')
-        var content = '../pages/listCustomers'
+        var content = '../pages/listSvd'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    customerDetail = (req, res) => {
+    svdDetail = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
             return res.redirect('/')
-        var content = '../pages/CusDT'
+        var content = '../pages/svdDetail'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    addCustomer = (req, res)=>{
+    addSvd = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 2)
             return res.redirect('/')
-        var content = '../pages/addCustomers'
+        var content = '../pages/addSvd'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 }
 
-module.exports = new customer
+module.exports = new svd

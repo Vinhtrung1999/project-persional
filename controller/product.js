@@ -1,42 +1,30 @@
-class customer {
-    login = (req, res) =>{
-        if(req.session.username)
-            return res.redirect('/')
-        return res.render('pages/loginCus')
-    }
-
-    destroySS = (req, res) => {
-        req.session.destroy()
-        return res.redirect('/customer/loginCus')
-    }
-
-//only staff 
-    listCustomer = (req, res)=>{
+class product{
+    listProduct = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 2 && req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/listCustomers'
+        var content = '../pages/listProducts'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    customerDetail = (req, res) => {
+    productDetail = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 2 && req.session.position !== 1)
             return res.redirect('/')
-        var content = '../pages/CusDT'
+        var content = '../pages/ProDetail'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 
-    addCustomer = (req, res)=>{
+    addProduct = (req, res)=>{
         if(!req.session.username)
             return res.redirect('/staff/login')
-        if(req.session.position !== 1)
+        if(req.session.position !== 2)
             return res.redirect('/')
-        var content = '../pages/addCustomers'
+        var content = '../pages/addProduct'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
 }
 
-module.exports = new customer
+module.exports = new product

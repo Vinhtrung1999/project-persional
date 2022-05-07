@@ -59,7 +59,7 @@ class ctlStaff{
         var content = '../pages/addStaff'
         return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
     }
-
+    
     //[POST]
 }
 

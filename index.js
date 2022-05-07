@@ -30,6 +30,12 @@ const commonRouter = require('./router/common-router')
 const managerRouter = require('./router/manager-router')
 const customerRouter = require('./router/customer-router')
 const statisticRouter = require('./router/statistic-router')
+const billRouter = require('./router/bill-router')
+const svdRouter = require('./router/svd-router')
+const productRouter = require('./router/product-router')
+const WHRouter = require('./router/warehouse-router')
+const equipmentRouter = require('./router/equipment-router')
+const transactionRouter = require('./router/transaction-router')
 //set
 app.set('view engine', 'ejs')
 db.connect()
@@ -41,242 +47,35 @@ app.use(express.json())
 app.use(session({secret:"final"}))
 
 app.use('/staff', staffRouter)
-//--------common-------------
-app.use('/', commonRouter)
 //--------manager------------
 app.use('/manager', managerRouter)
 //--------customer action----
+app.use('/transaction', transactionRouter)
+//--------customer action----
 app.use('/customer', customerRouter)
 //--------statistic----------
-app.use('/statistic', customerRouter)
+app.use('/statistic', statisticRouter)
+//--------bill----------
+app.use('/bill', billRouter)
+//--------svd----------
+app.use('/svd', svdRouter)
+//--------product------
+app.use('/product', productRouter)
+//--------warehouse------
+app.use('/warehouse', WHRouter)
+//--------equipment------
+app.use('/equipment', equipmentRouter)
+//--------common-------------
+app.use('/', commonRouter)
+
 //---------------view details customer--------
 app.get('/view-details/:idSvd', (req, res) => {
     let idSvd = req.params.idSvd
     return res.render('pages/viewDetails', {idSvd})
 })
 
-//--------------------------------------
 
-//----------------------------------------------------------
-
-//---salers----------------------------------------
-app.get('/listCustomers',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/listCustomers'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listBills',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/listBills'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/CusDT',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/CusDT'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/billDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/billDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/pay',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/pay'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listSvd',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
-        return res.redirect('/')
-    var content = '../pages/listSvd'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/svdDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
-        return res.redirect('/')
-    var content = '../pages/svdDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addCustomers',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/addCustomers'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/confirmOTPcode',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/confirmOTPcode'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/OTPwrong',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 1)
-        return res.redirect('/')
-    return res.render('pages/OTPwrong')
-})
-
-//---------employee view----------------------------------
-app.get('/listProducts',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2 && req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/listProducts'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/ProDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2 && req.session.position !== 1)
-        return res.redirect('/')
-    var content = '../pages/ProDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listWH',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/listWH'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listTTB',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/listTTB'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/listTTBBr',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/listTTBBr'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/WHDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/WHDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/TTBBrDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/TTBBrDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/TTBDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/TTBDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addSvd',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/addSvd'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addProWH',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/addProWH'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addTTB',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/addTTB'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/addProduct',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 2)
-        return res.redirect('/')
-    var content = '../pages/addProduct'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-//----------customers view------------------
-app.get('/history',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 99)
-        return res.redirect('/')
-    var content = '../pages/history'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
-app.get('/historyDetail',(req, res)=>{
-    if(!req.session.username)
-        return res.redirect('/staff/login')
-    if(req.session.position !== 99)
-        return res.redirect('/')
-    var content = '../pages/historyDetail'
-    return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
-})
-
+//API
 //----------customer API
 app.post('/loginCus', (req, res) =>{
     if(req.session.username)
