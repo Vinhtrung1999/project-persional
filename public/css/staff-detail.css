@@ -3,17 +3,17 @@
     text-align: start;
 }
 
-.detail-container-content{
-    width: 50%;
-    margin: auto;
+.detail-content{
     border: solid #000000;
-    
+    width: 30%;
+    margin: auto;
 }
 
 .detail-content-items{
     display: flex;
     font-size: 1.2rem;
     padding: 10px;
+    align-items: center;
 }
 
 .detail-items-title{
@@ -27,4 +27,6 @@
 
 .btn-detail{
     font-size: 1rem;
+    width: 50px;
+    margin: 20px;
 }

@@ -48,7 +48,23 @@ body{
     background-color: green;
 }
 
+.bg-white{
+    background-color: #ffffff;
+}
+
 .input-custom{
     font-family: 'Rowdies', cursive;
     outline: solid 3px #000000;
+}
+
+.t-center{
+    text-align: center;
+}
+
+.t-end{
+    text-align: end;
+}
+
+.m-t-10{
+   margin-top: 10px; 
 }

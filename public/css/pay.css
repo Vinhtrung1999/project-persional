@@ -1,0 +1,47 @@
+.bill{
+
+}
+
+.bill-title{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.bill-info{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem
+}
+
+.bill-info-check-table{
+
+}
+
+.td-title, .td-content{
+    padding: 5px;
+}
+
+.input-idCus{
+    outline: none;
+    font-size: 1.2rem;
+    font-family: 'Rowdies', cursive;
+    border: none;
+}
+
+.btn-check-idCus{
+    padding: 5px 10px;
+    text-align: end;
+}
+
+.input-date-order{
+    width: 200px;
+}
+
+.err2{
+    background-color: rgb(255, 65, 65);
+    width: 50%;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}

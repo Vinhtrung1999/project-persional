@@ -1,53 +1,44 @@
-<div class="container" id="bill">
-    <h1 class="text-center">Bill</h1>
-    <div class="row">
-        <div class="col-lg-8">
-            <form class="form-block" style="padding: 10px;">
-                <div>Choose date use stadium</div>
-                <input style="width: 50%;" class="form-control mr-sm-2" type="date" id="dateOrder" aria-label="Search">
-            </form>
+<link rel="stylesheet" href="/css/pay.css">
+<div class="bill" id="bill">
+    <div class="bill-title">Bill</div>
+    <div class="bill-info">
+        <div class="bill-info-time">
+            <div>Choose date use stadium</div>
+            <input class="input-custom input-date-order m-t-10" type="date" id="dateOrder">
         </div>
-
-    <script>
-        var url = new URL(window.location)
-        var mess = url.searchParams.get('mess')
-        if(mess)
-            alert(mess)
-    </script>
-
-        <div id="info" class="col-lg-4">
-            <table border="1" id="tb-info">
+        <div id="info" class="bill-info-check">
+            <table border="1" id="tb-info" class="bill-info-check-table">
                 <tr>
-                    <td>Id bill</td> 
-                    <td id="idBill"></td>
+                    <td class="td-title">ID bill</td> 
+                    <td class="td-content" id="idBill"></td>
                 </tr>
                 <tr>
-                    <td>Id Customer</td>
-                    <td><input placeholder="Enter id customer" id="idCus" type="text"></td>
+                    <td class="td-title">ID Customer</td>
+                    <td class="td-content"><input class="input-idCus" placeholder="Enter id customer" id="idCus" type="text"></td>
                 </tr>
                 <tr>
-                    <td>Saler</td>
-                    <td id="nameStaff"><%= name %></td>
+                    <td class="td-title">Saler</td>
+                    <td class="td-content" id="nameStaff"><%= name %></td>
                 </tr>
                 <tr>
-                    <td>Date</td>
-                    <td id="date"></td>
+                    <td class="td-title">Date</td>
+                    <td class="td-content" id="date"></td>
                 </tr>
             </table>
-            <div class="text-center" style="margin-top: 5px;">
-                <button  id="btnCheck" class="btn btn-dark" type="button">Check ID customer</button>
+            <div class="t-end m-t-10">
+                <button  id="btnCheck" class="btn-custom bg-white btn-check-idCus" type="button">Check</button>
             </div>
             
         </div>
     </div>
-    <div class="text-center" id="err2" style="color: red;"></div>
+    <div class="err2" id="err2"></div>
     <div id="payArea" style="display: none;">
-        <form class="form-inline" style="padding: 10px;">
-            <input class="form-control mr-sm-2" type="text" id="idsvdSearch" placeholder="Enter ID stadium" aria-label="Search">
+        <form class="form-inline">
+            <input class="" type="text" id="idsvdSearch" placeholder="Enter ID stadium" aria-label="Search">
             <button id="btnAdd" class="btn btn-outline-success my-2 my-sm-0" type="button">+</button>
-            <div id="messAddSvd" style="color: red; margin: 10px;"></div>
+            <div id="messAddSvd"></div>
         </form>
-        <table class="table table-bordered" style="width: 80%; margin: auto;">
+        <table class="">
             <thead>
                 <tr>
                     <th>ID stadium</th>
@@ -67,7 +58,7 @@
             <div id="messAddPro" style="color: red; margin: 10px;"></div>
         </form>
 
-        <table class="table table-bordered" style="width: 80%; margin: auto;">
+        <table class="">
             <thead>
                 <tr>
                     <th>ID product</th>
@@ -81,15 +72,21 @@
             </tbody>
         </table>
 
-        <div class="text-center" style="margin-top: 10px;">
-            <div class="text-right" id="sum" style="font-size: 20px; font-weight: bold;">Total: </div>
-            <button class="btn btn-dark" type="button" id="pay">Pay</button>
-            <div id="err" style="color: red;"></div>
+        <div class="">
+            <div class="" id="sum">Total: </div>
+            <button class="" type="button" id="pay">Pay</button>
+            <div id="err"></div>
         </div>
     </div>
 </div>
 
 <script>
+    var url = new URL(window.location)
+    var mess = url.searchParams.get('mess')
+    if(mess)
+        alert(mess)
+    
+
     document.getElementById('idBill').innerHTML = Math.floor(Math.random() * (10000000 - 1000000)) + 100000
     const date = new Date()
     document.getElementById('date').innerHTML = (date.getFullYear()).toString() +"-"+ (date.getMonth()+1).toString() +"-"+ date.getDate().toString()

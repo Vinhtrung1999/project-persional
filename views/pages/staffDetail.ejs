@@ -1,7 +1,15 @@
 <link rel="stylesheet" href="/css/staff-detail.css">
 <div class="detail-container">
     <div class="detail-container-header" id="name">admin</div>
-    <div class="detail-container-content">
+    <div class="detail-content">
+        <div class="detail-content-items">
+            <img style="text-align: center" id="img-avt" src="https://iconape.com/wp-content/png_logo_vector/avatar-3.png" alt="avatar" width="100px">                
+            <div class="btn-area-list">
+                <button type="button" class="btn-custom btn-detail bg-green cl-white" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-pen-to-square"></i></button>        
+                <button id="btn" type="button" class="btn-custom btn-detail bg-yl"><i class="fa-solid fa-repeat"></i></button>
+                <button id="btn_delete" type="button" class="btn-custom btn-detail bg-red cl-white"><i class="fa-solid fa-trash-can"></i></button>    
+            </div>
+        </div>
         <div class="detail-content-items">
             <div class="detail-items-title">ID</div>
             <div class="detail-items-content" id="idStaff"></div>            
@@ -27,12 +35,10 @@
             <div id="salary" class="detail-items-content"></div>
         </div>
         <div class="btn-detail-area">
-            <button id="btn" type="button" class="btn-custom btn-detail bg-yl">Reset password</button>
-            <button id="btn_delete" type="button" class="btn-custom btn-detail bg-red cl-white">Remove</button>
-            <button type="button" class="btn-custom btn-detail bg-green cl-white" data-toggle="modal" data-target="#myModal">Update</button>        
-            <a href="/listStaffs"><button class="btn-custom btn-detail" type="button">Back</button></a>
+            <a href="/staff/listStaffs" style="text-decoration: none;"><button class="btn-custom btn-detail" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i></button></a>
         </div>
     </div>
+    
 </div>
 
 <!-- <h2 class="text-center" style="padding: 10px;" id="head"></h2>
@@ -176,13 +182,14 @@
     .then(json => {
         if(json.code === 0){
             data = json.data[0]
-            var idStaff = document.getElementById('idStaff')
-            var name = document.getElementById('name')
-            var age = document.getElementById('age')
-            var gender = document.getElementById('gender')
-            var shift = document.getElementById('shift')
-            var salary = document.getElementById('salary')
-            var position = document.getElementById('position')
+            let idStaff = document.getElementById('idStaff')
+            let name = document.getElementById('name')
+            let age = document.getElementById('age')
+            let gender = document.getElementById('gender')
+            let shift = document.getElementById('shift')
+            let salary = document.getElementById('salary')
+            let position = document.getElementById('position')
+            let img_avt = document.getElementById('img-avt')
 
             idStaff.innerHTML = data.idStaff
             name.innerHTML = data.name
@@ -190,10 +197,15 @@
             salary.innerHTML = data.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
             shift.innerHTML = data.shift
 
-            if(data.gender === 0)
+            if(data.gender === 0){
                 gender.innerHTML = "Male"
-            else
-                gender.innerHTML = "Femail"
+                img_avt.setAttribute('src','https://iconape.com/wp-content/png_logo_vector/avatar.png')
+            }
+            else{
+                gender.innerHTML = "Female"
+                img_avt.setAttribute('src', 'https://iconape.com/wp-content/png_logo_vector/avatar-3.png')
+            }
+                
 
             if(data.position === 0)
                 position.innerHTML = "Manager"
@@ -204,8 +216,8 @@
             document.getElementById('head').innerHTML = data.idStaff
 
 
-            var idStaff_MD = document.getElementById('idStaff_MD')
-            var salery_MD = document.getElementById('salery_MD')
+            let idStaff_MD = document.getElementById('idStaff_MD')
+            let salery_MD = document.getElementById('salery_MD')
 
             idStaff_MD.innerHTML = data.idStaff
             salery_MD.value = parseInt(data.salery)
