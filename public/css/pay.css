@@ -17,7 +17,8 @@
 
 }
 
-.td-title, .td-content{
+.td-title,
+.td-content{
     padding: 5px;
 }
 
@@ -28,20 +29,25 @@
     border: none;
 }
 
-.btn-check-idCus{
-    padding: 5px 10px;
+.btn-check-idCus,
+.btn-add-items{
+    padding: 3px 5px;
     text-align: end;
+    font-size: 1rem;
 }
 
-.input-date-order{
+.btn-pay{
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.input-select{
     width: 200px;
+    font-size: 1rem;
+    padding: 3px 5px;
 }
 
-.err2{
-    background-color: rgb(255, 65, 65);
-    width: 50%;
-    color: #ffffff;
-    text-align: center;
-    margin: auto;
-    margin-top: 10px;
+.tb-items-order{
+    width: 100%;
+    font-size: 1.2rem;
 }

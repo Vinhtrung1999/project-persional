@@ -36,6 +36,10 @@ body{
     color: #005eff;
 }
 
+.cl-red{
+    color: red;
+}
+
 .bg-yl{
     background-color: #ffd000;
 }
@@ -65,6 +69,76 @@ body{
     text-align: end;
 }
 
+.t-start{
+    text-align: start;
+}
+
+.m-10{
+    margin: 10px; 
+ }
+
 .m-t-10{
    margin-top: 10px; 
+}
+
+.m-bt-10{
+    margin-bottom: 10px; 
+ }
+
+.m-t-30{
+    margin-top: 30px; 
+}
+
+.m-bt-30{
+    margin-bottom: 30px; 
+}
+
+.p-t-10{
+    padding-top: 10px; 
+}
+
+.p-t-30{
+    padding-top: 30px; 
+}
+
+.p-10{
+    padding: 10px; 
+}
+
+.p-30{
+    padding: 30px; 
+}
+
+.outline-green{
+    outline: solid 3px green;
+}
+
+.f-1{
+    font-size: 1.0rem;
+}
+
+.f-1-2{
+    font-size: 1.2rem;
+}
+
+.f-1-5{
+    font-size: 1.5rem;
+}
+
+.err{
+    background-color: rgb(255, 65, 65);
+    width: 50%;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.success{
+    background-color: rgb(68, 255, 65);
+    width: 50%;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
 }

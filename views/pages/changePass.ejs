@@ -1,52 +1,56 @@
-<h2 class="text-center" style="padding: 10px;" id="head">Change Password</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>New password</td>
-            <td><input placeholder="Enter new password" type="password" id="password" name="password" required></td>
-        </tr>
-    </tbody>
+<h2 class="text-center">Change Password</h2>
+<table style="margin: auto">
+    <tr>
+        <td class="f-1-2">New password</td>
+        <td class="p-10"><input class="input-custom f-1-2" placeholder="Enter new password" type="password" id="password" name="password" required></td>
+    </tr>
+    <tr>
+        <td class="f-1-2">Confirm password</td>
+        <td class="p-10"><input class="input-custom f-1-2" placeholder="Enter confirm password" type="password" id="confirm-password" name="confirm-password" required></td>
+    </tr>
 </table>
-<div class="text-center">
-    <button type="button" id="btn" class="btn btn-dark">Change</button>
-    <div style="color: chartreuse;" id="mess"></div>
-    <div style="color: red;" id="err"></div>
+<div class="t-center">
+    <button class="btn-custom f-1-2 bg-green cl-white m-10" type="button" id="btn"><i class="fa-solid fa-repeat"></i></button>
+    <div class="err" id="err"></div>
 </div>
 
 <script>
-    var btn = document.getElementById('btn')
+    let btn = document.getElementById('btn')
     
     btn.addEventListener('click', ()=>{
-        document.getElementById("mess").innerHTML = ''
         document.getElementById("err").innerHTML = ''
 
-        var password = document.getElementById('password').value
+        let password = document.getElementById('password').value
+        let confirm_password = document.getElementById('confirm-password').value
         if(password){
-            fetch('/changePass', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body:JSON.stringify({
-                    password : password,
-                    token:"<%= token %>"                    
+            if(confirm_password == password){
+                fetch('/changePass', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body:JSON.stringify({
+                        password : password,
+                        token:"<%= token %>"                    
+                    })
                 })
-            })
-            .then(req => req.json())
-            .then(json => {
-                if(json.code === 0){
-                    document.getElementById('mess').innerHTML =  json.message
-                    document.getElementById('password').value = ''
-                }
-                else
-                    document.getElementById("err").innerHTML = 'Change password fail!'
-
-            })
-            .catch(e => console.log(e))
-
+                .then(req => req.json())
+                .then(json => {
+                    if(json.code === 0){
+                        alert('Change password success, please login again!!')
+                        window.location.href = '/staff/destroySS'
+                    }
+                    else
+                        document.getElementById("err").innerHTML = 'Change password fail!'
+                })
+                .catch(e => console.log(e))
+            }
+            else{
+                document.getElementById('confirm-password').value = ''
+                document.getElementById("err").innerHTML = 'Confirm again'
+            }
         }
         else
             document.getElementById("err").innerHTML = 'Please enter new password'
-
     })
 </script>

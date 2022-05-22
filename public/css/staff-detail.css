@@ -30,3 +30,44 @@
     width: 50px;
     margin: 20px;
 }
+
+/* Modal */
+
+.modal-update{
+    width: 30%;
+    border: solid 1px rgb(195, 195, 195);
+    padding: 20px;
+    position: absolute;
+    top: 10%;
+    left: 35%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: #bcbcbc80 3px 3px 10px;
+}
+
+.modal-items{
+    display: flex;
+}
+
+.modal-update-body{
+    width: 80%;
+    margin: auto;
+    font-size: 1.2rem;
+}
+
+.modal-items{
+    padding: 10px;
+}
+
+.modal-items-title{
+    width: 250px;
+}
+
+.modal-items-content{
+    width: 50%;
+}
+
+.btn-update-modal{
+    margin: 10px;
+    font-size: 1rem;
+}
