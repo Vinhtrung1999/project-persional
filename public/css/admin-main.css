@@ -13,6 +13,26 @@ body{
     padding: 0;
 }
 
+/* scroll */
+/* custom scroll bar */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #d8d8d8; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(46, 46, 46); 
+}
+/* ------------------------- */
+/* ====================================== */
 .btn-custom{
     font-family: 'Rowdies', cursive;
     border: 3px #000000 solid;
@@ -32,6 +52,14 @@ body{
     color: #ffffff;
 }
 
+.cl-yl{
+    color: #ffd000;
+}
+
+.cl-green{
+    color: green;
+}
+
 .cl-blue{
     color: #005eff;
 }
@@ -41,7 +69,7 @@ body{
 }
 
 .bg-yl{
-    background-color: #ffd000;
+    background-color: #f3ce2b;
 }
 
 .bg-red{
@@ -50,6 +78,10 @@ body{
 
 .bg-green{
     background-color: green;
+}
+
+.bg-grey{
+    background-color: #a5a5a5;
 }
 
 .bg-white{
