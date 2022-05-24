@@ -4,6 +4,9 @@
 <div class="profile-content">
     <div class="profile-header-name" id="name"></div>
     <div class="profile-detail">
+        <div class="profile-header-name">
+            <img style="text-align: center" id="img-avt" src="" alt="avatar" width="100px"> 
+        </div>
         <div class="profile-detail-items">
             <div class="profile-detail-items-title">ID</div>
             <div id="idStaff" class="profile-detail-items-content"></div>
@@ -33,41 +36,6 @@
         </div>
     </div>
 </div>
-
-<!-- <h2 class="text-center" style="padding: 10px;" id="head">Profile</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID</td>
-            <td id="idStaff"></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td id="gender"></td>
-        </tr>
-        <tr>
-            <td>Age</td>
-            <td id="age"></td>
-        </tr>
-        <tr>
-            <td>Salery</td>
-            <td id="salery"></td>
-        </tr>
-        <tr>
-            <td>Shift</td>
-            <td id="shift"></td>
-        </tr>
-        <tr>
-            <td>Position</td>
-            <td id="position"></td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center"><a href="/"><button class="btn btn-dark">Back</button></a></div> -->
 <script>
         
     fetch('/getProfileAPI?token=<%= token %>', {
@@ -81,13 +49,14 @@
         console.log(json)
         if(json.code === 0){
             data = json.data[0]
-            var idStaff = document.getElementById('idStaff')
-            var name = document.getElementById('name')
-            var age = document.getElementById('age')
-            var gender = document.getElementById('gender')
-            var shift = document.getElementById('shift')
-            var salary = document.getElementById('salary')
-            var position = document.getElementById('position')
+            let idStaff = document.getElementById('idStaff')
+            let name = document.getElementById('name')
+            let age = document.getElementById('age')
+            let gender = document.getElementById('gender')
+            let shift = document.getElementById('shift')
+            let salary = document.getElementById('salary')
+            let position = document.getElementById('position')
+            let img_avt = document.getElementById('img-avt')
 
             idStaff.innerHTML = data.idStaff
             name.innerHTML = data.name
@@ -95,10 +64,14 @@
             salary.innerHTML = data.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
             shift.innerHTML = data.shift
 
-            if(data.gender === 0)
+            if(data.gender === 0){
                 gender.innerHTML = "Male"
-            else
+                img_avt.setAttribute('src', 'https://iconape.com/wp-content/png_logo_vector/avatar.png')
+            }
+            else{
                 gender.innerHTML = "Femail"
+                img_avt.setAttribute('src', 'https://iconape.com/wp-content/png_logo_vector/avatar-3.png')
+            }
 
             if(data.position === 0)
                 position.innerHTML = "Manager"

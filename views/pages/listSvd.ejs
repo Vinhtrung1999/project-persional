@@ -1,216 +1,30 @@
+<link rel="stylesheet" href="/css/listSvd.css">
 <h2 class="text-center" style="padding: 10px;">List stadiums</h2>
 <!-- search -->
-<div class="row">
-    <div class="col-lg-6">
-        <form class="form-inline" style="padding: 10px;">
-            <input class="form-control mr-sm-2" type="text" id="idSvdSearch" placeholder="Enter ID svd" aria-label="Search">
-            <button id="btn" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-        </form>
-    </div>
-    <div class="col-lg-6 text-right">
-        <button class="btn btn-dark" id="ordered">Ordered</button>
-        <button class="btn btn-light" id="NotOrder">Empty</button>
+<div class="search-area t-center m-10">
+    <input type="text" id="search" class="input-custom f-1" placeholder="Enter name">
+    <button class="btn-custom bg-green cl-white f-1">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
+
+<div class="content m-10">
+    <div class="content-items-area f-1-2">
+        <div class="content-item">
+            <div class="item item-1"><b>ID</b></div>
+            <div class="item item-2"><b>Name</b></div>
+            <div class="item item-3"><b>Capacity</b></div>
+            <div class="item item-4"><b>Price</b></div>
+            <div class="item item-5"><b>Status</b></div>
+        </div>
+        <hr>            
+        <div id="content-stadium" class="items-stadium"></div>
     </div>
 </div>
 
-<!-- table -->
-<table class="table table-hover text-center">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>name</th>
-            <th>Capacity</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody id="tb">
-
-    </tbody>
-</table>
-
 <script>
-    var btn = document.getElementById('btn')
-    var ordered = document.getElementById('ordered')
-    var NotOrder = document.getElementById('NotOrder')
+    let list_stadium = []
 
-    ordered.addEventListener('click', () => {
-        var idSvd = document.getElementById('idSvdSearch').value
-        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(req => req.json())
-        .then(json => {
-            console.log(json)
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
-            if(json.code === 0){          
-                data.forEach(val => {
-                    if(val.status === 1){
-                        var tr = document.createElement('tr')
-
-                        var td1 = document.createElement('td')
-                        var td2 = document.createElement('td')
-                        var td3 = document.createElement('td')
-                        var td4 = document.createElement('td')
-
-                        var a1 = document.createElement('a')
-                        var a2 = document.createElement('a')
-                        var a3 = document.createElement('a')
-                        var a4 = document.createElement('a')
-
-                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-
-                        a1.innerHTML = val.idSvd 
-                        a2.innerHTML = val.name 
-                        a3.innerHTML = val.capacity + " people"
-                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
-
-                        td1.appendChild(a1)
-                        td2.appendChild(a2)
-                        td3.appendChild(a3)
-                        td4.appendChild(a4)
-
-                        tr.appendChild(td1)
-                        tr.appendChild(td2)
-                        tr.appendChild(td3)
-                        tr.appendChild(td4)
-
-
-
-                        tb.appendChild(tr)
-                    }
-                })
-
-            }  
-        })
-        .catch(e => console.log(e))
-    })
-
-    NotOrder.addEventListener('click', () => {
-        var idSvd = document.getElementById('idSvdSearch').value
-        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(req => req.json())
-        .then(json => {
-            console.log(json)
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
-            if(json.code === 0){          
-                data.forEach(val => {
-                    if(val.status === 0){
-                        var tr = document.createElement('tr')
-
-                        var td1 = document.createElement('td')
-                        var td2 = document.createElement('td')
-                        var td3 = document.createElement('td')
-                        var td4 = document.createElement('td')
-
-                        var a1 = document.createElement('a')
-                        var a2 = document.createElement('a')
-                        var a3 = document.createElement('a')
-                        var a4 = document.createElement('a')
-
-                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-
-                        a1.innerHTML = val.idSvd 
-                        a2.innerHTML = val.name 
-                        a3.innerHTML = val.capacity + " people"
-                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
-
-                        td1.appendChild(a1)
-                        td2.appendChild(a2)
-                        td3.appendChild(a3)
-                        td4.appendChild(a4)
-
-                        tr.appendChild(td1)
-                        tr.appendChild(td2)
-                        tr.appendChild(td3)
-                        tr.appendChild(td4)
-
-
-
-                        tb.appendChild(tr)
-
-                    }
-                })
-
-            }  
-        })
-        .catch(e => console.log(e))
-    })
-
-    btn.addEventListener('click', () => {
-        var idSvd = document.getElementById('idSvdSearch').value
-        fetch('/getSvd/'+idSvd+'?token=<%= token %>', {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(req => req.json())
-        .then(json => {
-            console.log(json)
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
-            if(json.code === 0){          
-                data.forEach(val => {
-                        var tr = document.createElement('tr')
-
-                        var td1 = document.createElement('td')
-                        var td2 = document.createElement('td')
-                        var td3 = document.createElement('td')
-                        var td4 = document.createElement('td')
-
-                        var a1 = document.createElement('a')
-                        var a2 = document.createElement('a')
-                        var a3 = document.createElement('a')
-                        var a4 = document.createElement('a')
-
-                        a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                        a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-
-                        a1.innerHTML = val.idSvd 
-                        a2.innerHTML = val.name 
-                        a3.innerHTML = val.capacity + " people"
-                        a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
-
-                        td1.appendChild(a1)
-                        td2.appendChild(a2)
-                        td3.appendChild(a3)
-                        td4.appendChild(a4)
-
-                        tr.appendChild(td1)
-                        tr.appendChild(td2)
-                        tr.appendChild(td3)
-                        tr.appendChild(td4)
-
-
-
-                        tb.appendChild(tr)
-                });
-
-                }  
-            })
-        .catch(e => console.log(e))
-    })
 
     fetch('/getSvd?token=<%= token %>', {
             method: "GET",
@@ -220,47 +34,48 @@
         })
         .then(req => req.json())
         .then(json => {
-            data = json.data
-            var tb = document.getElementById('tb')
-            data.forEach(val => {
-                var tr = document.createElement('tr')
-
-                var td1 = document.createElement('td')
-                var td2 = document.createElement('td')
-                var td3 = document.createElement('td')
-                var td4 = document.createElement('td')
-
-                var a1 = document.createElement('a')
-                var a2 = document.createElement('a')
-                var a3 = document.createElement('a')
-                var a4 = document.createElement('a')
-
-                a1.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                a2.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                a3.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-                a4.setAttribute('href', '/svdDetail?idSvd=' + val.idSvd)
-
-                a1.innerHTML = val.idSvd 
-                a2.innerHTML = val.name 
-                a3.innerHTML = val.capacity + " people"
-                a4.innerHTML = val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"
-
-                td1.appendChild(a1)
-                td2.appendChild(a2)
-                td3.appendChild(a3)
-                td4.appendChild(a4)
-
-                tr.appendChild(td1)
-                tr.appendChild(td2)
-                tr.appendChild(td3)
-                tr.appendChild(td4)
-
-
-
-                tb.appendChild(tr)
-
+            let data = json.data
+            let content_stadium = document.getElementById('content-stadium')
+            let tmp = ''
+            data.forEach((val, index) => {
+                list_stadium.push(val)
+                tmp += `<a href="/svd/svdDetail?idSvd=${val.idSvd}" class="tag-link">
+                                <div class="content-item ${index % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                    <div class="item item-1">${val.idSvd}</div>
+                                    <div class="item item-2">${val.name}</div>
+                                    <div class="item item-3">${val.capacity}</div>
+                                    <div class="item item-4">${val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"}</div>
+                                    <div class="item item-5 cl-green">${val.status == 0 ? '' : '<i class="fa-solid fa-check"></i>'}</div>
+                                </div>
+                            </a>`
+                content_stadium.innerHTML = tmp
             });
 
         })
         .catch(e => console.log(e))
+
+
+        let search = document.getElementById('search')
+        search.addEventListener('keyup', (e) => {
+            let words = e.target.value
+            let count_cl = 0
+            let temp = ''
+            let content_stadium = document.getElementById('content-stadium')
+            list_stadium.forEach(val => {
+                if(val.name.toLowerCase().indexOf(words.toLowerCase()) != -1){
+                    temp += `<a href="/svd/svdDetail?idSvd=${val.idSvd}" class="tag-link">
+                                <div class="content-item ${count_cl % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                    <div class="item item-1">${val.idSvd}</div>
+                                    <div class="item item-2">${val.name}</div>
+                                    <div class="item item-3">${val.capacity}</div>
+                                    <div class="item item-4">${val.price.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + "/h"}</div>
+                                    <div class="item item-5 cl-green">${val.status == 0 ? '' : '<i class="fa-solid fa-check"></i>'}</div>
+                                </div>
+                            </a>`
+                    count_cl ++
+                }
+
+            })
+            content_stadium.innerHTML = temp
+        })
 </script>

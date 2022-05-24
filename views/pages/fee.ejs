@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="/css/fee.css">
 <div class="container">
-    <h2 class="t-start">Cost</h2>
+    <div class="t-start f-1-5">Cost</div>
     <div class="view-task t-center">
-        <button id="btn-fee-salary" class="btn-custom f-1-2 btn-view-task bg-yl">Salary</button>
-        <button id="btn-fee-product" class="btn-custom f-1-2 btn-view-task bg-green cl-white">Products</button>
-        <button id="btn-fee-equipment" class="btn-custom f-1-2 btn-view-task">Equipment</button>
-        <button id="btn-fee-equipment-dmg" class="btn-custom f-1-2 btn-view-task bg-red cl-white">Equipment damaged</button>
+        <button id="btn-fee-salary" class="btn-custom f-1 btn-view-task bg-yl">Salary</button>
+        <button id="btn-fee-product" class="btn-custom f-1 btn-view-task bg-green cl-white">Products</button>
+        <button id="btn-fee-equipment" class="btn-custom f-1 btn-view-task">Equipment</button>
+        <button id="btn-fee-equipment-dmg" class="btn-custom f-1 btn-view-task bg-red cl-white">Equipment damaged</button>
     </div>
 
     <div class="content" id="block-salary">
@@ -66,6 +66,13 @@
             <div id="content-equipment-dmg" class="items-staff"></div>
             <div class="t-end p-10">Total: <span class="cl-red" id="total-equiment-dmg">72.000.000 vnd</span></div>
         </div>
+    </div>
+    <div class="t-end">
+        <a href="/manager/statistic-manager">
+            <button class="btn-custom f-1 btn-view-task">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </a>
     </div>
 </div>
 <script>
@@ -132,7 +139,7 @@
                 sum_product += parseInt(val.sum)
             })
             content_product.innerHTML = tmp
-            document.getElementById('total-product').innerHTML = "Total: " + sum_product.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            document.getElementById('total-product').innerHTML = sum_product.toLocaleString('vi', {style : 'currency', currency : 'VND'})
         } 
     })
     .catch(err => console.log(err))
@@ -162,7 +169,7 @@
                 sum_salary += parseInt(val.salery)
             })
             content_salary.innerHTML = tmp
-            document.getElementById('total-salary').innerHTML = "Total: " + sum_salary.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            document.getElementById('total-salary').innerHTML = sum_salary.toLocaleString('vi', {style : 'currency', currency : 'VND'})
         } 
     })
     .catch(err => console.log(err))
@@ -195,7 +202,7 @@
                 sum_equip += (parseInt(val.qty) * parseInt(val.priceIn))
             })
             content_equipment.innerHTML = tmp
-            total_equiment.innerHTML = "Total: " + sum_equip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            total_equiment.innerHTML = sum_equip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
         } 
     })
     .catch(err => console.log(err))
@@ -229,7 +236,7 @@
                 sum_DMequip += (parseInt(val.qty) * parseInt(val.priceIn))
             })
             content_equipment_dmg.innerHTML = tmp
-            total_equiment_dmg.innerHTML = "Total: " + sum_DMequip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            total_equiment_dmg.innerHTML = sum_DMequip.toLocaleString('vi', {style : 'currency', currency : 'VND'})
         } 
     })
     .catch(err => console.log(err))

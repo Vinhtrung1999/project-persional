@@ -1,56 +1,65 @@
+<link rel="stylesheet" href="/css/addStaff.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Add staff</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>Name</td>
-            <td><input placeholder="Enter staff name" type="text" id="name" name="name" required></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>
-                <select name="gender" id="gender">
-                    <option value="0">Male</option>
-                    <option value="1">Femail</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Age</td>
-            <td><input type="number" placeholder="Enter age" id="age" name="age" required></td>
-        </tr>
-        <tr>
-            <td>Salery</td>
-            <td><input type="number" placeholder="Enter salery" id="salery" name="salery" required></td>
-        </tr>
-        <tr>
-            <td>Shift</td>
-            <td>
-                <select name="shift" id="shift">
-                    <option value="Ca1">Ca1</option>
-                    <option value="Ca2">Ca2</option>
-                    <option value="Ca3">Ca3</option>
-                    <option value="Ca4">Ca4</option>
-                </select>
-            </td>
-            
-        </tr>
-        <tr>
-            <td>Position</td>
-            <td>
-                <select name="position" id="position">
-                    <option value="0">Manager</option>
-                    <option value="1">Saler</option>
-                    <option value="2">Employee</option>
-                </select>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: red;"></div>
+
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">Name</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" placeholder="Enter staff name" type="text" id="name" name="name" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Gender</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="gender" id="gender">
+                <option value="0">Male</option>
+                <option value="1">Femail</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Age</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter age" id="age" name="age" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Salary</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter salary" id="salary" name="salary" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Shift</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="shift" id="shift">
+                <option value="Ca1">Ca1</option>
+                <option value="Ca2">Ca2</option>
+                <option value="Ca3">Ca3</option>
+                <option value="Ca4">Ca4</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Position</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="position" id="position">
+                <option value="0">Manager</option>
+                <option value="1">Saler</option>
+                <option value="2">Employee</option>
+            </select>
+        </div>
+    </div>
+    <!-- button -->
+    <div class="m-t-10 t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
 <script>
     var btn = document.getElementById('btn')
 
@@ -63,9 +72,9 @@
         var age = document.getElementById('age').value
         var gender = document.getElementById('gender').value
         var shift = document.getElementById('shift').value
-        var salery = document.getElementById('salery').value
+        var salary = document.getElementById('salary').value
         var position = document.getElementById('position').value
-        if(idStaff && name && gender && age && salery&& shift && position){
+        if(idStaff && name && gender && age && salary && shift && position){
             fetch('/addStaff', {
                 method: "POST",
                 headers: {
@@ -77,7 +86,7 @@
                     name : name,
                     gender : gender,
                     age : age,
-                    salery: salery,
+                    salery: salary,
                     shift: shift,
                     position: position,
                     token:"<%= token %>"                            
@@ -88,7 +97,10 @@
                 if(json.code === 0){
                     document.getElementById('name').value = ''
                     document.getElementById('age').value = ''
-                    document.getElementById('salery').value = ''
+                    document.getElementById('gender').value = 0
+                    document.getElementById('shift').value = 'Ca1'
+                    document.getElementById('position').value = 0
+                    document.getElementById('salary').value = ''
                     document.getElementById('mess').innerHTML = 'add '+idStaff+' succeed'
                 }else
                     document.getElementById('err').innerHTML = 'add new staff fail! Please check infomation again'

@@ -1,38 +1,52 @@
+<link rel="stylesheet" href="/css/addCustomer.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Add Customer</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>CMND</td>
-            <td><input type="number" placeholder="Enter CMND" id="CMND" name="CMND" required></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><input type="text" id="name" placeholder="Enter name" name="name" required></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td>
-                <select name="gender" id="gender">
-                    <option value="0">Male</option>
-                    <option value="1">Femail</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Tel</td>
-            <td><input type="tel" placeholder="Enter tel" id="tel" name="tel" required></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><input type="email" placeholder="Enter email" id="email" name="email" required></td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: rgb(248, 15, 15);"></div>
+
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">CMND/CCCD</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter CMND" id="CMND" name="CMND" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Name</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" id="name" placeholder="Enter name" name="name" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Gender</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="gender" id="gender">
+                <option value="0">Male</option>
+                <option value="1">Femail</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Tel</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="tel" placeholder="Enter tel" id="tel" name="tel" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Email</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="email" placeholder="Enter email" id="email" name="email" required>
+        </div>
+    </div>
+
+    <!-- button -->
+    <div class="t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
+
 <script>
     var btn = document.getElementById('btn')
 
@@ -67,6 +81,7 @@
                     document.getElementById('CMND').value = ''
                     document.getElementById('tel').value = ''
                     document.getElementById('email').value = ''
+                    document.getElementById('gender').value = 0
                     document.getElementById('mess').innerHTML = 'add '+CMND+' succeed'
                 }  
                 else

@@ -342,7 +342,7 @@
             .then(req => req.json())
             .then(json => {
                 if(json.code == 0)
-                    return window.location.href = "/pay?mess=Pay "+idBill+" success"
+                    return window.location.href = "/transaction/pay?mess=Pay "+idBill+" success"
                 else if(json.code === 10)
                     document.getElementById('err').innerHTML = json.message
                 else

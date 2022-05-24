@@ -1,0 +1,47 @@
+.view-task{
+
+}
+
+.btn-view-task{
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.content-header{
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.content-items-area{
+    border: solid 3px #000000;
+    width: 80%;
+    margin: auto;
+}
+
+.content-item{
+    display: flex;
+}
+
+.item{
+    padding: 10px;
+}
+
+
+.item-1{
+    width: 25%;
+}
+
+.item-2{
+    width: 25%;
+}
+
+.item-3{
+    width: 25%;
+}
+
+.items-profit{
+    overflow-y:scroll;
+    height: 250px;
+}
+

@@ -589,33 +589,33 @@ app.post('/pay', CheckLogin, (req, res)=>{
                             })
                             
                         }
-
-                        var transporter =  nodemailer.createTransport({
-                            host: 'smtp.gmail.com',
-                            port: 465,
-                            secure: true,
-                            auth: {
-                                user: "v.trung.12031999@gmail.com",
-                                pass: "Han12031999"
-                            },
-                            tls: {
-                                rejectUnauthorized: false
-                            }
-                        })
-                        var mainOptions = {
-                            from: 'v.trung.12031999@gmail.com',
-                            to: dataCus[0].email,
-                            subject: "Order",
-                            text: 'Pay success\nId saler:'+req.session.username+"\nId bill: "+idBill+"\nMoney: "+sum+"\nDate: "+dateOrder,
-                        }
+//mail
+                        // var transporter =  nodemailer.createTransport({
+                        //     host: 'smtp.gmail.com',
+                        //     port: 465,
+                        //     secure: true,
+                        //     auth: {
+                        //         user: "v.trung.12031999@gmail.com",
+                        //         pass: "Han12031999"
+                        //     },
+                        //     tls: {
+                        //         rejectUnauthorized: false
+                        //     }
+                        // })
+                        // var mainOptions = {
+                        //     from: 'v.trung.12031999@gmail.com',
+                        //     to: dataCus[0].email,
+                        //     subject: "Order",
+                        //     text: 'Pay success\nId saler:'+req.session.username+"\nId bill: "+idBill+"\nMoney: "+sum+"\nDate: "+dateOrder,
+                        // }
                     
-                        transporter.sendMail(mainOptions, function(err, info){
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log('ok')
-                            }
-                        })
+                        // transporter.sendMail(mainOptions, function(err, info){
+                        //     if (err) {
+                        //         console.log(err);
+                        //     } else {
+                        //         console.log('ok')
+                        //     }
+                        // })
 
                         return res.json({"code":0, "bill":newBill})
                     })

@@ -1,0 +1,13 @@
+.block-add{
+    width: 40%;
+    margin: auto;
+}
+
+.block-add-item{
+    display: flex;
+    padding: 10px;
+}
+
+.block-add-item-title{
+    width: 200px;
+}

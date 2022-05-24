@@ -1,18 +1,19 @@
+<link rel="stylesheet" href="/css/profit.css">
 <div class="container">
     <h2 class="text-center">Revenue</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id Bill</th>
-                <th>Id customer</th>
-                <th>Total bill</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="tb_profit">
-        </tbody>
-    </table>
-    <div class="text-right" id="all_profit" style="margin: 20px; color: red; font-weight: bold; font-size: 20px;"></div>
+
+    <div class="content">
+        <div class="content-items-area f-1-2">
+            <div class="content-item">
+                <div class="item item-1"><b>ID bill</b></div>
+                <div class="item item-2"><b>ID customer</b></div>
+                <div class="item item-3"><b>Date</b></div>
+                <div class="item item-4"><b>Total</b></div>
+            </div>            
+            <div id="content-profit" class="items-profit"></div>
+            <div class="t-end p-10">Total: <span class="cl-red" id="total-profit">3.000.000 vnd</span></div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -24,38 +25,24 @@
     })
     .then(req => req.json())
     .then(json => {
-        console.log(json)
         if(json.code === 0){
-            
             data = json.data
-            var tb_profit = document.getElementById('tb_profit')
-            var all_salery = document.getElementById('all_salery')
-            var sum_profit = 0
-            data.forEach(val => {
-                var tr = document.createElement("tr")
+            let content_profit = document.getElementById('content-profit')
+            let total_profit = document.getElementById('total-profit')
+            let sum_profit = 0
+            let tmp = ''
+            data.forEach((val, index) => {
+                tmp += `<div class="content-item ${index % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                            <div class="item item-1">${val.idBill}</div>
+                            <div class="item item-2">${val.idCus}</div>
+                            <div class="item item-3">${val.dateOrder}</div>
+                            <div class="item item-4">${val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                        </div>`
 
-                var td1 = document.createElement("td")
-                var td2 = document.createElement("td")
-                var td3 = document.createElement("td")
-                var td4 = document.createElement("td")
-                var td5 = document.createElement("td")
-
-                td1.innerHTML = val.idBill
-                td2.innerHTML = val.idCus
-                td3.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
-                
-                td4.innerHTML = val.dateOrder
-
-                tr.appendChild(td1)
-                tr.appendChild(td2)
-                tr.appendChild(td3)
-                tr.appendChild(td4)
-
-                tb_profit.appendChild(tr)
                 sum_profit += parseInt(val.sum)
             })
-            
-            all_profit.innerHTML = "Total: " + sum_profit.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            content_profit.innerHTML = tmp
+            total_profit.innerHTML = sum_profit.toLocaleString('vi', {style : 'currency', currency : 'VND'})
         } 
     })
     .catch(err => console.log(err))
