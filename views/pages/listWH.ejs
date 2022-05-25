@@ -1,83 +1,28 @@
+<link rel="stylesheet" href="/css/listWH.css">
 <h2 class="text-center" style="padding: 10px;">List products warehouse</h2>
 <!-- search -->
-<form class="form-inline" style="padding: 10px;">
-    <input class="form-control mr-sm-2" type="text" id="idProWHSearch" placeholder="Enter ID product" aria-label="Search">
-    <button id="btn" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-</form>
+<div class="search-area t-center m-10">
+    <input type="text" id="search" class="input-custom f-1" placeholder="Enter name">
+    <button class="btn-custom bg-green cl-white f-1">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
 
-<!-- table -->
-<table class="table table-hover text-center">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Date input</th>
-        </tr>
-    </thead>
-    <tbody id="tb">
-
-    </tbody>
-</table>
+<div class="content m-10">
+    <div class="content-items-area f-1-2">
+        <div class="content-item">
+            <div class="item item-1"><b>ID</b></div>
+            <div class="item item-2"><b>Tag</b></div>
+            <div class="item item-3"><b>Quatity</b></div>
+            <div class="item item-4"><b>Date</b></div>
+        </div>
+        <hr>            
+        <div id="content-warehouse" class="items-warehouse"></div>
+    </div>
+</div>
 
 <script>
-    var btn = document.getElementById('btn')
-    btn.addEventListener('click', () => {
-        var idProWH = document.getElementById('idProWHSearch').value
-        fetch('/getProWH/'+idProWH+"?token=<%= token %>", {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(req => req.json())
-        .then(json => {
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
-            if(json.code === 0){          
-                data.forEach(val => {
-                    var tr = document.createElement('tr')
-
-                    var td1 = document.createElement('td')
-                    var td2 = document.createElement('td')
-                    var td3 = document.createElement('td')
-                    var td4 = document.createElement('td')
-
-                    var a1 = document.createElement('a')
-                    var a2 = document.createElement('a')
-                    var a3 = document.createElement('a')
-                    var a4 = document.createElement('a')
-
-                    a1.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a2.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a3.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a4.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-
-                    a1.innerHTML = val.idProWH
-                    a2.innerHTML = val.name
-                    a3.innerHTML = val.qty
-                    a4.innerHTML = val.dateIn
-
-                    td1.appendChild(a1)
-                    td2.appendChild(a2)
-                    td3.appendChild(a3)
-                    td4.appendChild(a4)
-
-                    tr.appendChild(td1)
-                    tr.appendChild(td2)
-                    tr.appendChild(td3)
-                    tr.appendChild(td4)
-
-
-
-                    tb.appendChild(tr)
-                });
-
-            }  
-        })
-        .catch(e => console.log(e))
-    })
+    let list_svd = []
 
     fetch('/getProWH?token=<%= token %>', {
         method: "GET",
@@ -87,46 +32,47 @@
     })
         .then(req => req.json())
         .then(json => {
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
+            let data = json.data
+            let content_warehouse = document.getElementById('content-warehouse')
+            let tmp = ''
             if(json.code === 0){          
-                data.forEach(val => {
-                    var tr = document.createElement('tr')
-                    var td1 = document.createElement('td')
-                    var td2 = document.createElement('td')
-                    var td3 = document.createElement('td')
-                    var td4 = document.createElement('td')
-                    var a1 = document.createElement('a')
-                    var a2 = document.createElement('a')
-                    var a3 = document.createElement('a')
-                    var a4 = document.createElement('a')
-                    a1.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a2.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a3.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-                    a4.setAttribute('href', '/WHDetail?idProWH=' + val.idProWH)
-
-                    a1.innerHTML = val.idProWH
-                    a2.innerHTML = val.name
-                    a3.innerHTML = val.qty
-                    a4.innerHTML = val.dateIn
-
-                    td1.appendChild(a1)
-                    td2.appendChild(a2)
-                    td3.appendChild(a3)
-                    td4.appendChild(a4)
-
-                    tr.appendChild(td1)
-                    tr.appendChild(td2)
-                    tr.appendChild(td3)
-                    tr.appendChild(td4)
-
-
-
-                    tb.appendChild(tr)
-                });
-            }
+                data.forEach((val, index) => {
+                    list_svd.push(val)
+                    tmp += `<a href="/warehouse/WHDetail?idProWH=${val.idProWH}" class="tag-link">
+                                <div class="content-item ${index % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                    <div class="item item-1">${val.idProWH}</div>
+                                    <div class="item item-2">${val.name}</div>
+                                    <div class="item item-3">${val.qty}</div>
+                                    <div class="item item-4">${val.dateIn}</div>
+                                </div>
+                            </a>`
+                })
+                content_warehouse.innerHTML = tmp
+            }  
 
         })
         .catch(e => console.log(e))
+
+        let search = document.getElementById('search')
+        search.addEventListener('keyup', (e) => {
+            let words = e.target.value
+            let count_cl = 0
+            let temp = ''
+            let content_warehouse = document.getElementById('content-warehouse')
+            list_svd.forEach(val => {
+                if(val.name.toLowerCase().indexOf(words.toLowerCase()) != -1){
+                    temp += `<a href="/warehouse/WHDetail?idProWH=${val.idProWH}" class="tag-link">
+                                <div class="content-item ${count_cl % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                    <div class="item item-1">${val.idProWH}</div>
+                                    <div class="item item-2">${val.name}</div>
+                                    <div class="item item-3">${val.qty}</div>
+                                    <div class="item item-4">${val.dateIn}</div>
+                                </div>
+                            </a>`
+                    count_cl ++
+                }
+
+            })
+            content_warehouse.innerHTML = temp
+        })
 </script>
