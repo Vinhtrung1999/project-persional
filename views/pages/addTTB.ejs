@@ -1,25 +1,36 @@
+<link rel="stylesheet" href="/css/addTTB.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Add equipment</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>Name</td>
-            <td><input type="text" id="name" name="name" placeholder="Enter equipment name" required></td>
-        </tr>
-        <tr>
-            <td>Quantity</td>
-            <td><input type="number" id="qty" name="qty" placeholder="Enter quantity" required></td>
-        </tr>
-        <tr>
-            <td>Price input</td>
-            <td><input type="number" id="priceIn" placeholder="Enter price" name="priceIn" required></td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: red;"></div>
+
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">Name</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" id="name" name="name" placeholder="Enter equipment name" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Quantity</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" id="qty" name="qty" placeholder="Enter quantity" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Price input</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" id="priceIn" placeholder="Enter price" name="priceIn" required>
+        </div>
+    </div>
+
+    <!-- button -->
+    <div class="t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
 <script>
     var btn = document.getElementById('btn')
 

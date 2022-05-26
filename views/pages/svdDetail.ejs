@@ -8,17 +8,17 @@
         <div class="block-container-title-img">
             <img id="img-type-svd" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
         </div>
-        <div class="">
-            <% if(locals.position === 2){ %>
-                <button class="btn-custom f-1-2 bg-green cl-white p-10 m-10">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
+    <% if(locals.position === 2){ %>
+        <div class="">           
+            <button class="btn-custom f-1-2 bg-green cl-white p-10 m-10" id="btn-show-modal">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
 
-                <button class="btn-custom f-1-2 bg-red cl-white p-10 m-10">
-                    <i class="fa-solid fa-trash-can"></i>
-                </button>
-                <% } %>
+            <button class="btn-custom f-1-2 bg-red cl-white p-10 m-10">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>   
         </div>
+    <% } %>    
     </div>
     <div class="block-container-body">
         <div class="body-items">
@@ -56,20 +56,15 @@
     </div>
 </div>
 
-<div class="modal" id="myModal">
+<div class="modal" id="myModal" style="display: none;">
     <div class="modal-content p-10">
         <!-- Modal Header -->
         <div class="modal-header t-center">
-            <img id="img-type-svd" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
+            <img id="img-type-svd-MD" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
         </div>
 
         <!-- Modal body -->
         <div class="modal-body">
-            <div class="modal-body-item">
-                <div class="modal-body-item-title">ID</div>
-                <div class="modal-body-item-content" id="idSvd_MD">ID</div>
-            </div>
-
             <div class="modal-body-item">
                 <div class="modal-body-item-title">ID</div>
                 <div class="modal-body-item-content" id="idSvd_MD">ID</div>
@@ -83,14 +78,14 @@
             <div class="modal-body-item">
                 <div class="modal-body-item-title">Capacity</div>
                 <div class="modal-body-item-content">
-                    <input id="capacity_MD" type="number">
+                    <input class="input-custom f-1" id="capacity_MD" type="number">
                 </div>
             </div>
 
             <div class="modal-body-item">
                 <div class="modal-body-item-title">Status</div>
                 <div class="modal-body-item-content">
-                    <select name="status" id="status_MD">
+                    <select class="input-custom f-1" name="status" id="status_MD">
                         <option value="0">empty</option>
                         <option value="1">ordered</option>
                     </select>
@@ -100,7 +95,7 @@
             <div class="modal-body-item">
                 <div class="modal-body-item-title">Type</div>
                 <div class="modal-body-item-content">
-                    <select name="type" id="type_MD">
+                    <select class="input-custom f-1" name="type" id="type_MD">
                         <option value="0">Normal</option>
                         <option value="1">VIP</option>
                     </select>
@@ -110,7 +105,7 @@
             <div class="modal-body-item">
                 <div class="modal-body-item-title">Price</div>
                 <div class="modal-body-item-content">
-                    <input type="number" id="price_MD">
+                    <input class="input-custom f-1" type="number" id="price_MD">
                 </div>
             </div>
 
@@ -118,9 +113,13 @@
         </div>
 
         <!-- Modal footer -->
-        <div class="modal-footer">
-            <button id="btn_update" type="button" class="btn btn-light">Update</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <div class="t-center">
+            <button class="btn-custom cl-white bg-green f-1-2 m-10" id="btn_update" type="button">
+                <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+            <button class="btn-custom f-1-2 m-10" type="button" id="btn-close-modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
 
     </div>
@@ -128,9 +127,24 @@
 </div>
 
 <script>
-    var btn_update = document.getElementById('btn_update')
-    var url = new URL(window.location)
-    var idSvd = url.searchParams.get('idSvd')
+    let btn_update = document.getElementById('btn_update')
+    let url = new URL(window.location)
+    let idSvd = url.searchParams.get('idSvd')
+    let btn_show_modal = document.getElementById('btn-show-modal')
+    let btn_close_modal = document.getElementById('btn-close-modal')
+
+    if(btn_show_modal)
+        btn_show_modal.addEventListener('click', () => {
+            let myModal = document.getElementById('myModal')
+            myModal.style.display = 'block',
+            document.getElementById('mess').innerHTML = ''
+        })
+    
+    if(btn_close_modal)
+        btn_close_modal.addEventListener('click', () => {
+            let myModal = document.getElementById('myModal')
+            myModal.style.display = 'none'
+        })
 
     fetch('/getSvd/' + idSvd + "?token=<%= token %>", {
         method: "GET",
@@ -149,16 +163,19 @@
                 let capacity = document.getElementById('capacity')
                 let status = document.getElementById('status')
                 let img_type_svd = document.getElementById('img-type-svd')
+                let img_type_svd_MD = document.getElementById('img-type-svd-MD')
 
                 idSvd.innerHTML = data.idSvd
                 name.innerHTML = data.name
                 if (data.type == 1){
                     type.innerHTML = "VIP"
                     img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/637/637088.png')
+                    img_type_svd_MD.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/637/637088.png')
                 }
                 else{
                     type.innerHTML = "normal"
                     img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/31/31834.png')
+                    img_type_svd_MD.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/31/31834.png')
                 }
                     
                 if (data.status === 0)
@@ -170,15 +187,19 @@
 
                 document.getElementById('head').innerHTML = data.idSvd
 
-                var idSvd_MD = document.getElementById('idSvd_MD')
-                var name_MD = document.getElementById('name_MD')
-                var price_MD = document.getElementById('price_MD')
-                var capacity_MD = document.getElementById('capacity_MD')
+                let idSvd_MD = document.getElementById('idSvd_MD')
+                let name_MD = document.getElementById('name_MD')
+                let price_MD = document.getElementById('price_MD')
+                let capacity_MD = document.getElementById('capacity_MD')
+                let type_MD = document.getElementById('type_MD')
+                let status_MD = document.getElementById('status_MD')
 
                 idSvd_MD.innerHTML = data.idSvd
                 name_MD.innerHTML = data.name
                 capacity_MD.value = data.capacity
                 price_MD.value = data.price
+                type_MD.value = data.type
+                status_MD.value = data.status
             }
         })
         .catch(e => console.log(e))

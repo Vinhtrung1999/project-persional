@@ -1,44 +1,54 @@
+<link rel="stylesheet" href="/css/addSvd.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Add stadium</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>name</td>
-            <td><input type="text" id="name" placeholder="Enter stadium name" name="name" required></td>
-        </tr>
-        <tr>
-            <td>status</td>
-            <td>
-                <select name="status" id="status">
-                    <option value="0">empty</option>
-                    <option value="1">ordered</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Capacity</td>
-            <td><input type="number" placeholder="Enter capacity" id="capacity" name="capacity" required></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>
-                <select name="type" id="type">
-                    <option value="0">normal</option>
-                    <option value="1">VIP</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>price</td>
-            <td><input type="number" placeholder="Enter price" id="price" name="price" required></td>
-        </tr>
 
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: rgb(248, 15, 15);"></div>
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">Name</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" id="name" placeholder="Enter stadium name" name="name" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Status</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="status" id="status">
+                <option value="0">empty</option>
+                <option value="1">ordered</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Capacity</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter capacity" id="capacity" name="capacity" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Type</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="type" id="type">
+                <option value="0">normal</option>
+                <option value="1">VIP</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Price</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter price" id="price" name="price" required>
+        </div>
+    </div>
+
+    <!-- button -->
+    <div class="t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
 <script>
     var btn = document.getElementById('btn')
 
@@ -72,8 +82,8 @@
             .then(json => {
                 if(json.code === 0){
                     document.getElementById('name').value = ''
-                    document.getElementById('status').value = ''
-                    document.getElementById('type').value = ''
+                    document.getElementById('status').value = 0
+                    document.getElementById('type').value = 0
                     document.getElementById('capacity').value = ''
                     document.getElementById('price').value = ''
 

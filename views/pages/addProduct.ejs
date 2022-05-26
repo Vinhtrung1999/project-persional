@@ -1,23 +1,30 @@
+<link rel="stylesheet" href="/css/addProduct.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Out put products warehouse</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>Id product</td>
-            <td><input type="text" placeholder="Enter ID product" id="idPro" name="idPro" required></td>
-        </tr>
 
-        <tr>
-            <td>Quantity</td>
-            <td><input type="number" placeholder="Enter quantity" id="qty" name="qty" required></td>
-        </tr>
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">ID Product</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" placeholder="Enter ID product" id="idPro" name="idPro" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Quantity</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter quantity" id="qty" name="qty" required>
+        </div>
+    </div>
 
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: red;"></div>
+    <!-- button -->
+    <div class="t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
 <script>
     var btn = document.getElementById('btn')
 

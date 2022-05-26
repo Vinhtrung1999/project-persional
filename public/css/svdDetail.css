@@ -30,7 +30,7 @@
 
 /* Modal */
 .modal{
-    width: 30%;
+    width: 35%;
     border: solid 1px rgb(195, 195, 195);
     padding: 20px;
     position: absolute;
@@ -39,4 +39,15 @@
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: #bcbcbc80 3px 3px 10px;
+}
+
+.modal-body-item{
+    display: flex;
+    margin: 10px;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.modal-body-item-title{
+    width: 150px;
 }

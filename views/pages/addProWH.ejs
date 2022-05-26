@@ -1,42 +1,52 @@
+<link rel="stylesheet" href="/css/addProWH.css">
 <h2 class="text-center" style="padding: 10px;" id="head">Input products warehouse</h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>Name</td>
-            <td><input type="text" placeholder="Enter product name" id="name" name="name" required></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td>
-                <select name="type" id="type">
-                    <option value="0">Drink</option>
-                    <option value="1">Food</option>
-                    <option value="2">Item</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td>Quantity</td>
-            <td><input placeholder="Enter quantity" type="number" id="qty" name="qty" required></td>
-        </tr>
-        <tr>
-            <td>Price input</td>
-            <td><input type="number" placeholder="Enter price input" id="priceIn" name="priceIn" required></td>
-        </tr>
 
-        <tr>
-            <td>Price sale</td>
-            <td><input type="number" id="price" placeholder="Enter price sale" name="price" required></td>
-        </tr>
+<div class="block-add f-1-2">
+    <div class="block-add-item">
+        <div class="block-add-item-title">Name</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" placeholder="Enter product name" id="name" name="name" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Type</div>
+        <div class="block-add-item-content">
+            <select class="input-custom f-1-2" name="type" id="type">
+                <option value="0">Drink</option>
+                <option value="1">Food</option>
+                <option value="2">Item</option>
+            </select>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Quantity</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" placeholder="Enter quantity" type="number" id="qty" name="qty" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Price input</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" placeholder="Enter price input" id="priceIn" name="priceIn" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Price sale</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="number" id="price" placeholder="Enter price sale" name="price" required>
+        </div>
+    </div>
 
-
-    </tbody>
-</table>
-<div class="text-center" style="margin-top: 10px;">
-    <button type="button" id="btn" class="btn btn-dark">Add</button>
-    <div id="mess" style="color: green;"></div>
-    <div id="err" style="color: red;"></div>
+    <!-- button -->
+    <div class="t-center">
+        <button type="button" id="btn" class="btn-custom f-1-2 bg-green cl-white">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div id="mess" class="success"></div>
+        <div id="err" class="err"></div>
+    </div>
 </div>
+
 <script>
     var btn = document.getElementById('btn')
 
@@ -74,6 +84,7 @@
                     document.getElementById('qty').value = ''
                     document.getElementById('price').value = ''
                     document.getElementById('priceIn').value = ''
+                    document.getElementById('type').value = 0
                     document.getElementById('mess').innerHTML = 'add '+idProWH+' succeed'
                 }
                 else
