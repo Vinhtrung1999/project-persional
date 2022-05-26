@@ -1,104 +1,130 @@
+<!-- css -->
+<link rel="stylesheet" href="/css/svdDetail.css">
+
 <h2 class="text-center" style="padding: 10px;" id="head"></h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID</td>
-            <td id="idSvd"></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Capacity</td>
-            <td id="capacity"></td>
-        </tr>
-        <tr>
-            <td>Status</td>
-            <td id="status"></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td id="type"></td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td id="price"></td>
-        </tr>
 
-    </tbody>
-</table>
-<div class="text-center">
-    <a href="/listSvd"><button class="btn btn-light">Back</button></a>
-    <% if(locals.position === 2){ %>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Update</button>
+<div class="block-container">
+    <div class="block-container-title">
+        <div class="block-container-title-img">
+            <img id="img-type-svd" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
+        </div>
+        <div class="">
+            <% if(locals.position === 2){ %>
+                <button class="btn-custom f-1-2 bg-green cl-white p-10 m-10">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
 
-    <% } %>
-            <div id="mess" style="color: green;"></div>
+                <button class="btn-custom f-1-2 bg-red cl-white p-10 m-10">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+                <% } %>
+        </div>
+    </div>
+    <div class="block-container-body">
+        <div class="body-items">
+            <div class="body-items-title">ID</div>
+            <div class="body-items-content" id="idSvd"></div>
+        </div>
+        <div class="body-items">
+            <div class="body-items-title">Name</div>
+            <div class="body-items-content" id="name"></div>
+        </div>
+        <div class="body-items">
+            <div class="body-items-title">Capacity</div>
+            <div class="body-items-content" id="capacity"></div>
+        </div>
+        <div class="body-items">
+            <div class="body-items-title">Status</div>
+            <div class="body-items-content" id="status"></div>
+        </div>
+        <div class="body-items">
+            <div class="body-items-title">Type</div>
+            <div class="body-items-content" id="type"></div>
+        </div>
+        <div class="body-items">
+            <div class="body-items-title">Price</div>
+            <div class="body-items-content" id="price"></div>
+        </div>
+        <div class="t-end">
+            <a href="/svd/listSvd">
+                <button class="btn-custom f-1-2">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </a>
+        </div>
+        <div id="mess" class="success"><%= locals.mess %></div>
+    </div>
 </div>
 
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Update</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <table class="table table-hover">
-                    <tbody id="tb">
-                        <tr>
-                            <td>ID</td>
-                            <td id="idSvd_MD"></td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td id="name_MD"></td>
-                        </tr>
-                        <tr>
-                            <td>Capacity</td>
-                            <td><input id="capacity_MD" type="number"></td>
-                        </tr>
-                        <tr>
-                            <td>Status</td>
-                            <td>
-                                <select name="status" id="status_MD">
-                                    <option value="0">empty</option>
-                                    <option value="1">ordered</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Type</td>
-                            <td>
-                                <select name="type" id="type_MD">
-                                    <option value="0">Normal</option>
-                                    <option value="1">VIP</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Price</td>
-                            <td><input type="number" id="price_MD"></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-                <div class="text-center" style="color: red;" id="err"></div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button id="btn_update" type="button" class="btn btn-light">Update</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
+    <div class="modal-content p-10">
+        <!-- Modal Header -->
+        <div class="modal-header t-center">
+            <img id="img-type-svd" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
         </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">ID</div>
+                <div class="modal-body-item-content" id="idSvd_MD">ID</div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">ID</div>
+                <div class="modal-body-item-content" id="idSvd_MD">ID</div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">name</div>
+                <div class="modal-body-item-content" id="name_MD">ID</div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">Capacity</div>
+                <div class="modal-body-item-content">
+                    <input id="capacity_MD" type="number">
+                </div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">Status</div>
+                <div class="modal-body-item-content">
+                    <select name="status" id="status_MD">
+                        <option value="0">empty</option>
+                        <option value="1">ordered</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">Type</div>
+                <div class="modal-body-item-content">
+                    <select name="type" id="type_MD">
+                        <option value="0">Normal</option>
+                        <option value="1">VIP</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">Price</div>
+                <div class="modal-body-item-content">
+                    <input type="number" id="price_MD">
+                </div>
+            </div>
+
+            <div class="err" id="err"></div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button id="btn_update" type="button" class="btn btn-light">Update</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
     </div>
+
 </div>
 
 <script>
@@ -116,19 +142,25 @@
         .then(json => {
             if (json.code === 0) {
                 data = json.data[0]
-                var idSvd = document.getElementById('idSvd')
-                var name = document.getElementById('name')
-                var type = document.getElementById('type')
-                var price = document.getElementById('price')
-                var capacity = document.getElementById('capacity')
-                var status = document.getElementById('status')
+                let idSvd = document.getElementById('idSvd')
+                let name = document.getElementById('name')
+                let type = document.getElementById('type')
+                let price = document.getElementById('price')
+                let capacity = document.getElementById('capacity')
+                let status = document.getElementById('status')
+                let img_type_svd = document.getElementById('img-type-svd')
 
                 idSvd.innerHTML = data.idSvd
                 name.innerHTML = data.name
-                if (data.type == 1)
+                if (data.type == 1){
                     type.innerHTML = "VIP"
-                else
+                    img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/637/637088.png')
+                }
+                else{
                     type.innerHTML = "normal"
+                    img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/31/31834.png')
+                }
+                    
                 if (data.status === 0)
                     status.innerHTML = "empty"
                 else
@@ -176,8 +208,9 @@
             })
                 .then(res => res.json())
                 .then(json => {
+                    console.log(json)
                     if (json.code === 0) {
-                        return window.location.href = ''
+                        return window.location.href = `/svd/svdDetail?idSvd=${idSvd_MD}&mess=Update ${idSvd_MD} success`
                     }
                     else
                         document.getElementById('err').innerHTML = "update fail!"

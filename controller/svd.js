@@ -13,8 +13,16 @@ class svd {
             return res.redirect('/staff/login')
         if(req.session.position !== 1 && req.session.position !== 2 && req.session.position !== 99)
             return res.redirect('/')
-        var content = '../pages/svdDetail'
-        return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
+        let content = '../pages/svdDetail'
+        let {mess} = req.query || ''
+        return res.render('layouts/main',
+                            {
+                                content,
+                                name:req.session.name,
+                                token:req.session.token,
+                                position:req.session.position,
+                                mess
+                            })
     }
 
     addSvd = (req, res)=>{
