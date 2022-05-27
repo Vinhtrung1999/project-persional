@@ -1,0 +1,25 @@
+.block-detail{
+    width: 65%;
+    margin: auto;
+    border: solid 3px #000000;
+    padding: 10px;
+}
+
+.body-item, .list-item{
+    display: flex;
+}
+
+.body-item-title{
+    width: 200px;
+}
+
+.list-item-stt{
+    width: 100px;
+}
+.list-item-item-1{
+    width: 200px;
+}
+
+.list-item-item-2{
+    width: 200px;
+}

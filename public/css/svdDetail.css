@@ -3,15 +3,17 @@
     margin: auto;
     font-size: 1.2rem;
     border: solid 3px #000000;
+    padding: 10px;
 }
 
 .block-container-title{
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
 .block-container-body{
-    padding: 20px;
+    
 }
 
 .body-items{

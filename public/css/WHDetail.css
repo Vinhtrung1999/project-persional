@@ -1,0 +1,37 @@
+.block-detail{
+    width: 30%;
+    margin: auto;
+    border: solid 3px #000000;
+    padding: 10px;
+}
+
+.body-item{
+    display: flex;
+}
+
+.body-item-title{
+    width: 150px;
+}
+
+/* Modal */
+
+.modal{
+    width: 25%;
+    border: solid 1px rgb(195, 195, 195);
+    padding: 20px;
+    position: absolute;
+    top: 10%;
+    left: 37.5%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: #bcbcbc80 3px 3px 10px;
+}
+
+.modal-body-item{
+    display: flex;
+
+}
+
+.MD-body-item-title{
+    width: 100px;
+}

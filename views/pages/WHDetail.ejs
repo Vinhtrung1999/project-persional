@@ -1,77 +1,91 @@
-<h2 class="text-center" style="padding: 10px;" id="head"></h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID</td>
-            <td id="idProWH"></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td id="type"></td>
-        </tr>
-        <tr>
-            <td>Quantity</td>
-            <td id="qty"></td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td id="price"></td>
-        </tr>
-        <tr>
-            <td>Price input</td>
-            <td id="priceInput"></td>
-        </tr>
-        <tr>
-            <td>Date input</td>
-            <td id="date"></td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center">
-    <a href="/listWH"><button class="btn btn-dark">Back</button></a>
-    <% if(locals.position === 2){ %>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Update</button>
-    <% } %>
-    <button class="btn btn-danger" id="btn_delete">Delete</button>
+<link rel="stylesheet" href="/css/WHDetail.css">
+<div class="t-start" style="padding: 10px;" id="head"></div>
+
+<div class="block-detail f-1-2">
+    <div class="block-detail-header t-center">
+        <img id="img-logo" src="/images/logo-food.png" alt="" width="100px" height="100px">
+    </div>
+    <div class="block-detail-body">
+        <div class="body-item p-10">
+            <div class="body-item-title">ID</div>
+            <div class="body-item-content" id="idProWH"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Name</div>
+            <div class="body-item-content" id="name"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Type</div>
+            <div class="body-item-content" id="type"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Quantity</div>
+            <div class="body-item-content" id="qty"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Price</div>
+            <div class="body-item-content" id="price"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Price input</div>
+            <div class="body-item-content" id="priceInput"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Date</div>
+            <div class="body-item-content" id="date"></div>
+        </div>
+    </div>
+    <div class="t-center">
+        <% if(locals.position === 2){ %>
+            <button type="button" class="btn-custom f-1-2 m-10 bg-green cl-white" id="btn-show-modal">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+        <% } %>
+        <button class="btn-custom f-1-2 m-10 bg-red cl-white" id="btn_delete">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+        <a href="/warehouse/listWH">
+            <button class="btn-custom f-1-2 m-10">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </a>
+    </div>
 </div>
 
-<div class="modal" id="myModal">
+<div class="modal" id="myModal" style="display: none;">
     <div class="modal-dialog">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Update</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="t-center">
+                <img id="img-logo" src="/images/logo-food.png" alt="" width="100px" height="100px">
+            </div>
         </div>
-        
-        <!-- Modal body -->
         <div class="modal-body">
-            <table class="table table-hover">
-                <tbody id="tb">
-                    <tr>
-                        <td>ID</td>
-                        <td id="idProWH_MD"></td>
-                    </tr>
-                    <tr>
-                        <td>Price</td>
-                        <td><input type="number" name="" id="price_MD"></td>
-                    </tr>            
-                </tbody>
-            </table>
-            <div class="text-center" style="color: red;" id="err"></div>
+            <div class="modal-body-item p-10">
+                <div class="MD-body-item-title">ID</div>
+                <div class="MD-body-item-content" id="idProWH_MD"></div>
+            </div>
+            <div class="body-item p-10">
+                <div class="MD-body-item-title">price</div>
+                <div class="MD-body-item-content">
+                    <input class="input-custom" type="number" name="" id="price_MD">
+                </div>
+            </div>
         </div>
+        <!-- Modal body -->
         
         <!-- Modal footer -->
-        <div class="modal-footer">
-            <button id="btn_update" type="button" class="btn btn-light">Update</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <div class="modal-footer t-center">
+            <button id="btn_update" type="button" class="btn-custom f-1 m-10 bg-green cl-white">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button type="button" class="btn-custom f-1 m-10" id="btn-close-modal">
+                X
+            </button>
         </div>
-        
+        <div class="err" id="err"></div>
       </div>
     </div>
   </div>
@@ -79,9 +93,19 @@
 
 
 <script>
-    var url = new URL(window.location)
-    var idProWH = url.searchParams.get('idProWH')    
+    let url = new URL(window.location)
+    let idProWH = url.searchParams.get('idProWH')    
 
+    let btn_show_modal = document.getElementById('btn-show-modal')
+    let btn_close_modal = document.getElementById('btn-close-modal')
+
+    btn_show_modal.addEventListener('click', () => {
+        document.getElementById('myModal').style.display = 'block'
+    })
+
+    btn_close_modal.addEventListener('click', () => {
+        document.getElementById('myModal').style.display = 'none'
+    })
 
     fetch('/getProWH/'+idProWH+"?token=<%= token %>", {
         method: "GET",

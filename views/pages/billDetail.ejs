@@ -1,48 +1,79 @@
+<link rel="stylesheet" href="/css/billDetail.css">
 <h2 class="text-center" style="padding: 10px;" id="head"></h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID bill</td>
-            <td id="idBill"></td>
-        </tr>
-        <tr>
-            <td>ID customer</td>
-            <td id="idCus"></td>
-        </tr>
-        <tr>
-            <td>ID staff</td>
-            <td id="idStaff"></td>
-        </tr>
-        <tr>
-            <td>List stadiums</td>
-            <td id="listSvd"></td>
-        </tr>
-        <tr>
-            <td>List products</td>
-            <td id="listPro"></td>
-        </tr>
-        <tr>
-            <td>Tatal</td>
-            <td id="sum"></td>
-        </tr>
-        <tr>
-            <td>Date use stadium</td>
-            <td id="dateUse"></td>
-        </tr>
 
-        <tr>
-            <td>Date order</td>
-            <td id="dateOrder"></td>
-        </tr>
+<div class="block-detail f-1-2">
+    <div class="block-detail-header t-center">
+        <img id="img-logo" src="/images/logo-bill.png" alt="" width="100px" height="100px">
+    </div>
+    <div class="block-detail-body">
+        <div class="body-item p-10">
+            <div class="body-item-title">ID</div>
+            <div class="body-item-content" id="idBill"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">ID customer</div>
+            <div class="body-item-content" id="idCus"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">ID staff</div>
+            <div class="body-item-content" id="idStaff"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Stadiums</div>
+            <div class="body-item-content">
+                <div class="list-item-tag">
+                    <div class="list-item">
+                        <div class="list-item-stt">STT</div>
+                        <div class="list-item-item-1">ID stadium</div>
+                        <div class="list-item-item-2">Price</div>
+                    </div>
+                </div>
+                <div class="list-item-content" id="list-stadium"></div>
+            </div>
+        </div>
 
-    </tbody>
-</table>
+        <div class="body-item p-10">
+            <div class="body-item-title">Products</div>
+            <div class="body-item-content">
+                <div class="list-item-tag">
+                    <div class="list-item">
+                        <div class="list-item-stt">STT</div>
+                        <div class="list-item-item-1">Tag</div>
+                        <div class="list-item-item-2">Quantity</div>
+                        <div class="list-item-item-3">Price</div>
+                    </div>
+                </div>
+                <div class="list-item-content" id="list-product"></div>
+            </div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Date use stadium</div>
+            <div class="body-item-content" id="dateUse"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Date order</div>
+            <div class="body-item-content" id="dateOrder"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Total</div>
+            <div class="body-item-content cl-red" id="sum"></div>
+        </div>
+    </div>
+    <div class="t-center">
+        <a href="/bill/listBills">
+            <button class="btn-custom f-1-2 m-10">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </a>
+    </div>
+</div>
+
 <div class="text-center">
     <a href="/listBills"><button class="btn btn-light">Back</button></a>
 </div>
 <script>
-    var url = new URL(window.location)
-    var idBill = url.searchParams.get('idBill')
+    let url = new URL(window.location)
+    let idBill = url.searchParams.get('idBill')
     
     fetch('/getBills/'+idBill+'/?token=<%= token %>', {
         method: "GET",
@@ -52,17 +83,16 @@
     })
     .then(req => req.json())
     .then(json => {
-        console.log(json)
         if(json.code === 0){
-            data = json.data[0]
-            var idBill = document.getElementById('idBill')
-            var idCus = document.getElementById('idCus')
-            var idStaff = document.getElementById('idStaff')
-            var dateOrder = document.getElementById('dateOrder')
-            var sum = document.getElementById('sum')
-            var dateUse = document.getElementById('dateUse')
-            var listSvd = document.getElementById('listSvd')
-            var listPro = document.getElementById('listPro')
+            let data = json.data[0]
+            let idBill = document.getElementById('idBill')
+            let idCus = document.getElementById('idCus')
+            let idStaff = document.getElementById('idStaff')
+            let dateOrder = document.getElementById('dateOrder')
+            let sum = document.getElementById('sum')
+            let dateUse = document.getElementById('dateUse')
+            let listSvd = document.getElementById('listSvd')
+            let listPro = document.getElementById('listPro')
 
             idBill.innerHTML = data.idBill
             idCus.innerHTML = data.idCus
@@ -72,46 +102,38 @@
             dateUse.innerHTML = data.dateUse
 
             if(data.listSvd.length){
-                var ul = document.createElement('ul')
-                
-                
-                data.listSvd.forEach((val, i)=> {
-                    var li1 = document.createElement('li')
-                    var li2 = document.createElement('li')
-                    li1.innerHTML = "id svd: "+val.idSvd
-                    li2.innerHTML = "price svd: " + (parseInt(val.price).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
-                    li1.setAttribute('style','color:red')
-                    ul.appendChild(li1)
-                    ul.appendChild(li2)
+                let list_stadium = document.getElementById('list-stadium')
+                let temp = ''
+                data.listSvd.forEach((val, index)=> {
+                    temp += `<div class="list-item">
+                                <div class="list-item-stt">${index + 1}</div>
+                                <div class="list-item-item-1">${val.idSvd}</div>
+                                <div class="list-item-item-2">${parseInt(val.price).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                            </div>`
 
                     
                 })
-                listSvd.appendChild(ul)
-                
+                list_stadium.innerHTML = temp   
             }
 
 
             if(data.listProducts.length){
-                var ulPro = document.createElement('ul')
-                data.listProducts.forEach((val, i)=> {
-                    var liPro1 = document.createElement('li')
-                    var liPro2 = document.createElement('li')
-                    var liPro3 = document.createElement('li')
-                    var liPro4 = document.createElement('li')
+                console.log(data.listProducts)
+                let temp = ''
+                let list_product = document.getElementById('list-product')
 
-                    liPro1.innerHTML = "id product: "+val.idPro
-                    liPro2.innerHTML = "name product: "+val.name
-                    liPro3.innerHTML = "quantity product: "+val.qty
-                    liPro4.innerHTML = "price product: "+(parseInt(val.price).toLocaleString('vi', {style : 'currency', currency : 'VND'}))
+                data.listProducts.forEach((val, index)=> {
+                    temp += `<div class="list-item">
+                                <div class="list-item-stt">${index + 1}</div>
+                                <div class="list-item-item-1">${val.name}</div>
+                                <div class="list-item-item-2">${val.qty}</div>
+                                <div class="list-item-item-3">${parseInt(val.price * val.qty).toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                            </div>`
+                    
 
-                    liPro1.setAttribute('style','color:red')
-                    ulPro.appendChild(liPro1)
-                    ulPro.appendChild(liPro2)
-                    ulPro.appendChild(liPro3)
-                    ulPro.appendChild(liPro4)
-                });
+                })
 
-                listPro.appendChild(ulPro)
+                list_product.innerHTML = temp
             }
 
             

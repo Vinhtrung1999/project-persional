@@ -1,32 +1,46 @@
+<link rel="stylesheet" href="/css/CusDetail.css">
 <h2 class="text-center" style="padding: 10px;" id="head"></h2>
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID</td>
-            <td id="idCus"></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td id="gender"></td>
-        </tr>
-        <tr>
-            <td>CMND</td>
-            <td id="CMND"></td>
-        </tr>
-        <tr>
-            <td>Tel</td>
-            <td id="tel"></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td id="email"></td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="block-detail f-1-2">
+    <div class="block-detail-header t-center">
+        <img id="img-logo" src="/images/cus-m.png" alt="" width="100px" height="100px">
+    </div>
+    <div class="block-detail-body">
+        <div class="body-item p-10">
+            <div class="body-item-title">ID</div>
+            <div class="body-item-content" id="idCus"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Name</div>
+            <div class="body-item-content" id="name"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Gender</div>
+            <div class="body-item-content" id="gender"></div>
+        </div>
+
+        <div class="body-item p-10">
+            <div class="body-item-title">CMND/CCCD</div>
+            <div class="body-item-content" id="CMND"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Tel</div>
+            <div class="body-item-content" id="tel"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Email</div>
+            <div class="body-item-content" id="email"></div>
+        </div>
+    </div>
+    <div class="t-center">
+        <a href="/customer/listCustomers">
+            <button class="btn-custom f-1-2 m-10">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </a>
+    </div>
+</div>
+
 <div class="text-center">
     <a href="/listCustomers"><button class="btn btn-light">Back</button></a>
     <!-- <button id="btn" type="button" class="btn btn-danger">Reset password</button> -->
@@ -59,10 +73,17 @@
             email.innerHTML = data.email
             CMND.innerHTML = data.CMND
 
-            if(data.gender === 0)
+            if(data.gender === 0){
                 gender.innerHTML = "Male"
-            else
+                document.getElementById('img-logo').setAttribute('src', '/images/cus-m.png')
+            }
+                
+            else{
                 gender.innerHTML = "Femail"
+                document.getElementById('img-logo').setAttribute('src', '/images/cus-fm.png')
+
+            }
+                
 
             document.getElementById('head').innerHTML = data.idCus
         }  

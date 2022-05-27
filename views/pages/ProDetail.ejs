@@ -3,40 +3,49 @@
 <!--  -->
 <h2 class="text-center" style="padding: 10px;" id="head"></h2>
 
-<table class="table table-hover" style="width: 50%; margin: auto;">
-    <tbody id="tb">
-        <tr>
-            <td>ID</td>
-            <td id="idPro"></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Type</td>
-            <td id="type"></td>
-        </tr>
-        <tr>
-            <td>Quantity</td>
-            <td id="qty"></td>
-        </tr>
-        <tr>
-            <td>Price</td>
-            <td id="price"></td>
-        </tr>
-        <tr>
-            <td>Date input</td>
-            <td id="date"></td>
-        </tr>
-    </tbody>
-</table>
-<div class="text-center">
-    <a href="/listProducts"><button class="btn btn-dark">Back</button></a>
-    <% if(locals.position === 2){ %>
-    <button class="btn btn-danger" id="btn_delete">Delete</button>
-
-    <% } %>
+<div class="block-detail f-1-2">
+    <div class="block-detail-header t-center">
+        <img id="img-logo" src="/images/logo-food.png" alt="" width="100px" height="100px">
+    </div>
+    <div class="block-detail-body">
+        <div class="body-item p-10">
+            <div class="body-item-title">ID</div>
+            <div class="body-item-content" id="idPro"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Name</div>
+            <div class="body-item-content" id="name"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Type</div>
+            <div class="body-item-content" id="type"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Quantity</div>
+            <div class="body-item-content" id="qty"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Price</div>
+            <div class="body-item-content" id="price"></div>
+        </div>
+        <div class="body-item p-10">
+            <div class="body-item-title">Date</div>
+            <div class="body-item-content" id="date"></div>
+        </div>
+    </div>
+    <div class="t-center">
+        <% if(locals.position === 2){ %>
+        <button class="btn-custom f-1-2 m-10 bg-red cl-white" id="btn_delete">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+    
+        <% } %>
+        <a href="/product/listProducts">
+            <button class="btn-custom f-1-2 m-10">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </a>
+    </div>
 </div>
 <script>
     var url = new URL(window.location)
@@ -68,12 +77,22 @@
             price.innerHTML = data.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})
             date.innerHTML = data.dateIn
 
-            if(data.type === 0)
+            if(data.type === 0){
                 type.innerHTML = "Drink"
-            else if(data.type === 1)
+                document.getElementById('img-logo').setAttribute('src','/images/logo-drink.png')
+            }
+               
+            else if(data.type === 1){
                 type.innerHTML = "Food"
-            else
+                document.getElementById('img-logo').setAttribute('src','/images/logo-food.png')
+
+            }
+                
+            else{
                 type.innerHTML = "Item"
+                document.getElementById('img-logo').setAttribute('src','/images/logo-item.png')
+            }
+                
 
             document.getElementById('head').innerHTML = data.idPro
         }  
@@ -82,28 +101,28 @@
 
 
     var btn_delete = document.getElementById('btn_delete')
+    if(btn_delete)
+        btn_delete.addEventListener("click",() => {
+            var url = new URL(window.location)
+            var idPro = url.searchParams.get('idPro')  
 
-    btn_delete.addEventListener("click",() => {
-        var url = new URL(window.location)
-        var idPro = url.searchParams.get('idPro')  
-
-        fetch('/deletePro/', {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({
-                token : "<%= token %>",
-                idPro : idPro
+            fetch('/deletePro/', {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify({
+                    token : "<%= token %>",
+                    idPro : idPro
+                })
             })
+            .then(req => req.json())
+            .then(json => {
+                if(json.code === 0){
+                    return window.location.href = "/listProducts"
+                }  
+            })
+            .catch(e => console.log(e))
         })
-        .then(req => req.json())
-        .then(json => {
-            if(json.code === 0){
-                return window.location.href = "/listProducts"
-            }  
-        })
-        .catch(e => console.log(e))
-    })
 
 </script>

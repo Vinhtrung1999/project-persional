@@ -6,7 +6,7 @@
 <div class="block-container">
     <div class="block-container-title">
         <div class="block-container-title-img">
-            <img id="img-type-svd" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
+            <img id="img-type-svd" src="/images/normal.png" alt="NM" width="80px" height="80px">
         </div>
     <% if(locals.position === 2){ %>
         <div class="">           
@@ -60,7 +60,7 @@
     <div class="modal-content p-10">
         <!-- Modal Header -->
         <div class="modal-header t-center">
-            <img id="img-type-svd-MD" src="https://cdn-icons-png.flaticon.com/512/31/31834.png" alt="NM" width="80px" height="80px">
+            <img id="img-type-svd-MD" src="/images/normal.png" alt="NM" width="80px" height="80px">
         </div>
 
         <!-- Modal body -->
@@ -169,13 +169,13 @@
                 name.innerHTML = data.name
                 if (data.type == 1){
                     type.innerHTML = "VIP"
-                    img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/637/637088.png')
-                    img_type_svd_MD.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/637/637088.png')
+                    img_type_svd.setAttribute('src', '/images/vip.png')
+                    img_type_svd_MD.setAttribute('src', '/images/vip.png')
                 }
                 else{
                     type.innerHTML = "normal"
-                    img_type_svd.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/31/31834.png')
-                    img_type_svd_MD.setAttribute('src', 'https://cdn-icons-png.flaticon.com/512/31/31834.png')
+                    img_type_svd.setAttribute('src', '/images/normal.png')
+                    img_type_svd_MD.setAttribute('src', '/images/normal.png')
                 }
                     
                 if (data.status === 0)
