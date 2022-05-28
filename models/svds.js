@@ -9,6 +9,7 @@ const svds = new Schema({
     status : Number,
     capacity : Number,
     type : Number,
+    image: String,
     price: Number
 })
 

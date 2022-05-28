@@ -103,6 +103,13 @@
             </div>
 
             <div class="modal-body-item">
+                <div class="modal-body-item-title">Image</div>
+                <div class="modal-body-item-content">
+                    <input class="input-custom f-1" type="text" id="image_MD">
+                </div>
+            </div>
+
+            <div class="modal-body-item">
                 <div class="modal-body-item-title">Price</div>
                 <div class="modal-body-item-content">
                     <input class="input-custom f-1" type="number" id="price_MD">
@@ -170,12 +177,12 @@
                 if (data.type == 1){
                     type.innerHTML = "VIP"
                     img_type_svd.setAttribute('src', '/images/vip.png')
-                    img_type_svd_MD.setAttribute('src', '/images/vip.png')
+                    img_type_svd_MD.setAttribute('src', data.image)
                 }
                 else{
                     type.innerHTML = "normal"
                     img_type_svd.setAttribute('src', '/images/normal.png')
-                    img_type_svd_MD.setAttribute('src', '/images/normal.png')
+                    img_type_svd_MD.setAttribute('src', data.image)
                 }
                     
                 if (data.status === 0)
@@ -190,6 +197,7 @@
                 let idSvd_MD = document.getElementById('idSvd_MD')
                 let name_MD = document.getElementById('name_MD')
                 let price_MD = document.getElementById('price_MD')
+                let image_MD = document.getElementById('image_MD')
                 let capacity_MD = document.getElementById('capacity_MD')
                 let type_MD = document.getElementById('type_MD')
                 let status_MD = document.getElementById('status_MD')
@@ -198,6 +206,7 @@
                 name_MD.innerHTML = data.name
                 capacity_MD.value = data.capacity
                 price_MD.value = data.price
+                image_MD.value = data.image
                 type_MD.value = data.type
                 status_MD.value = data.status
             }
@@ -211,8 +220,9 @@
         var capacity_MD = document.getElementById('capacity_MD').value
         var type_MD = document.getElementById('type_MD').value
         var status_MD = document.getElementById('status_MD').value
+        var image_MD = document.getElementById('image_MD').value
 
-        if (idSvd_MD && price_MD && capacity_MD && type_MD && status_MD) {
+        if (idSvd_MD && price_MD && capacity_MD && type_MD && status_MD && image_MD) {
             fetch('/updateSvd', {
                 method: "POST",
                 headers: {
@@ -223,6 +233,7 @@
                     type: type_MD,
                     capacity: capacity_MD,
                     status: status_MD,
+                    image: image_MD,
                     price: price_MD,
                     token: "<%= token %>"
                 })

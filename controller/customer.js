@@ -7,7 +7,7 @@ class customer {
 
     destroySS = (req, res) => {
         req.session.destroy()
-        return res.redirect('/customer/loginCus')
+        return res.redirect('/')
     }
 
 //only staff 

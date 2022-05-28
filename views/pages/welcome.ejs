@@ -20,7 +20,9 @@
                 <div class="nav-bar">
                     <a href="/" class="nav-item-link"><div class="nav-items">Home</div></a>
                     <a href="#" class="nav-item-link"><div class="nav-items">Stadiums</div></a>
-                    <a href="#" class="nav-item-link"><div class="nav-items">Log-out</div></a>
+                    <% if(name) {%>
+                        <a href="/customer/destroySsCus" class="nav-item-link"><div class="nav-items">Log-out</div></a>
+                    <% } %>
                 </div>
             </div>
             <div class="title-logo">
@@ -28,7 +30,7 @@
             </div>
             <div class="title-action">
                 <% if(!name) {%>
-                    <div class="action-login"><a class="action-login-link" href="/loginCus"><i class="fa-solid fa-user"></i> Log-in</a></div>
+                    <div class="action-login"><a class="action-login-link" href="/customer/login"><i class="fa-solid fa-user"></i> Log-in</a></div>
                 <% } else { %>
                     <div class="action-login"><i class="fa-solid fa-user"></i> Hi, <%= name %></div>
                 <% } %>
@@ -37,24 +39,28 @@
     </div>
     <div class="stadium mg-t-50">
         <h2 class="t-center">Standard stadiums</h2>
-        <div class="stadium-1">
+        <div class="stadium-1 slider">
             <% locals.data_svd.forEach((val) => { %>
                 <% if(val.type == 0){ %> 
                     <div class="std-1-items">
-                        <a href="/view-details/<%= val.idSvd %>"><img src="/images/san-van-dong-wembley-623408.jpg" width="500px" height="250px"></a>
-                        <div class="std-1-items-info"><%= val.name %> | <span id="money"><%= val.price %></span></div>
+                        <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
+                        <a class="action-login-link" href="/view-details/<%= val.idSvd %>">
+                            <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
+                        </a>
                     </div>
                 <% } %>
             <% }) %>
         </div>
 
         <h2 class="t-center">VIP stadiums</h2>
-        <div class="stadium-1">
+        <div class="stadium-1 slider">
             <% locals.data_svd.forEach((val) => { %>
                 <% if(val.type == 1){ %> 
                     <div class="std-1-items">
-                        <img src="https://www.the-possible.com/wp-content/uploads/2019/08/NEW-Miami-Dolphins_72-Club.jpg" width="500px" height="250px">
-                        <div class="std-1-items-info"><%= val.name %> | <span id="money"><%= val.price %></span></div>
+                        <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
+                        <a class="action-login-link" href="/view-details/<%= val.idSvd %>">
+                            <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
+                        </a>
                     </div>
                 <% } %>
             <% }) %>
@@ -96,5 +102,60 @@
         </div>
     </div>
 </body>
+<script>
+    let slider = document.getElementsByClassName('slider')
+    let pos1 = {left: 0, x: 0}
+    let flag1 = false
+    // slder 1
+    slider[0].addEventListener('mousedown', (e) => {
+        flag1 = true
+        slider[0].style.cursor = "grabbing"
+        pos1 = {
+            left: slider[0].scrollLeft,
+            x: e.clientX
+        }
+        slider[0].addEventListener('mouseup', mouseUp1)
+        slider[0].addEventListener('mousemove', mouseMove1)
+    })
+
+    let mouseUp1 = (e) => {
+        flag1 = false
+        slider[0].style.cursor = 'grab'
+    }
+
+    let mouseMove1 = (e) => {
+        if(flag1){
+            let dx = e.clientX - pos1.x
+            slider[0].scrollLeft = pos1.left - dx
+        }
+    }
+
+    // slder 2
+    let pos2 = {left: 0, x: 0}
+    let flag2 = false
+    slider[1].addEventListener('mousedown', (e) => {
+        flag2 = true
+        slider[1].style.cursor = "grabbing"
+        pos2 = {
+            left: slider[1].scrollLeft,
+            x: e.clientX
+        }
+        slider[1].addEventListener('mouseup', mouseUp2)
+        slider[1].addEventListener('mousemove', mouseMove2)
+    })
+
+    let mouseUp2 = (e) => {
+        flag2 = false
+        slider[1].style.cursor = 'grab'
+    }
+
+    let mouseMove2 = (e) => {
+        if(flag2){
+            let dx = e.clientX - pos2.x
+            slider[1].scrollLeft = pos2.left - dx
+        }
+    }
+
+</script>
 
 </html>

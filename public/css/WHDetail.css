@@ -16,12 +16,12 @@
 /* Modal */
 
 .modal{
-    width: 25%;
+    width: 30%;
     border: solid 1px rgb(195, 195, 195);
     padding: 20px;
     position: absolute;
     top: 10%;
-    left: 37.5%;
+    left: 35%;
     background-color: #ffffff;
     border-radius: 20px;
     box-shadow: #bcbcbc80 3px 3px 10px;

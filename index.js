@@ -699,9 +699,9 @@ app.post('/addSvd', CheckLogin, (req, res) => {
     if(req.session.position !== 2)
         return res.json({"code":5, "message":"Unauthorized"})
 
-    var {idSvd,name,status,capacity,type,price} = req.body
+    var {idSvd, name, status, capacity, type, price, image} = req.body
     if(idSvd && name && status && capacity && type && price){
-        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) >= 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0){
+        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) >= 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0 && image){
             
             svds.find({"idSvd":idSvd}).exec((err, data) => {
                 if(err)
@@ -715,6 +715,7 @@ app.post('/addSvd', CheckLogin, (req, res) => {
                         status : status,
                         capacity : capacity,
                         type : type,
+                        image: image,
                         price: price
                     })
 
@@ -1013,15 +1014,23 @@ app.post('/updateSvd', CheckLogin, (req, res) => {
     if(req.session.position !== 2)
         return res.json({"code":5, "message":"Unauthorized"})
 
-    var {idSvd,name,status,capacity,type,price} = req.body
+    var {idSvd, name, status, capacity, type, price, image} = req.body
 
 
-    
-    if(idSvd && status && capacity && type && price){
-        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) > 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0){
+    if(idSvd && status && capacity && type && price && image){
+        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) > 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0 && image){
             svds.find({"idSvd":idSvd}).exec((err, data) => {
                 if(data.length){
-                    svds.updateOne({"idSvd":idSvd},{"$set":{"type":type, "capacity":capacity, "status":status, "price":price}}).exec()
+                    svds.updateOne({"idSvd":idSvd},
+                                    {"$set":{
+                                                "type":type,
+                                                "capacity":capacity,
+                                                "status":status,
+                                                "price":price,
+                                                "image": image
+                                        }
+                                    }).exec()
+                                    
                     return res.json({"code":0, "message":"Update "+idSvd+" succeed"})
                 }
                 else{

@@ -27,13 +27,13 @@ class ctlCommon{
     }
 
     home = (req, res) => {
-        if(!req.session.username)
-            return res.redirect('/welcome') //fix route
         if(req.session.position === 0)
             return res.redirect('/manager/staff-manager')
         if(req.session.position === 1)
-            return res.redirect('/transaction/pay')   
-        return res.redirect('/manager/stadium-manager')
+            return res.redirect('/transaction/pay')
+        if(req.session.position === 2)   
+            return res.redirect('/manager/stadium-manager')
+        return res.redirect('/welcome')
     }
 }
 
