@@ -39,6 +39,18 @@
         </div>
     </div>
     <div class="block-add-item">
+        <div class="block-add-item-title">Image detail 1</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" placeholder="Enter image" id="image_detail_1" name="image" required>
+        </div>
+    </div>
+    <div class="block-add-item">
+        <div class="block-add-item-title">Image detail 2</div>
+        <div class="block-add-item-content">
+            <input class="input-custom f-1-2" type="text" placeholder="Enter image" id="image_detail_2" name="image" required>
+        </div>
+    </div>
+    <div class="block-add-item">
         <div class="block-add-item-title">Price</div>
         <div class="block-add-item-content">
             <input class="input-custom f-1-2" type="number" placeholder="Enter price" id="price" name="price" required>
@@ -68,6 +80,8 @@
         let type = document.getElementById('type').value
         let capacity = document.getElementById('capacity').value
         let image = document.getElementById('image').value
+        let image_detail_1 = document.getElementById('image_detail_1').value
+        let image_detail_2 = document.getElementById('image_detail_2').value
         let price = document.getElementById('price').value
 
         if(idSvd && name && type && capacity && name && type && image){
@@ -83,6 +97,8 @@
                     capacity : capacity,
                     status: status,
                     image: image,
+                    image_detail_1: image_detail_1,
+                    image_detail_2: image_detail_2,
                     price: price,
                     token:"<%= token %>"                            
                 })
@@ -95,7 +111,10 @@
                     document.getElementById('type').value = 0
                     document.getElementById('capacity').value = ''
                     document.getElementById('image').value = ''
+                    document.getElementById('image_detail_1').value = ''
+                    document.getElementById('image_detail_2').value = ''
                     document.getElementById('price').value = ''
+                    
 
                     document.getElementById('mess').innerHTML = 'add '+ json.data.idSvd + " succeed"
                 }  

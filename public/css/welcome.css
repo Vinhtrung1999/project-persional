@@ -228,3 +228,20 @@
         justify-content: start;
     }
 }
+
+/* owner */
+.owner{
+    position: relative;
+}
+.owner-msg{
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: -200px;
+    color: red;
+    background-color: #ffffff;
+}
+.owner:hover .owner-msg{
+    display: block;
+    cursor: pointer;
+}

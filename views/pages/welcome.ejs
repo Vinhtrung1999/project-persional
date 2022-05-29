@@ -9,7 +9,7 @@
                 <% if(val.type == 0){ %> 
                     <div class="std-1-items">
                         <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
-                        <a class="action-login-link" href="/view-details/<%= val.idSvd %>">
+                        <a class="action-login-link" href="/view-details?idSvd=<%= val.idSvd %>&type=<%= val.type %>">
                             <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
                         </a>
                     </div>
@@ -24,7 +24,7 @@
                 <% if(val.type == 1){ %> 
                     <div class="std-1-items">
                         <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
-                        <a class="action-login-link" href="/view-details/<%= val.idSvd %>">
+                        <a class="action-login-link" href="/view-details?idSvd=<%= val.idSvd %>&type=<%= val.type %>">
                             <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
                         </a>
                     </div>

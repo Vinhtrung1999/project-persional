@@ -42,6 +42,16 @@ class ctlCommon{
         let page = 'list-view-stadium'
         return res.render('layouts/main-view-customer', {name, page})
     }
+
+    viewDetail = (req, res) => {
+        let idSvd = req.query.idSvd || ''
+        if(idSvd){
+            let name = req.session.name || ''
+            let page = 'viewDetail'
+            return res.render('layouts/main-view-customer', {name, page})
+        }
+        return res.redirect('/list-view-stadiums')
+    }
 }
 
 module.exports = new ctlCommon

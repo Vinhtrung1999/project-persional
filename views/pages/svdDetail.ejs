@@ -110,6 +110,20 @@
             </div>
 
             <div class="modal-body-item">
+                <div class="modal-body-item-title">Image detail 1</div>
+                <div class="modal-body-item-content">
+                    <input class="input-custom f-1" type="text" id="image_detail_1_MD">
+                </div>
+            </div>
+
+            <div class="modal-body-item">
+                <div class="modal-body-item-title">Image detail 2</div>
+                <div class="modal-body-item-content">
+                    <input class="input-custom f-1" type="text" id="image_detail_2_MD">
+                </div>
+            </div>
+
+            <div class="modal-body-item">
                 <div class="modal-body-item-title">Price</div>
                 <div class="modal-body-item-content">
                     <input class="input-custom f-1" type="number" id="price_MD">
@@ -198,6 +212,8 @@
                 let name_MD = document.getElementById('name_MD')
                 let price_MD = document.getElementById('price_MD')
                 let image_MD = document.getElementById('image_MD')
+                let image_detail_1_MD = document.getElementById('image_detail_1_MD')
+                let image_detail_2_MD = document.getElementById('image_detail_2_MD')
                 let capacity_MD = document.getElementById('capacity_MD')
                 let type_MD = document.getElementById('type_MD')
                 let status_MD = document.getElementById('status_MD')
@@ -207,6 +223,8 @@
                 capacity_MD.value = data.capacity
                 price_MD.value = data.price
                 image_MD.value = data.image
+                image_detail_1_MD.value = data.image_detail_1
+                image_detail_2_MD.value = data.image_detail_2
                 type_MD.value = data.type
                 status_MD.value = data.status
             }
@@ -215,12 +233,14 @@
 
     btn_update.addEventListener("click", () => {
         document.getElementById('err').innerHTML = ""
-        var idSvd_MD = document.getElementById('idSvd_MD').innerHTML
-        var price_MD = document.getElementById('price_MD').value
-        var capacity_MD = document.getElementById('capacity_MD').value
-        var type_MD = document.getElementById('type_MD').value
-        var status_MD = document.getElementById('status_MD').value
-        var image_MD = document.getElementById('image_MD').value
+        let idSvd_MD = document.getElementById('idSvd_MD').innerHTML
+        let price_MD = document.getElementById('price_MD').value
+        let capacity_MD = document.getElementById('capacity_MD').value
+        let type_MD = document.getElementById('type_MD').value
+        let status_MD = document.getElementById('status_MD').value
+        let image_MD = document.getElementById('image_MD').value
+        let image_detail_1_MD = document.getElementById('image_detail_1_MD').value
+        let image_detail_2_MD = document.getElementById('image_detail_2_MD').value
 
         if (idSvd_MD && price_MD && capacity_MD && type_MD && status_MD && image_MD) {
             fetch('/updateSvd', {
@@ -234,6 +254,8 @@
                     capacity: capacity_MD,
                     status: status_MD,
                     image: image_MD,
+                    image_detail_1: image_detail_1_MD,
+                    image_detail_2: image_detail_2_MD,
                     price: price_MD,
                     token: "<%= token %>"
                 })

@@ -10,6 +10,8 @@ const svds = new Schema({
     capacity : Number,
     type : Number,
     image: String,
+    image_detail_1: String,
+    image_detail_2: String,
     price: Number
 })
 

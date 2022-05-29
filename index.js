@@ -68,13 +68,6 @@ app.use('/equipment', equipmentRouter)
 //--------common-------------
 app.use('/', commonRouter)
 
-//---------------view details customer--------
-app.get('/view-details/:idSvd', (req, res) => {
-    let idSvd = req.params.idSvd
-    return res.render('pages/viewDetails', {idSvd})
-})
-
-
 //API
 //----------customer API
 app.post('/loginCus', (req, res) =>{
@@ -699,9 +692,9 @@ app.post('/addSvd', CheckLogin, (req, res) => {
     if(req.session.position !== 2)
         return res.json({"code":5, "message":"Unauthorized"})
 
-    var {idSvd, name, status, capacity, type, price, image} = req.body
-    if(idSvd && name && status && capacity && type && price){
-        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) >= 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0 && image){
+    var {idSvd, name, status, capacity, type, price, image, image_detail_1, image_detail_2} = req.body
+    if(idSvd && name && status && capacity && type && price && image && image_detail_1 && image_detail_2){
+        if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) >= 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0){
             
             svds.find({"idSvd":idSvd}).exec((err, data) => {
                 if(err)
@@ -716,6 +709,8 @@ app.post('/addSvd', CheckLogin, (req, res) => {
                         capacity : capacity,
                         type : type,
                         image: image,
+                        image_detail_1: image_detail_1,
+                        image_detail_2: image_detail_2,
                         price: price
                     })
 
@@ -1014,10 +1009,9 @@ app.post('/updateSvd', CheckLogin, (req, res) => {
     if(req.session.position !== 2)
         return res.json({"code":5, "message":"Unauthorized"})
 
-    var {idSvd, name, status, capacity, type, price, image} = req.body
+    let {idSvd, name, status, capacity, type, price, image, image_detail_1, image_detail_2} = req.body
 
-
-    if(idSvd && status && capacity && type && price && image){
+    if(idSvd && status && capacity && type && price && image && image_detail_1 && image_detail_2){
         if((parseInt(status) === 0 || parseInt(status) === 1) && parseInt(capacity) > 0 && (parseInt(type) === 0 || parseInt(type) === 1) && parseInt(price) > 0 && image){
             svds.find({"idSvd":idSvd}).exec((err, data) => {
                 if(data.length){
@@ -1027,7 +1021,9 @@ app.post('/updateSvd', CheckLogin, (req, res) => {
                                                 "capacity":capacity,
                                                 "status":status,
                                                 "price":price,
-                                                "image": image
+                                                "image": image,
+                                                "image_detail_1": image_detail_1,
+                                                "image_detail_2": image_detail_2
                                         }
                                     }).exec()
                                     
@@ -1125,21 +1121,21 @@ app.post('/updateStaff', CheckLogin, (req, res) => {
 
 //---------test
 app.get('/test', async (req, res) =>{
-    let sub = (a, b) => {
-        return new Promise((resolve, rej) => {
-            if(a < b) return rej('khong dc tru')
-            else return resolve(a - b)
+
+    let sum = (a, b) => {
+        return new Promise((rs, rj) => {
+            return rs(a + b)
         })
     }
+
     let a = 0
-    await sub(10, 2)
+
+    await sum(1, 3)
     .then(data => {
         a = data
     })
-    .catch(err => console.log(err))
 
-    console.log(a)
-    return res.end('trung')
+    return res.end(String(a))
 })
 
 //---------deploy

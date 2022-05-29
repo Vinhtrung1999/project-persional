@@ -27,6 +27,8 @@
                 <a href="/list-view-stadiums" class="nav-item-link"><div class="nav-items">Stadiums</div></a>
                 <% if(name) {%>
                     <a href="/customer/destroySsCus" class="nav-item-link"><div class="nav-items">Log-out</div></a>
+                <% } else {%>
+                    <a href="/customer/login" class="nav-item-link"><div class="nav-items">Log-in</div></a>
                 <% } %>
             </div>
         </div>
@@ -34,11 +36,9 @@
             <img src="/images/XztNn3f.png" alt="Logo" width="120%">
         </div>
         <div class="title-action">
-            <% if(!name) {%>
-                <div class="action-login"><a class="action-login-link" href="/customer/login"><i class="fa-solid fa-user"></i> Log-in</a></div>
-            <% } else { %>
-                <div class="action-login"><i class="fa-solid fa-user"></i> Hi, <%= name %></div>
-            <% } %>
+            <div class="owner"><i class="fa-solid fa-earth-asia"></i>
+                <div class="owner-msg">Owner: Trần Vĩnh Trung</div>
+            </div>
         </div>
     </div>
 <!-- content -->
