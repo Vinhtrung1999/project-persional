@@ -2,6 +2,7 @@ const fetch = require('node-fetch')
 class ctlCommon{
     welcome = async (req, res) => {
         let name = req.session.name || ''
+        let page = 'welcome'
         let getSvd = (url) => {
             return new Promise((resolve, reject) => {
                 fetch(url , {
@@ -23,7 +24,7 @@ class ctlCommon{
             })
         })
         .catch(err => console.log(err))  
-        return res.render('pages/welcome', {data_svd, name})
+        return res.render('layouts/main-view-customer', {data_svd, name, page})
     }
 
     home = (req, res) => {
@@ -34,6 +35,12 @@ class ctlCommon{
         if(req.session.position === 2)   
             return res.redirect('/manager/stadium-manager')
         return res.redirect('/welcome')
+    }
+
+    listViewStadiums = (req, res) => {
+        let name = req.session.name || ''
+        let page = 'list-view-stadium'
+        return res.render('layouts/main-view-customer', {name, page})
     }
 }
 

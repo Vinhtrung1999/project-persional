@@ -1,0 +1,45 @@
+.bar-header{
+    background-color: rgb(203, 203, 203);
+    height: 60px;
+}
+
+.selection{
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-stadiums{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-items: center;
+    row-gap: 30px;
+}
+
+.list-items{
+    position: relative;
+}
+
+.item-status{
+    font-size: 2rem;
+    position: absolute;
+    background-color: #ffffff4a;
+    padding: 3px;
+    top: 0;
+    right: 0;
+}
+
+.list-items:hover{
+    transform: scale(1.1);
+}
+
+@media only screen and (max-width: 1200px) {
+    .list-stadiums{
+        grid-template-columns: auto auto;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .list-stadiums{
+        grid-template-columns: auto;
+    }
+}

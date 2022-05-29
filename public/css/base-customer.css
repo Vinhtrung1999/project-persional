@@ -5,7 +5,7 @@
 html{
     box-sizing: border-box;
     font-size: 100%;
-    font-family: 'Rowdies', cursive;
+    font-family: 'Rowdies', cursive;;
 }
 
 body{
@@ -13,30 +13,16 @@ body{
     padding: 0;
 }
 
-/* scroll */
-/* custom scroll bar */
-
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: #d8d8d8; 
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgb(0, 0, 0); 
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgb(46, 46, 46); 
-}
-/* ------------------------- */
-/* ==================CUSTOM==================== */
+/*==================== CUSTOM ======================== */
 .btn-custom{
     font-family: 'Rowdies', cursive;
     border: 3px #000000 solid;
-    box-shadow: 3px 3px #000000;
+    box-shadow: 2px 2px #000000;
+}
+
+.link-custom{
+    color: #000000;
+    text-decoration: none;
 }
 
 .btn-custom:hover{
@@ -44,6 +30,7 @@ body{
     cursor: pointer;
 }
 
+.link-custom:active,
 .btn-custom:active{
     opacity: 50%;
 }
@@ -125,6 +112,10 @@ body{
     margin-bottom: 30px; 
 }
 
+.m-30{
+    margin: 30px; 
+}
+
 .p-t-10{
     padding-top: 10px; 
 }
@@ -155,22 +146,4 @@ body{
 
 .f-1-5{
     font-size: 1.5rem;
-}
-
-.err{
-    background-color: rgb(255, 65, 65);
-    width: 50%;
-    color: #ffffff;
-    text-align: center;
-    margin: auto;
-    margin-top: 10px;
-}
-
-.success{
-    background-color: rgb(68, 255, 65);
-    width: 50%;
-    color: #ffffff;
-    text-align: center;
-    margin: auto;
-    margin-top: 10px;
 }
