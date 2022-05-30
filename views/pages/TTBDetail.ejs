@@ -98,7 +98,7 @@
         document.getElementById('myModal').style.display = 'none'
     })
 
-    fetch('/getTTB/'+idTTB+"?token=<%= token %>", {
+    fetch('/api/equipment/getTTB/'+idTTB+"?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -106,7 +106,6 @@
     })
     .then(req => req.json())
     .then(json => {
-        console.log(json)
         if(json.code === 0){
             data = json.data[0]
             let idTTB = document.getElementById('idTTB')

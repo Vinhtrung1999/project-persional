@@ -52,7 +52,7 @@
     var idPro = url.searchParams.get('idPro')    
 
 
-    fetch('/getPro/'+idPro+"?token=<%= token %>", {
+    fetch('/api/product/getPro/'+idPro+"?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -60,10 +60,8 @@
     })
     .then(req => req.json())
     .then(json => {
-        console.log(json)
         if(json.code === 0){
             data = json.data[0]
-            console.log(data)
             var idPro = document.getElementById('idPro')
             var name = document.getElementById('name')
             var type = document.getElementById('type')

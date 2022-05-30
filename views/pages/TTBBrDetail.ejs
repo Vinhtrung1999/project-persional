@@ -47,7 +47,7 @@
     var idTTB_Br = url.searchParams.get('idTTB_Br')    
 
 
-    fetch('/getTTB_Broken/'+idTTB_Br+"?token=<%= token %>", {
+    fetch('/api/equipment/getTTB_Broken/'+idTTB_Br+"?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -56,9 +56,7 @@
     .then(req => req.json())
     .then(json => {
         if(json.code === 0){
-            
             data = json.data[0]
-            console.log(data)
             var idTTB_Br = document.getElementById('idTTB_Br')
             var idTTB = document.getElementById('idTTB')
             var name = document.getElementById('name')

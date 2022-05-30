@@ -130,7 +130,7 @@
             .catch(e => console.log(e))
     })
 
-    fetch('/getStaffs/'+idStaff+'?token=<%= token %>', {
+    fetch('/api/staff/getStaffs/'+idStaff+'?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

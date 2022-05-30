@@ -24,7 +24,7 @@
 
 <script>
     let list_product = []
-    fetch('/getPro?token=<%= token %>', {
+    fetch('/api/product/getPro?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

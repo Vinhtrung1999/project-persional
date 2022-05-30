@@ -33,11 +33,13 @@
                 <form class="form-login">
                     <div class="input-area m-bt-10">
                         <div class="tag-form-login">Username</div>
-                        <input class="tag-form-input" type="email" id="username" placeholder="Tên đăng nhập" name="username" required>
+                        <input class="tag-form-input" type="email" id="username" placeholder="Tên đăng nhập"
+                            name="username" required>
                     </div>
                     <div class="input-area">
                         <div class="tag-form-login">Password</div>
-                        <input class="tag-form-input" type="password" id="password" placeholder="Mật khẩu" name="password" required>
+                        <input class="tag-form-input" type="password" id="password" placeholder="Mật khẩu"
+                            name="password" required>
                     </div>
                     <div class="btn-area-form t-center">
                         <button id="btn" type="button" class="btn-login-form">Login</button>
@@ -46,46 +48,57 @@
             </div>
         </div>
     </div>
-    
+
 </body>
 <script>
-    var btn = document.getElementById('btn')
+    // enter btn
+    let pwd = document.getElementById('password')
+    pwd.addEventListener("keypress", e => {
+        if (event.key === "Enter") {
+            event.preventDefault()
+            document.getElementById("btn").click();
+        }
+    })
+    // =======================================================
 
 
-    btn.addEventListener('click',() =>{
-        var username = document.getElementById('username').value
-        var password = document.getElementById('password').value
-        var alert = document.getElementById('alert') 
+    let btn = document.getElementById('btn')
+
+    btn.addEventListener('click', () => {
+        let username = document.getElementById('username').value
+        let password = document.getElementById('password').value
+        let alert = document.getElementById('alert')
 
         alert.style.display = 'none'
 
-        if(username === '' || password === ''){
+        if (username === '' || password === '') {
             document.getElementById('mess').innerHTML = 'username or pass not empty'
             alert.style.display = 'flex'
         }
-            
-        else{
-            fetch('/login',{
-                method:"POST",
-                headers:{
-                    'Content-Type':'application/json'
+
+        else {
+            fetch('/api/staff/login', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({username:username, password:password})
+                body: JSON.stringify({ username: username, password: password })
             })
-            .then(req => req.json())
-            .then(json => {
-                if(json.code == 0)
-                    return window.location="/"
-                else{
-                    document.getElementById('mess').innerHTML = 'username or password wrong!'
-                    alert.style.display = 'flex'
-                }
-                    
-            })
-            .catch(e => console.log(e))
+                .then(req => req.json())
+                .then(json => {
+                    if (json.code == 0)
+                        return window.location = "/"
+                    else {
+                        document.getElementById('mess').innerHTML = 'username or password wrong!'
+                        alert.style.display = 'flex'
+                    }
+
+                })
+                .catch(e => console.log(e))
         }
 
     })
 
 </script>
+
 </html>

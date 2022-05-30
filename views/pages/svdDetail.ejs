@@ -167,7 +167,7 @@
             myModal.style.display = 'none'
         })
 
-    fetch('/getSvd/' + idSvd + "?token=<%= token %>", {
+    fetch('/api/svd/getSvd/' + idSvd + "?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

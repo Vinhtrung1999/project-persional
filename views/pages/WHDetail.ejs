@@ -107,7 +107,7 @@
         document.getElementById('myModal').style.display = 'none'
     })
 
-    fetch('/getProWH/'+idProWH+"?token=<%= token %>", {
+    fetch('/api/warehouse/getProWH/'+idProWH+"?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

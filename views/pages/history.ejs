@@ -28,7 +28,7 @@
 
 <script>
     let list_bill = []
-    fetch('/getBillsCus/?token=<%= token %>', {
+    fetch('/api/customer/getBillsCus/?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

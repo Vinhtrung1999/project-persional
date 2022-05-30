@@ -56,7 +56,7 @@
         if(CMND === '' || password === '')
             document.getElementById('mess').innerHTML = 'CMND or pass not empty'
         else{
-            fetch('/loginCus',{
+            fetch('/api/customer/loginCus',{
                 method:"POST",
                 headers:{
                     'Content-Type':'application/json'

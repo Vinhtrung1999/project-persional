@@ -24,7 +24,7 @@
 <script>
     let list_svd = []
 
-    fetch('/getProWH?token=<%= token %>', {
+    fetch('/api/warehouse/getProWH?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

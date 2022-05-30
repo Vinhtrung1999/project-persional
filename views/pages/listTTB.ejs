@@ -24,7 +24,7 @@
 <script>
     let list_equipment = []
 
-    fetch('/getTTB?token=<%= token %>', {
+    fetch('/api/equipment/getTTB?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

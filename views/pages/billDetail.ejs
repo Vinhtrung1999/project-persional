@@ -72,7 +72,7 @@
     let url = new URL(window.location)
     let idBill = url.searchParams.get('idBill')
     
-    fetch('/getBills/'+idBill+'/?token=<%= token %>', {
+    fetch('/api/bill/getBills/'+idBill+'/?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -115,7 +115,6 @@
 
 
             if(data.listProducts.length){
-                console.log(data.listProducts)
                 let temp = ''
                 let list_product = document.getElementById('list-product')
 

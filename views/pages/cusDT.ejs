@@ -50,7 +50,7 @@
     var url = new URL(window.location)
     var idCus = url.searchParams.get('idCus')
     
-    fetch('/getCus/'+idCus+"?token=<%= token %>", {
+    fetch('/api/staff/getCus/'+idCus+"?token=<%= token %>", {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

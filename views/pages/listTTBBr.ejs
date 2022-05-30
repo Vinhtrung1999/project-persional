@@ -26,7 +26,7 @@
 <script>
     let list_equipmentBr = []
 
-    fetch('/getTTB_Broken?token=<%= token %>', {
+    fetch('/api/equipment/getTTB_Broken?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,6 @@
                 let data = json.data
                 let content_equipmentBr = document.getElementById('content-equipmentBr')
                 let temp = ''
-                console.log(data)
                 data.forEach((val, index) => {
                     list_equipmentBr.push(val)
                     temp += `<a href="/equipment//equipmentDamageDetail?idTTB_Br=${val.idTTB_Br}" class="tag-link">

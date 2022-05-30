@@ -21,7 +21,7 @@
 </div>
 <script>
     let list_customer = []
-    fetch('/getCus?token=<%= token %>', {
+    fetch('/api/staff/getCus?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
