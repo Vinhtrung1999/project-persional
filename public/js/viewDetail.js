@@ -5,7 +5,7 @@ let typeSvd = params[1].split('=')[1]
 
 let list_img_svd = []
 
-fetch(`/getSvd/${idSvd}`, {
+fetch(`/api/svd/getSvd/${idSvd}`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ img_stadiums.forEach(element => {
     })
 })
 
-fetch(`/getSvd`, {
+fetch(`/api/svd/getSvd`, {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json'

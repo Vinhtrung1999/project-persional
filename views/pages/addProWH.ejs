@@ -62,7 +62,7 @@
         var qty = document.getElementById('qty').value
 
         if(idProWH && name && priceIn && type && qty && price){
-            fetch('/addWh', {
+            fetch('/api/warehouse/addWh', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

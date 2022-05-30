@@ -161,7 +161,7 @@
 
         if(idProWH_MD && price_MD)
         {
-            fetch('/updatePriceProWH', {
+            fetch('/api/warehouse/updatePriceProWH', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -189,7 +189,7 @@
         var url = new URL(window.location)
         var idProWH = url.searchParams.get('idProWH')  
 
-        fetch('/deleteWH', {
+        fetch('/api/warehouse/deleteWH', {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
@@ -202,7 +202,7 @@
         .then(req => req.json())
         .then(json => {
             if(json.code === 0){
-                return window.location.href = "/listWH"
+                return window.location.href = "/warehouse/listWH"
             }  
         })
         .catch(e => console.log(e))

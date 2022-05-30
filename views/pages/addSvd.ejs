@@ -85,7 +85,7 @@
         let price = document.getElementById('price').value
 
         if(idSvd && name && type && capacity && name && type && image){
-            fetch('/addSvd', {
+            fetch('/api/svd/addSvd', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

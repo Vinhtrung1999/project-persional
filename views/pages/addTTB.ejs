@@ -44,7 +44,7 @@
         var qty = document.getElementById('qty').value
 
         if(idTTB && name && priceIn && qty){
-            fetch('/addTTB', {
+            fetch('/api/equipment/addTTB', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

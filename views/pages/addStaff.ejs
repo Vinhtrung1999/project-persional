@@ -75,7 +75,7 @@
         var salary = document.getElementById('salary').value
         var position = document.getElementById('position').value
         if(idStaff && name && gender && age && salary && shift && position){
-            fetch('/addStaff', {
+            fetch('/api/staff/addStaff', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

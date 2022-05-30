@@ -114,7 +114,7 @@
     })
 
     //product
-    fetch('/getSessionInputPro?token=<%= token %>',{
+    fetch('/api/warehouse/getSessionInputPro?token=<%= token %>',{
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -145,7 +145,7 @@
     .catch(err => console.log(err))
 
     // Salary
-    fetch('/getStaffs?token=<%= token %>',{
+    fetch('/api/staff/getStaffs?token=<%= token %>',{
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -175,7 +175,7 @@
     .catch(err => console.log(err))
 
     //equipment
-    fetch('/getTTB?token=<%= token %>',{
+    fetch('/api/equipment/getTTB?token=<%= token %>',{
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -208,7 +208,7 @@
     .catch(err => console.log(err))
 
     //equipment damaged
-    fetch('/getTTB_Broken?token=<%= token %>',{
+    fetch('/api/equipment/getTTB_Broken?token=<%= token %>',{
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -218,7 +218,6 @@
     .then(json => {
         if(json.code === 0){
             let data = json.data
-            console.log(data)
             let total_equiment_dmg = document.getElementById('total-equiment-dmg')
             let content_equipment_dmg = document.getElementById('content-equipment-dmg')
             let sum_DMequip = 0

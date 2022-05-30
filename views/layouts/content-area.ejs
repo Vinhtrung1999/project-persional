@@ -27,7 +27,7 @@
 		btn_logout = document.getElementById('btn-logout')
 		
 		btn_logout.addEventListener('click',()=>{
-			fetch('/logout',{
+			fetch('/api/staff/logout',{
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'

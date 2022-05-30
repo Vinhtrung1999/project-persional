@@ -36,7 +36,7 @@
         var qty = document.getElementById('qty').value
 
         if(idPro && qty){
-            fetch('/addProduct', {
+            fetch('/api/product/addProduct', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

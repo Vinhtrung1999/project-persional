@@ -110,7 +110,7 @@
         let url = new URL(window.location)
         let idStaff = url.searchParams.get('idStaff')
         
-        fetch('/resetPass', {
+        fetch('/api/staff/resetPass', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -188,7 +188,7 @@
         let url = new URL(window.location)
         let idStaff = url.searchParams.get('idStaff')
         
-        fetch('/deleteStaff', {
+        fetch('/api/staff/deleteStaff', {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
@@ -217,7 +217,7 @@
         let position_MD = document.getElementById('position_MD').value
 
         if (idStaff_MD && salery_MD && shift_MD && position_MD) {
-            fetch('/updateStaff', {
+            fetch('/api/staff/updateStaff', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

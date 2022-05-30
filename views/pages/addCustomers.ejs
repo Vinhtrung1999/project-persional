@@ -60,7 +60,7 @@
         var tel = document.getElementById('tel').value
         var CMND = document.getElementById('CMND').value
         if(name && gender && email && tel && CMND){
-            fetch('/addCustomers', {
+            fetch('/api/staff/addCustomers', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

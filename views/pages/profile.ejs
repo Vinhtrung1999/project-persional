@@ -38,7 +38,7 @@
 </div>
 <script>
         
-    fetch('/getProfileAPI?token=<%= token %>', {
+    fetch('/api/staff/getProfileAPI?token=<%= token %>', {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -46,7 +46,6 @@
     })
     .then(req => req.json())
     .then(json => {
-        console.log(json)
         if(json.code === 0){
             data = json.data[0]
             let idStaff = document.getElementById('idStaff')

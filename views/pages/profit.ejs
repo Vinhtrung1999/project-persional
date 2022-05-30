@@ -17,7 +17,7 @@
 </div>
 
 <script>
-    fetch('/getBills?token=<%= token %>',{
+    fetch('/api/bill/getBills?token=<%= token %>',{
         method: "GET",
         headers: {
             'Content-Type': 'application/json'

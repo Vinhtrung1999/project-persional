@@ -17,7 +17,7 @@ class ctlCommon{
         
         let data_svd = []
     
-        await getSvd('http://localhost:5000/getSvd')
+        await getSvd('http://localhost:5000/api/svd/getSvd')
         .then(data => {
             data.data.forEach((val) => {
                 data_svd.push(val)

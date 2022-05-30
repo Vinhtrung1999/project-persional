@@ -108,7 +108,7 @@
         var idCus = document.getElementById('idCus').value
         if(idCus){
             document.getElementById('payArea').style.display = "none"
-            fetch('/getCus/'+idCus+"?token=<%= token %>", {
+            fetch('/api/staff/getCus/'+idCus+"?token=<%= token %>", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
@@ -131,7 +131,7 @@
         document.getElementById('messAddSvd').innerHTML = ''
         var idsvd = document.getElementById('idsvdSearch').value
         if(idsvd){
-            fetch('/getSvd/'+idsvd+"?token=<%= token %>", {
+            fetch('/api/svd/getSvd/'+idsvd+"?token=<%= token %>", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
@@ -198,7 +198,7 @@
     btnAddPr.addEventListener('click',()=>{
         var idPro = document.getElementById('idProSearch').value
         if(idPro){
-            fetch('/getPro/'+idPro+"?token=<%= token %>", {
+            fetch('/api/product/getPro/'+idPro+"?token=<%= token %>", {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json'
@@ -323,7 +323,7 @@
         listProducts = arrPro
         dateUse = document.getElementById('dateOrder').value
         dateOrder = document.getElementById('date').innerHTML
-        fetch('/pay', {
+        fetch('/api/staff/pay', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'

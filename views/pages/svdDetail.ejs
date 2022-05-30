@@ -14,9 +14,7 @@
                 <i class="fa-solid fa-pen-to-square"></i>
             </button>
 
-            <button class="btn-custom f-1-2 bg-red cl-white p-10 m-10">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>   
+ 
         </div>
     <% } %>    
     </div>
@@ -243,7 +241,7 @@
         let image_detail_2_MD = document.getElementById('image_detail_2_MD').value
 
         if (idSvd_MD && price_MD && capacity_MD && type_MD && status_MD && image_MD) {
-            fetch('/updateSvd', {
+            fetch('/api/svd/updateSvd', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
