@@ -8,34 +8,34 @@
     /* clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); */
     color: #000000;
     overflow-x: hidden;
+    padding-top: 100px;
 }
 
 .model-login{
-    position: absolute;
+    width: 30%;
     background-color: #ffffff;
-    top: 20%;
-    left: 35%;
     padding: 20px;
     font-family: 'Rowdies', cursive;
     font-weight: 600;
-    font-size: 1.2rem;
     border: #000000 3px solid;
+    margin: auto;
 }
 
 .input-area{
     display: flex;
 }
 .tag-form-login{
-    min-width: 150px;
+    min-width: 100px;
+    font-size: 1.2rem;
 }
 .input-area input{
-    flex: 1;
+    width: 100%;
     border: none;
     color: #000000;
     border-bottom: 3px solid #000000;
     outline: none;
-    font-size: 1.2rem;
     font-family: 'Rowdies', cursive;
+    font-size: 1rem;
 }
 
 .btn-login-form{
@@ -44,8 +44,8 @@
     background-color: #ffffff;
     border: solid 3px #000000;
     box-shadow: #000000 3px 3px;
-    font-size: 1rem;
     font-weight: 400;
+    font-size: 1rem;
     font-family: 'Rowdies', cursive;
 }
 
@@ -57,6 +57,7 @@
 .btn-login-form:active{
     opacity: 80%;
 }
+
 
 .alert-login{
     position: absolute;
@@ -78,28 +79,13 @@
 }
 /* action */
 /* responsive */
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
     .alert-login{
         top: 50%;
         right: 25%;
     }
-
     .model-login{
-        top: 20%;
-        left: 25%;
-        padding: 20px;
-        border-radius: 20px;
-        font-family: 'Rowdies', cursive;
-        font-weight: 600;
-        font-size: 1.5rem;
-    }
-
-    .input-area input{
-        font-size: 1rem;
-    }
-
-    .tag-form-login{
-        min-width: 150px;
+        width: 50%;
     }
 }
 
@@ -108,23 +94,8 @@
         top: 50%;
         right: 10%;
     }
-
     .model-login{
-        top: 20%;
-        left: 15%;
-        padding: 10px;
-        border-radius: 20px;
-        font-family: 'Rowdies', cursive;
-        font-weight: 600;
-        font-size: 1rem;
-    }
-
-    .input-area input{
-        font-size: 0.8rem;
-    }
-
-    .tag-form-login{
-        min-width: 100px;
+        width: 95%;
     }
 }
 

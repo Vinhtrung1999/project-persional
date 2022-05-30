@@ -1,0 +1,44 @@
+.block-detail{
+    width: 65%;
+    margin: auto;
+    border: solid 3px #000000;
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+.body-item, .list-item{
+    display: flex;
+}
+
+.body-item-title{
+    width: 200px;
+}
+
+.list-item-stt{
+    width: 100px;
+}
+.list-item-item-1{
+    width: 200px;
+}
+
+.list-item-item-2{
+    width: 200px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .block-detail{
+        width: 90%;
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .block-detail{
+        width: 98%;
+        font-size: .8rem;
+    }
+    .body-item{
+        display: block;
+    }
+}

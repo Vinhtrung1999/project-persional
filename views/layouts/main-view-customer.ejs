@@ -23,12 +23,33 @@
         <div class="title-nav">
             <i class="fa-solid fa-bars"></i>
             <div class="nav-bar">
-                <a href="/" class="nav-item-link"><div class="nav-items">Home</div></a>
-                <a href="/list-view-stadiums" class="nav-item-link"><div class="nav-items">Stadiums</div></a>
+                <a href="/" class="nav-item-link">
+                    <div class="nav-items">
+                        <i class="fa-solid fa-house"></i> Home
+                    </div>
+                </a>
+                <a href="/list-view-stadiums" class="nav-item-link">
+                    <div class="nav-items">
+                        <i class="fa-solid fa-list"></i> Stadiums
+                    </div>
+                </a>
                 <% if(name) {%>
-                    <a href="/customer/destroySsCus" class="nav-item-link"><div class="nav-items">Log-out</div></a>
+                    <a href="/bill/history" class="nav-item-link">
+                        <div class="nav-items">
+                            <i class="fa-solid fa-file"></i> Ordered
+                        </div>
+                    </a>
+                    <a href="/customer/destroySsCus" class="nav-item-link">
+                        <div class="nav-items">
+                            <i class="fa-solid fa-right-from-bracket"></i> Log-out
+                        </div>
+                    </a>
                 <% } else {%>
-                    <a href="/customer/login" class="nav-item-link"><div class="nav-items">Log-in</div></a>
+                    <a href="/customer/login" class="nav-item-link">
+                        <div class="nav-items">
+                            <i class="fa-solid fa-right-to-bracket"></i> Log-in
+                        </div>
+                    </a>
                 <% } %>
             </div>
         </div>

@@ -42,4 +42,16 @@
     .list-stadiums{
         grid-template-columns: auto;
     }
+
+    .search-area{
+        display: none;
+    }
+
+    .selection{
+        display: block;
+    }
+
+    .filter-area{
+        text-align: end;
+    }
 }

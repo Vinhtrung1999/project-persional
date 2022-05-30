@@ -1,0 +1,49 @@
+.container-login{
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.881) 50%, rgba(97, 97, 97, 0.267)), url('https://media.istockphoto.com/vectors/soccer-player-kicking-ball-low-polygonal-vector-illustration-isolated-vector-id1168354153?k=20&m=1168354153&s=170667a&w=0&h=yngt_vR2muVP6MKbvxezS6AQg61rU2dF0CDTwZgsVCs=');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    height: 100vh;
+    position: relative;
+    padding-top: 10%;
+}
+
+.block-login{
+    width: 35%;
+    margin: auto;
+    border: solid #a5a5a5 1px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 10px 10px 10px 2px#d5d5d5c8;
+}
+
+.item-login{
+    display: flex;
+}
+
+.item-form-input{
+    width: 100%;
+}
+
+.item-form-title{
+    width: 150px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .block-login{
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .block-login{
+        width: 95%;
+    }
+    .item-login{
+        display: block;
+    }
+    .item-form-input{
+        width: 100%;
+        margin-top: 5px;
+    }
+}

@@ -56,10 +56,16 @@
     position: absolute;
     border: solid 1px #969696;
     box-shadow: 3px 3px 3px #565656;
+    height: 94vh;
+    width: 300px;
+    left: 0;
+    z-index: 1000;
 }
 
 .nav-items{
-    padding: 10px 100px 10px 10px;
+    padding: 10px;
+    width: 100%;
+    word-spacing: 10px;
 }
 
 .nav-item-link{
@@ -132,6 +138,10 @@
 
 .std-1-items{
     padding: 10px;
+}
+
+.std-1-items:hover{
+    transform: scale(1.05);
 }
 
 .std-1-items-info{
@@ -226,6 +236,9 @@
     .social-media{
         display: flex;
         justify-content: start;
+    }
+    .footer{
+        font-size: .8rem;
     }
 }
 

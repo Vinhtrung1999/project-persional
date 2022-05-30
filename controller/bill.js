@@ -20,20 +20,18 @@ class bill {
     //history
     history = (req, res)=>{
         if(!req.session.username)
-            return res.redirect('/staff/login')
-        if(req.session.position !== 99)
-            return res.redirect('/')
-        var content = '../pages/history'
-        return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
+            return res.redirect('/customer/login')
+        let name = req.session.name || ''
+        let page = 'history'
+        return res.render('layouts/main-view-customer',{name, page, token:req.session.token})
     }
 
     historyDetail = (req, res)=>{
         if(!req.session.username)
-            return res.redirect('/staff/login')
-        if(req.session.position !== 99)
-            return res.redirect('/')
-        var content = '../pages/historyDetail'
-        return res.render('layouts/main',{content, name:req.session.name, token:req.session.token, position:req.session.position})
+            return res.redirect('/customer/login')
+        let name = req.session.name || ''
+        let page = 'historyDetail'
+        return res.render('layouts/main-view-customer',{name, page, token:req.session.token})
     }
 }
 

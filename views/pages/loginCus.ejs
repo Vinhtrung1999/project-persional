@@ -5,44 +5,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <title>Login</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/css/loginCus.css">
+    <link rel="stylesheet" href="/css/base-customer.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- gg font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
+    <title>Login customer</title>
 </head>
-<style>
-    form {
-        width: 50%;
-        margin: auto;
-        margin-top: 50px;
-        border-radius: 10px;
-        padding: 30px;
-        background-color: #ee56f333;
-    }
-
-    #mess{
-        color: red;
-        padding-top: 10px;
-        font-weight: bold;
-    }
-</style>
 
 <body>
-    <div class="container">
-        <form action="/action_page.php">
-            <h2>Login customer</h2>
-            <div class="form-group">
-                <label for="CMND">CMND:</label>
-                <input type="email" class="form-control" id="CMND" placeholder="Enter CMND" name="CMND" required>
+    <div class="container-login">
+        <div class="block-login">
+            <div class="login-header t-center">
+                <img src="/images/XztNn3f.png" alt="logo">
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+            <div class="login-content f-1-2 m-t-30">
+                <div class="item-login p-10">
+                    <div class="item-form-title">CMND:</div>
+                    <input type="text" class="input-custom item-form-input f-1" id="CMND" placeholder="Enter CMND/CCCD" name="CMND" required>
+                </div>
+                <div class="item-login p-10">
+                    <div class="item-form-title">Password:</div>
+                    <input type="password" class="input-custom item-form-input f-1" id="password" placeholder="Enter password" name="password" required>
+                </div>
+                
             </div>
-            <button id="btn" type="button" class="btn btn-light">Login</button>
-            <div id="mess" class="form-group"></div>
-        </form>
+            <div class="p-10 t-center">
+                <button id="btn" type="button" class="btn-custom m-10 f-1 p-5-10 bg-green cl-white">Login</button>
+                <button id="btn" type="button" class="btn-custom m-10 f-1 p-5-10">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                </button>
+            </div>
+            <div id="mess" class="err"></div>
+        </div>
+
     </div>
 </body>
 <script>

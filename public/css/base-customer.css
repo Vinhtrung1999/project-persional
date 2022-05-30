@@ -147,3 +147,16 @@ body{
 .f-1-5{
     font-size: 1.5rem;
 }
+
+.p-5-10{
+    padding: 5px 10px;
+}
+
+.err{
+    background-color: rgb(255, 65, 65);
+    width: 50%;
+    color: #ffffff;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+}

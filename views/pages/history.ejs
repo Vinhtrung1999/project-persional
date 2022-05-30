@@ -1,76 +1,33 @@
-<h2 class="text-center" style="padding: 10px;">List bills</h2>
+<link rel="stylesheet" href="/css/list-view-stadium.css">
+<link rel="stylesheet" href="/css/history.css">
+
+<div class="bar-header"></div>
+
+
+
 <!-- search -->
-<form class="form-inline" style="padding: 10px;">
-    <input class="form-control mr-sm-2" type="text" id="idBillSearch" placeholder="Enter ID bill" aria-label="Search">
-    <button id="btn" class="btn btn-outline-success my-2 my-sm-0" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-</form>
+<div class="search-area t-center m-30">
+    <input type="text" id="search" class="input-custom f-1" placeholder="Enter ID bill">
+    <button class="btn-custom f-1">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
 
-<!-- table -->
-<table class="table table-hover text-center">
-    <thead>
-        <tr>
-            <th>Id bill</th>
-            <th>Total bill</th>
-            <th>Date order</th>
-        </tr>
-    </thead>
-    <tbody id="tb">
+<div class="content m-10">
+    <div class="content-items-area f-1-2">
+        <div class="content-item">
+            <div class="item item-1"><b>ID Bill</b></div>
+            <div class="item item-2"><b>Date</b></div>
+            <div class="item item-3"><b>Total</b></div>
+        </div>
+        <hr>            
+        <div id="content-bill" class="items-bill"></div>
+    </div>
+</div>
 
-    </tbody>
-</table>
 
 <script>
-    var btn = document.getElementById('btn')
-    btn.addEventListener('click', () => {
-        var idBill = document.getElementById('idBillSearch').value
-        fetch('/getBillsCus/'+idBill+'?token=<%= token %>', {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(req => req.json())
-        .then(json => {
-            data = json.data
-            var tb = document.getElementById('tb')
-            tb.innerHTML = ''
-            if(json.code === 0){          
-                data.forEach(val => {
-                    var tr = document.createElement('tr')
-                    var td1 = document.createElement('td')
-                    var td2 = document.createElement('td')
-                    var td3 = document.createElement('td')
-
-                    var a1 = document.createElement('a')
-                    var a2 = document.createElement('a')
-                    var a3 = document.createElement('a')
-
-                    a1.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-                    a2.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-                    a3.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-
-                    a1.innerHTML = val.idBill
-                    a2.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
-                    a3.innerHTML = val.dateOrder
-            
-
-                    td1.appendChild(a1)
-                    td2.appendChild(a2)
-                    td3.appendChild(a3)
-
-                    tr.appendChild(td1)
-                    tr.appendChild(td2)
-                    tr.appendChild(td3)
-
-                    tb.appendChild(tr)
-
-                });
-
-            }
-        })
-        .catch(e => console.log(e))
-    })
-
+    let list_bill = []
     fetch('/getBillsCus/?token=<%= token %>', {
         method: "GET",
         headers: {
@@ -79,39 +36,42 @@
     })
         .then(req => req.json())
         .then(json => {
-            data = json.data
-            var tb = document.getElementById('tb')
-            data.forEach(val => {
-                var tr = document.createElement('tr')
-                var td1 = document.createElement('td')
-                var td2 = document.createElement('td')
-                var td3 = document.createElement('td')
-
-                var a1 = document.createElement('a')
-                var a2 = document.createElement('a')
-                var a3 = document.createElement('a')
-
-                a1.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-                a2.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-                a3.setAttribute('href', '/historyDetail?idBill=' + val.idBill)
-
-
-                a1.innerHTML = val.idBill
-                a2.innerHTML = val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})
-                a3.innerHTML = val.dateOrder
-        
-
-                td1.appendChild(a1)
-                td2.appendChild(a2)
-                td3.appendChild(a3)
-
-                tr.appendChild(td1)
-                tr.appendChild(td2)
-                tr.appendChild(td3)
-
-                tb.appendChild(tr)
-            });
-
+            let data = json.data
+            let content_bill = document.getElementById('content-bill')
+            let temp = ''
+            data.forEach((val, index) => {
+                list_bill.push(val)
+                temp += `<a href="/bill/historyDetail?idBill=${val.idBill}" class="tag-link">
+                            <div class="content-item ${index % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                <div class="item item-1">${val.idBill}</div>
+                                <div class="item item-2">${val.dateOrder}</div>
+                                <div class="item item-3">${val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                            </div>
+                        </a>`
+            })
+            content_bill.innerHTML = temp
         })
         .catch(e => console.log(e))
+
+        let search = document.getElementById('search')
+        search.addEventListener('keyup', (e) => {
+            let words = e.target.value
+            let count_cl = 0
+            let temp = ''
+            let content_bill = document.getElementById('content-bill')
+            list_bill.forEach(val => {
+                if(val.idBill.toLowerCase().indexOf(words.toLowerCase()) != -1){
+                    temp += `<a href="/bill/historyDetail?idBill=${val.idBill}" class="tag-link">
+                                <div class="content-item ${count_cl % 2 == 0 ? 'bg-grey cl-white' : ''}">
+                                    <div class="item item-1">${val.idBill}</div>
+                                    <div class="item item-2">${val.dateOrder}</div>
+                                    <div class="item item-3">${val.sum.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                                </div>
+                            </a>`
+                    count_cl ++
+                }
+
+            })
+            content_bill.innerHTML = temp
+        })
 </script>
