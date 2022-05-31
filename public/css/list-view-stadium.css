@@ -15,6 +15,11 @@
     row-gap: 30px;
 }
 
+.stadium-img{
+    width: 400px;
+    height: 200px;
+}
+
 .list-items{
     position: relative;
 }
@@ -53,5 +58,10 @@
 
     .filter-area{
         text-align: end;
+    }
+
+    .stadium-img{
+        width: 350px;
+        height: 200px;
     }
 }

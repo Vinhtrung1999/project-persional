@@ -47,7 +47,7 @@
                             </div>
                             <a href="/view-details?idSvd=${val.idSvd}&type=${val.type}" class="link-custom">
                                 <div class="list-item-1">
-                                    <img src="${val.image}" alt="" draggable="false" width="400px" height="200px">
+                                    <img src="${val.image}" class="stadium-img" alt="" draggable="false">
                                 </div>
                                 <div class="list-item-2 f-1-2">
                                     ${val.name} - ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}/h
@@ -74,7 +74,7 @@
                             </div>
                             <a href="/view-details?idSvd=${val.idSvd}&type=${val.type}" class="link-custom">
                                 <div class="list-item-1">
-                                    <img src="${val.image}" alt="" draggable="false" width="400px" height="200px">
+                                    <img src="${val.image}" class="stadium-img" alt="" draggable="false">
                                 </div>
                                 <div class="list-item-2 f-1-2">
                                     ${val.name} - ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}/h
@@ -102,7 +102,7 @@
                                 </div>
                                 <a href="/view-details?idSvd=${val.idSvd}&type=${val.type}" class="link-custom">
                                     <div class="list-item-1">
-                                        <img src="${val.image}" alt="" draggable="false" width="400px" height="200px">
+                                        <img src="${val.image}" class="stadium-img" alt="" draggable="false">
                                     </div>
                                     <div class="list-item-2 f-1-2">
                                         ${val.name} - ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}/h
@@ -118,15 +118,18 @@
             let tmp = ''
             list_item_stadiums.forEach((val, index) => {
                 tmp += `<div class="list-items">
-                        <a href="/view-details?idSvd=${val.idSvd}&type=${val.type}" class="link-custom">
-                            <div class="list-item-1">
-                                <img src="${val.image}" alt="" draggable="false" width="400px" height="200px">
+                            <div class="item-status">
+                                ${val.status ? '<i class="fa-solid fa-xmark cl-red"></i>' : '<i class="fa-solid fa-check cl-green"></i>'}
                             </div>
-                            <div class="list-item-2 f-1-2">
-                                ${val.name} - ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}/h
-                            </div>
-                        </a>
-                    </div> `
+                            <a href="/view-details?idSvd=${val.idSvd}&type=${val.type}" class="link-custom">
+                                <div class="list-item-1">
+                                    <img src="${val.image}" class="stadium-img" alt="" draggable="false">
+                                </div>
+                                <div class="list-item-2 f-1-2">
+                                    ${val.name} - ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}/h
+                                </div>
+                            </a>
+                        </div> `
             })
 
             list_stadiums.innerHTML = tmp
