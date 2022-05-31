@@ -4,32 +4,14 @@
     <!-- list items 1 -->
     <div class="stadium mg-t-50">
         <h2 class="t-center">Standard stadiums</h2>
-        <div class="stadium-1 slider">
-            <% locals.data_svd.forEach((val) => { %>
-                <% if(val.type == 0){ %> 
-                    <div class="std-1-items">
-                        <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
-                        <a class="action-login-link" href="/view-details?idSvd=<%= val.idSvd %>&type=<%= val.type %>">
-                            <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
-                        </a>
-                    </div>
-                <% } %>
-            <% }) %>
+        <div class="stadium-1 slider" id="stadium-std">
+            
         </div>
 
         <!-- list items 2 -->
         <h2 class="t-center">VIP stadiums</h2>
-        <div class="stadium-1 slider">
-            <% locals.data_svd.forEach((val) => { %>
-                <% if(val.type == 1){ %> 
-                    <div class="std-1-items">
-                        <img src="<%= val.image %>" width="500px" height="250px" draggable="false">
-                        <a class="action-login-link" href="/view-details?idSvd=<%= val.idSvd %>&type=<%= val.type %>">
-                            <div class="std-1-items-info text-center"><%= val.name %> | <span id="money"><%= val.price %> đ</span></div>
-                        </a>
-                    </div>
-                <% } %>
-            <% }) %>
+        <div class="stadium-1 slider" id="stadium-vip">
+            
         </div>
     </div>
 

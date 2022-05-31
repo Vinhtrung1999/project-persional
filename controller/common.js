@@ -3,28 +3,7 @@ class ctlCommon{
     welcome = async (req, res) => {
         let name = req.session.name || ''
         let page = 'welcome'
-        let getSvd = (url) => {
-            return new Promise((resolve, reject) => {
-                fetch(url , {
-                    method: 'get',
-                    headers: {'Content-Type': 'application/json'}
-                })
-                .then(data => data.json())
-                .then(d => resolve(d))
-                .catch(err => reject(err))
-            })
-        }
-        
-        let data_svd = []
-    
-        await getSvd('http://localhost:5000/api/svd/getSvd')
-        .then(data => {
-            data.data.forEach((val) => {
-                data_svd.push(val)
-            })
-        })
-        .catch(err => console.log(err))  
-        return res.render('layouts/main-view-customer', {data_svd, name, page})
+        return res.render('layouts/main-view-customer', {name, page})
     }
 
     home = (req, res) => {

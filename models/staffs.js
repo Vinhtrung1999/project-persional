@@ -9,7 +9,7 @@ const staffs = new Schema({
     name : String,
     gender : Number,
     age : Number,
-    salery: Number,
+    salary: Number,
     shift: String,
     position: Number
 })

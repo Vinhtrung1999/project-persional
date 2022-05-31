@@ -164,9 +164,9 @@
                             <div class="item item-2">${val.name}</div>
                             <div class="item item-3">${val.position == 0 ? 'Manager' : (val.position == 1 ? 'Saler' : 'Employee')}</div>
                             <div class="item item-4">${val.shift}</div>
-                            <div class="item item-5">${val.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
+                            <div class="item item-5">${val.salary.toLocaleString('vi', {style : 'currency', currency : 'VND'})}</div>
                         </div>`
-                sum_salary += parseInt(val.salery)
+                sum_salary += parseInt(val.salary)
             })
             content_salary.innerHTML = tmp
             document.getElementById('total-salary').innerHTML = sum_salary.toLocaleString('vi', {style : 'currency', currency : 'VND'})

@@ -24,7 +24,7 @@
   }
 /* ------ */
 .img-title{
-    background-image: linear-gradient(#ffffffa4, #ffffff00),url('https://cms.thainguyen.vn/documents/130176/0/Anh+1.1.jpg/d01e2c4c-01c6-4e45-b016-49884eba4e5e?t=1631690537672');
+    background-image: linear-gradient(#ffffffa4, #ffffff00),url('/images/header.jpg');
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
@@ -99,7 +99,7 @@
 }
 
 .wall{
-    background-image: url('https://i.pinimg.com/originals/2a/49/7b/2a497b70eddae8f4b6c4e526468961e7.jpg');
+    background-image: url('/images/base-customer.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -132,6 +132,7 @@
     display: flex;
     /* slider */
     overflow-x: scroll;
+    overflow-y: hidden;
     flex-wrap: nowrap;
     width: 100%;
 }

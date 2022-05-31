@@ -14,6 +14,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <title>TVT stadium</title>
     <title>Login customer</title>
 </head>
 
@@ -36,9 +38,12 @@
             </div>
             <div class="p-10 t-center">
                 <button id="btn" type="button" class="btn-custom m-10 f-1 p-5-10 bg-green cl-white">Login</button>
-                <button id="btn" type="button" class="btn-custom m-10 f-1 p-5-10">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                </button>
+                <a href="/">
+                    <button id="btn" type="button" class="btn-custom m-10 f-1 p-5-10">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>                    
+                </a>
+
             </div>
             <div id="mess" class="err"></div>
         </div>
@@ -46,6 +51,15 @@
     </div>
 </body>
 <script>
+    // =====trigger enter=======================
+    let pwd = document.getElementById('password')
+    pwd.addEventListener("keypress", e => {
+        if (event.key === "Enter") {
+            event.preventDefault()
+            document.getElementById("btn").click()
+        }
+    })
+// ============================================
     var btn = document.getElementById('btn')
 
 

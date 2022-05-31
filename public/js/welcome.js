@@ -1,3 +1,43 @@
+fetch(`/api/svd/getSvd`, {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(data => data.json())
+.then(data => {
+    if(data.code === 0){
+        let stadium_std = document.getElementById('stadium-std')
+        let stadium_vip = document.getElementById('stadium-vip')
+        let items = data.data
+        let tmp_std = ''
+        let tmp_vip = ''
+
+        items.forEach((val, index) => {
+            if(val.type == 0){
+                tmp_std += `<div class="std-1-items">
+                                <img src="${val.image}" width="500px" height="250px" draggable="false">
+                                <a class="action-login-link" href="/view-details?idSvd=${val.idSvd}&type=${val.type}">
+                                    <div class="std-1-items-info text-center">${val.name} | <span id="money">${val.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span></div>
+                                </a>
+                            </div>`
+            }
+            else{
+                tmp_vip += `<div class="std-1-items">
+                                <img src="${val.image}" width="500px" height="250px" draggable="false">
+                                <a class="action-login-link" href="/view-details?idSvd=${val.idSvd}&type=${val.type}">
+                                    <div class="std-1-items-info text-center">${val.name} | <span id="money">${val.price.toLocaleString('vi', { style: 'currency', currency: 'VND' })}</span></div>
+                                </a>
+                            </div>`
+            }
+        })
+
+        stadium_std.innerHTML = tmp_std
+        stadium_vip.innerHTML = tmp_vip
+    }
+})
+.catch(err => console.log(err))
+
 let slider = document.getElementsByClassName('slider')
 let pos1 = {left: 0, x: 0}
 let flag1 = false

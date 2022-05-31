@@ -3,7 +3,7 @@
     <div class="detail-container-header" id="name">admin</div>
     <div class="detail-content">
         <div class="detail-content-items">
-            <img style="text-align: center" id="img-avt" src="https://iconape.com/wp-content/png_logo_vector/avatar-3.png" alt="avatar" width="100px">                
+            <img style="text-align: center" id="img-avt" src="/images/staff-fm.png" alt="avatar" width="100px">                
             <div class="btn-area-list">
                 <button type="button" class="btn-custom btn-detail bg-green cl-white" id="btn-show-update"><i class="fa-solid fa-pen-to-square"></i></button>        
                 <button id="btn" type="button" class="btn-custom btn-detail bg-yl"><i class="fa-solid fa-repeat"></i></button>
@@ -43,7 +43,7 @@
 
 <div class="modal-update" id="modal-update" style="display: none;">
     <div class="modal-update-header t-center f-1-5 m-bt-10">
-        <img style="text-align: center" id="img-avt-modal" src="https://iconape.com/wp-content/png_logo_vector/avatar-3.png" alt="avatar" width="100px">
+        <img style="text-align: center" id="img-avt-modal" src="/images/staff-fm.png" alt="avatar" width="100px">
         <div>Tran Vinh Trungss</div>
     </div>
     <div class="modal-update-body">
@@ -54,7 +54,7 @@
         <div class="modal-items">
             <div class="modal-items-title">Salary</div>
             <div class="modal-items-content">
-                <input class="input-custom f-1" style="width: 110px;" type="number" id="salery_MD" name="salery" required value="25022">
+                <input class="input-custom f-1" style="width: 110px;" type="number" id="salary_MD" name="salary" required value="25022">
             </div>
         </div>
         <div class="modal-items">
@@ -153,18 +153,18 @@
             idStaff.innerHTML = data.idStaff
             name.innerHTML = data.name
             age.innerHTML = data.age
-            salary.innerHTML = data.salery.toLocaleString('vi', {style : 'currency', currency : 'VND'})
+            salary.innerHTML = data.salary.toLocaleString('vi', {style : 'currency', currency : 'VND'})
             shift.innerHTML = data.shift
 
             if(data.gender === 0){
                 gender.innerHTML = "Male"
-                img_avt.setAttribute('src','https://iconape.com/wp-content/png_logo_vector/avatar.png')
-                img_avt_modal.setAttribute('src','https://iconape.com/wp-content/png_logo_vector/avatar.png')
+                img_avt.setAttribute('src','/images/staff-m.png')
+                img_avt_modal.setAttribute('src','/images/staff-m.png')
             }
             else{
                 gender.innerHTML = "Female"
-                img_avt.setAttribute('src', 'https://iconape.com/wp-content/png_logo_vector/avatar-3.png')
-                img_avt_modal.setAttribute('src', 'https://iconape.com/wp-content/png_logo_vector/avatar-3.png')
+                img_avt.setAttribute('src', '/images/staff-fm.png')
+                img_avt_modal.setAttribute('src', '/images/staff-fm.png')
             }
                 
 
@@ -176,7 +176,7 @@
 
         //Modal
             document.getElementById('idStaff_MD').innerHTML = data.idStaff
-            document.getElementById('salery_MD').value = data.salery
+            document.getElementById('salary_MD').value = data.salary
             document.getElementById('shift_MD').value = data.shift
             document.getElementById('position_MD').value = data.position
 
@@ -212,11 +212,11 @@
     btn_update.addEventListener("click", () =>{
         document.getElementById("err").innerHTML = ''
         let idStaff_MD = document.getElementById('idStaff_MD').innerHTML
-        let salery_MD = document.getElementById('salery_MD').value
+        let salary_MD = document.getElementById('salary_MD').value
         let shift_MD = document.getElementById('shift_MD').value
         let position_MD = document.getElementById('position_MD').value
 
-        if (idStaff_MD && salery_MD && shift_MD && position_MD) {
+        if (idStaff_MD && salary_MD && shift_MD && position_MD) {
             fetch('/api/staff/updateStaff', {
                 method: "POST",
                 headers: {
@@ -224,7 +224,7 @@
                 },
                 body: JSON.stringify({
                     idStaff: idStaff_MD,
-                    salery: salery_MD,
+                    salary: salary_MD,
                     position: position_MD,
                     shift: shift_MD,
                     token: "<%= token %>"
