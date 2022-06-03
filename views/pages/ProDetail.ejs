@@ -38,7 +38,6 @@
         <button class="btn-custom f-1-2 m-10 bg-red cl-white" id="btn_delete">
             <i class="fa-solid fa-trash-can"></i>
         </button>
-    
         <% } %>
         <a href="/product/listProducts">
             <button class="btn-custom f-1-2 m-10">
@@ -47,80 +46,4 @@
         </a>
     </div>
 </div>
-<script>
-    var url = new URL(window.location)
-    var idPro = url.searchParams.get('idPro')    
-
-
-    fetch('/api/product/getPro/'+idPro+"?token=<%= token %>", {
-        method: "GET",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    .then(req => req.json())
-    .then(json => {
-        if(json.code === 0){
-            data = json.data[0]
-            var idPro = document.getElementById('idPro')
-            var name = document.getElementById('name')
-            var type = document.getElementById('type')
-            var qty = document.getElementById('qty')
-            var price = document.getElementById('price')
-            var date = document.getElementById('date')
-
-            idPro.innerHTML = data.idPro
-            name.innerHTML = data.name
-            qty.innerHTML = data.qty
-            price.innerHTML = data.price.toLocaleString('vi', {style : 'currency', currency : 'VND'})
-            date.innerHTML = data.dateIn
-
-            if(data.type === 0){
-                type.innerHTML = "Drink"
-                document.getElementById('img-logo').setAttribute('src','/images/logo-drink.png')
-            }
-               
-            else if(data.type === 1){
-                type.innerHTML = "Food"
-                document.getElementById('img-logo').setAttribute('src','/images/logo-food.png')
-
-            }
-                
-            else{
-                type.innerHTML = "Item"
-                document.getElementById('img-logo').setAttribute('src','/images/logo-item.png')
-            }
-                
-
-            document.getElementById('head').innerHTML = data.idPro
-        }  
-    })
-    .catch(e => console.log(e))
-
-
-    var btn_delete = document.getElementById('btn_delete')
-    if(btn_delete)
-        btn_delete.addEventListener("click",() => {
-            var url = new URL(window.location)
-            var idPro = url.searchParams.get('idPro')  
-
-            fetch('/api/product/deletePro/', {
-                method: "DELETE",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({
-                    token : "<%= token %>",
-                    idPro : idPro
-                })
-            })
-            .then(req => req.json())
-            .then(json => {
-                if(json.code === 0){
-                    return window.location.href = "/product/listProducts"
-                }  
-            })
-            .catch(e => console.log(e))
-        })
-
-</script>
+<script src="/js/ProDetail.js"></script>
