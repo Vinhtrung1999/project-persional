@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const CheckGet = require('../../auth/CheckGet')
 const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiStaff = require('../../controller/api-staff')
+const ctlApiStaff = require('../../controller/api/api-staff')
 
 //[GET]
 Router.get('/getStaffs/:idStaff?', CheckGet, ctlApiStaff.getStaffs)

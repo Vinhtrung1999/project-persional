@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const CheckGet = require('../../auth/CheckGet')
 const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiWH = require('../../controller/api-WH')
+const ctlApiWH = require('../../controller/api/api-WH')
 //[GET]
 Router.get('/getProWH/:idProWH?', CheckGet, ctlApiWH.getProWH)
 

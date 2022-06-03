@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 const CheckGet = require('../../auth/CheckGet')
 const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiTTB = require('../../controller/api-TTB')
+const ctlApiTTB = require('../../controller/api/api-TTB')
 //[GET]
 Router.get('/getTTB/:idTTB?', CheckGet, ctlApiTTB.getTTB)
 

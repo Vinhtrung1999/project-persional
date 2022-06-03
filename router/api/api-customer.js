@@ -2,7 +2,7 @@ const express = require('express')
 const Router = express.Router()
 
 const CheckGet = require('../../auth/CheckGet')
-const ctlApiCustomer = require('../../controller/api-customer')
+const ctlApiCustomer = require('../../controller/api/api-customer')
 //[GET]
 Router.get('/getBillsCus/:idBill?', CheckGet, ctlApiCustomer.getBillsCus)
 

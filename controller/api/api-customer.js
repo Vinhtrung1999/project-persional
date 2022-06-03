@@ -1,11 +1,11 @@
-const customers = require('../models/customers')
-const bills = require('../models/bills')
+const customers = require('../../models/customers')
+const bills = require('../../models/bills')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 class ctlApiCustomer{
     //[GET]
-    getBillsCus = (req, res) =>{
+    getBillsCus = async (req, res) =>{
         if(!req.session.username)
             return res.json({"code":3, "message":"please login"})
     
@@ -14,26 +14,28 @@ class ctlApiCustomer{
     
         if(req.params.idBill){
             var idBill = req.params.idBill
-            
-            bills.find({"$and":[{"idBill":idBill}, {"idCus": req.session.username}]}).exec((err, data) =>{
-                if(err)
-                    return res.json({"code":99, "message":"err query data"})
-                
+            try{
+                let data = await bills.find({"$and":[{"idBill":idBill}, {"idCus": req.session.username}]}).exec()                      
                 if(data.length)
                     return res.json({"code":0, "data":data})
                 return res.json({"code":6, "message":"id not exist"})
-            })
+            }
+            catch(err){
+                return res.json({"code":99, "message":"err query data"})
+            }
         }else{
-            bills.find({"idCus": req.session.username}).exec((err, data) =>{
-                if(err)
-                    return res.json({"code":99, "message":"err query data"})
-                return res.json({"code":0, "data":data})          
-            })
+            try{
+                let data = await bills.find({"idCus": req.session.username}).exec()
+                return res.json({"code":0, "data":data})  
+            }
+            catch(err){
+                return res.json({"code":99, "message":"err query data"})
+            }
         }
     }
 
     //[POST]
-    loginCus = (req, res) =>{
+    loginCus = async (req, res) =>{
         if(req.session.username)
             return res.json({"code":4, "message":"you have been login!"})
     
@@ -42,10 +44,8 @@ class ctlApiCustomer{
         if (!CMND || !password)
             return res.json({"code":1, "message":"not enough params"})
     
-        customers.find({"idCus":CMND}).exec((err, data) =>{
-            if(err)
-                return res.json({"code":99, "message":"err query data"})
-            
+        try{
+            let data = await customers.find({"idCus":CMND}).exec()
             if (data.length && bcrypt.compareSync(password, data[0].password)){
                 req.session.username = CMND
                 req.session.name = data[0].name
@@ -58,8 +58,11 @@ class ctlApiCustomer{
                 req.session.salt = salt
                 return res.json({"code":0, "user":data, "token":token})
             }   
-            return res.json({"code":2, "message":"username or pass wrong!"})     
-        })
+            return res.json({"code":2, "message":"username or pass wrong!"})
+        }
+        catch(err){
+            return res.json({"code":99, "message":"err query data"})
+        }
     }
 }
 module.exports = new ctlApiCustomer
