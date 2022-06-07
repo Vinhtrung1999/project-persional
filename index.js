@@ -20,12 +20,13 @@ const WHRouter = require('./router/warehouse-router')
 const equipmentRouter = require('./router/equipment-router')
 const transactionRouter = require('./router/transaction-router')
 const apiRouter = require('./router/api-router')
-
+const cors = require('cors')
 //set
 app.set('view engine', 'ejs')
 db.connect()
 
 //use
+app.use(cors())
 app.use(express.static(__dirname + '/public'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
