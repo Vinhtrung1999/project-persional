@@ -19,7 +19,9 @@ Trang web sử dụng nền tản Nodejs để mô phỏng hệ thống quản l
 ![166272130_774255103523678_7399968929321204039_n](https://user-images.githubusercontent.com/64727146/173846140-95596bf0-e59a-41b4-a31a-299cd0ef5568.png)
 
 ## Deploy
-- Link deploy: https://tvt-stadium.herokuapp.com/
+- Link deploy:
+  + Customer: https://tvt-stadium.herokuapp.com/
+  + Manager: https://tvt-stadium.herokuapp.com/staff/login
 - Account có sẵn:
   + Admin: tài khoản: admin - mật khẩu: admin
   + Employee: tài khoản: 78218322 - mật khẩu: 78218322
