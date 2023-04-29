@@ -1,10 +1,7 @@
 const mongoose = require('mongoose')
 
-const Schema = mongoose.Schema
-
-
-const  bills = new Schema({
-    idBill : String,
+const billSchema = new mongoose.Schema({
+    idBill: String,
     idCus: String,
     idStaff: String,
     listSvd: Array,
@@ -12,7 +9,7 @@ const  bills = new Schema({
     sum: Number,
     dateUse: String,
     dateOrder: String
-    
+
 })
 
-module.exports = mongoose.model('bill', bills)
+module.exports = mongoose.model('bills', billSchema);

@@ -1,12 +1,12 @@
-const express = require('express')
-const Router = express.Router()
+const express = require('express');
+const Router = express.Router();
+const checkGet = require('../../../services/auth/checkGet');
+const {
+  getCustomerBills,
+  loginCustomer,
+} = require('./api-customer-controllers');
 
-const CheckGet = require('../../auth/CheckGet')
-const ctlApiCustomer = require('../../controller/api/api-customer')
-//[GET]
-Router.get('/getBillsCus/:idBill?', CheckGet, ctlApiCustomer.getBillsCus)
+Router.get('/getBillsCus/:idBill?', checkGet, getCustomerBills);
+Router.post('/loginCus', loginCustomer);
 
-//[POST]
-Router.post('/loginCus', ctlApiCustomer.loginCus)
-
-module.exports = Router
+module.exports = Router;

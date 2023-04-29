@@ -1,17 +1,17 @@
-const express = require('express')
-const Router = express.Router()
-const CheckGet = require('../../auth/CheckGet')
-const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiTTB = require('../../controller/api/api-TTB')
-//[GET]
-Router.get('/getTTB/:idTTB?', CheckGet, ctlApiTTB.getTTB)
+const express = require('express');
+const Router = express.Router();
+const checkGet = require('../../../services/auth/checkGet');
+const checkLogin = require('../../../services/auth/checkLogin');
+const {
+  getEquipment,
+  getDamagedEquipment,
+  addEquipment,
+  updateDamagedEquipment,
+} = require('./api-equipment-controllers');
 
-Router.get('/getTTB_Broken/:idTTB_Br?', CheckGet, ctlApiTTB.getTTB_Broken)
+Router.get('/getTTB/:idTTB?', checkGet, getEquipment);
+Router.get('/getTTB_Broken/:idTTB_Br?', checkGet, getDamagedEquipment);
+Router.post('/addTTB', checkLogin, addEquipment);
+Router.post('/updateTTB_broken', checkLogin, updateDamagedEquipment);
 
-//[POST]
-Router.post('/addTTB', CheckLogin, ctlApiTTB.addTTB)
-
-//[UPDATE]
-Router.post('/updateTTB_broken', CheckLogin, ctlApiTTB.updateTTB_broken)
-
-module.exports = Router
+module.exports = Router;
