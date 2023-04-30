@@ -1,20 +1,23 @@
-const express = require('express')
-const Router = express.Router()
-const CheckGet = require('../../auth/CheckGet')
-const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiWH = require('../../controller/api/api-WH')
-//[GET]
-Router.get('/getProWH/:idProWH?', CheckGet, ctlApiWH.getProWH)
+const express = require('express');
+const Router = express.Router();
+const checkGet = require('../../../services/auth/checkGet');
+const checkLogin = require('../../../services/auth/checkLogin');
+const {
+  getBatchInput,
+  getInventory,
+  addInventory,
+  deleteInventory,
+  updatePriceForProductInventory,
+} = require('./api-inventory-controllers');
 
-Router.get('/getSessionInputPro/:idcount?', CheckGet, ctlApiWH.getSessionInputPro)
+Router.get('/getProWH/:idProWH?', checkGet, getInventory);
 
-//[POST]
-Router.post('/addWh', CheckLogin, ctlApiWH.addWh)
+Router.get('/getSessionInputPro/:idcount?', checkGet, getBatchInput);
 
-//[DELETE]
-Router.delete('/deleteWH', CheckLogin, ctlApiWH.deleteWH)
+Router.post('/addWh', checkLogin, addInventory);
 
-//[UPDATE]
-Router.post('/updatePriceProWH', CheckLogin, ctlApiWH.updatePriceProWH)
+Router.delete('/deleteWH', checkLogin, deleteInventory);
 
-module.exports = Router
+Router.post('/updatePriceProWH', checkLogin, updatePriceForProductInventory);
+
+module.exports = Router;
