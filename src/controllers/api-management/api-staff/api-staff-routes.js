@@ -1,35 +1,48 @@
-const express = require('express')
-const Router = express.Router()
-const CheckGet = require('../../auth/CheckGet')
-const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiStaff = require('../../controller/api/api-staff')
+const express = require('express');
+const Router = express.Router();
+const checkGet = require('../../../services/auth/checkGet');
+const checkLogin = require('../../../services/auth/checkLogin');
+const {
+  getStaff,
+  getCustomer,
+  getProfile,
+  logout,
+  login,
+  addStaff,
+  changePass,
+  resetPass,
+  pay,
+  addCustomer,
+  updateStaff,
+  deleteStaff,
+} = require('./api-staff-controllers');
 
 //[GET]
-Router.get('/getStaffs/:idStaff?', CheckGet, ctlApiStaff.getStaffs)
+Router.get('/getStaffs/:idStaff?', checkGet, getStaff);
 
-Router.get('/getCus/:idCus?', CheckGet, ctlApiStaff.getCus)
+Router.get('/getCus/:idCus?', checkGet, getCustomer);
 
-Router.get('/getProfileAPI', CheckGet, ctlApiStaff.getProfileAPI)
+Router.get('/getProfileAPI', checkGet, getProfile);
 
-Router.get('/logout', ctlApiStaff.logout)
+Router.get('/logout', logout);
 
 //[POST]
-Router.post('/login', ctlApiStaff.login)
+Router.post('/login', login);
 
-Router.post('/addStaff', CheckLogin, ctlApiStaff.addStaff)
+Router.post('/addStaff', checkLogin, addStaff);
 
-Router.post('/changePass', CheckLogin, ctlApiStaff.changePass)
+Router.post('/changePass', checkLogin, changePass);
 
-Router.post('/pay', CheckLogin, ctlApiStaff.pay)
+Router.post('/pay', checkLogin, pay);
 
-Router.post('/resetPass', CheckLogin, ctlApiStaff.resetPass)
+Router.post('/resetPass', checkLogin, resetPass);
 
-Router.post('/addCustomers', CheckLogin, ctlApiStaff.addCustomers)
+Router.post('/addCustomers', checkLogin, addCustomer);
 
 //[UPDATE]
-Router.post('/updateStaff', CheckLogin, ctlApiStaff.updateStaff)
+Router.post('/updateStaff', checkLogin, updateStaff);
 
 //[DELETE]
-Router.delete('/deleteStaff', CheckLogin, ctlApiStaff.deleteStaff)
+Router.delete('/deleteStaff', checkLogin, deleteStaff);
 
-module.exports = Router
+module.exports = Router;

@@ -1,127 +1,148 @@
-const products = require('../../models/products')
-const WH = require('../../models/WH')
+const inventoryModel = require('../../../services/models/inventory');
+const productModel = require('../../../services/models/product');
+const {
+    queryByObject,
+    updateByObject,
+    deleteByObject,
+} = require('../../../services/database');
+const {
+    validateAddProduct,
+} = require('./api-product-validation');
 
-class ctlApiProduct{
-    //[GET]
-    getPro = async (req, res) =>{
-        if(!req.session.username)
-            return res.json({"code":3, "message":"please login"})
-    
-        if(req.session.position !== 1 && req.session.position !== 2)
-            return res.json({"code":5, "message":"Unauthorized"})
-    
-        if(req.params.idPro){
-            //get by id
-            let idPro = req.params.idPro
-            try{
-                let data = await products.find({"idPro":idPro}).exec()
-                if(data.length)
-                    return res.json({"code":0, "data":data})
-                return res.json({"code":6, "message":"id not exist"})
-            }
-            catch(err){
-                return res.json({"code":99, "message":"err query data"})
-            }
+const getProduct = async (req, res) => {
+    try {
+        const session = req.session;
+        if (!session.username)
+            return res.json({ "code": 3, "message": "please login" });
+
+        if (session.position !== 1 && session.position !== 2)
+            return res.json({ "code": 5, "message": "Unauthorized" });
+
+        let productData;
+        const idProduct = req.params.idPro;
+        if (idProduct) {
+            productData = await queryByObject({ "idPro": idProduct }, productModel);
+            if (!productData.length)
+                return res.json({ "code": 6, "message": "id not exist" });
+        } else {
+            productData = await queryByObject({}, productModel);
         }
-        else{
-            //get all
-            try{
-                let data = await products.find({}).exec()
-                return res.json({"code":0, "data":data})
-            }
-            catch(err){
-                return res.json({"code":99, "message":"err query data"})
-            }
-        }
-    }
-
-    //[POST]
-    addProduct = async (req, res) => {
-        if(!req.session.username)
-            return res.json({"code":3, "message":"please login"})
-    
-        if(req.session.position !== 2)
-            return res.json({"code":5, "message":"Unauthorized"})
-    
-        let {idPro,qty} = req.body
-        if(idPro && qty){
-            if(parseInt(qty) > 0){
-                let date = new Date();
-                let dateIn = date.getFullYear().toString() +"-"+ (date.getMonth()+1).toString() +"-"+ date.getDate().toString()
-                
-                try{
-                    let data = await WH.find({"idProWH":idPro}).exec()
-                    if (!data.length)
-                        return res.json({"code":10, "message":"products in WH sold out"})
-                    
-                    //quantity in warehouse not enough required
-                    let newqtyWH = parseInt(data[0].qty) - parseInt(qty)
-                    if(newqtyWH < 0)
-                        return res.json({"code":10, "message":"products not enough - only:" + parseInt(data[0].qty)})
-
-                    let dataPro = await products.find({"name":data[0].name}).exec()
-
-                    //add to product available
-                    if (dataPro.length){
-                        let newQtyPro = parseInt(qty) + parseInt(dataPro[0].qty)
-                        await products.updateOne({"idPro":dataPro[0].idPro}, {"$set":{"qty":newQtyPro, "price":data[0].price, "dateIn":dateIn}}).exec()
-                        await WH.updateOne({"idProWH":idPro}, {"$set":{"qty":newqtyWH}}).exec()
-                        return res.json({"code":0, "message":"update product succeed"})
-                    }
-                    //add new product
-                    else{
-                        let newPro = new products({
-                            idPro : idPro,
-                            name : data[0].name,
-                            type : data[0].type,
-                            qty: qty,
-                            price: parseInt(data[0].price),
-                            dateIn: dateIn
-                        })
-    
-                        await newPro.save()
-                        await WH.updateOne({"idProWH":idPro}, {"$set":{"qty":newqtyWH}}).exec()
-                        return res.json({"code":0, "data":newPro})
-                    }
-                }
-                catch(err){
-                    return res.json({"code":99, "message":"err query data"})
-                }
-            }
-            else
-                return res.json({"code":7, "message":"enter wrong"})
-        }
-        else
-            return res.json({"code":1, "message":"not enough params"})
-    }
-
-    //[DELETE]
-    deletePro = async (req, res) => {
-        if(!req.session.username)
-            return res.json({"code":3, "message":"please login"})
-    
-        if(req.session.position !== 2)
-            return res.json({"code":5, "message":"Unauthorized"})
-    
-        let idPro = req.body.idPro
-        
-        if(idPro){
-            try{
-                let data = await products.find({"idPro":idPro}).exec()
-                if(data.length){
-                    await products.deleteOne({"idPro":idPro}).exec()
-                    return res.json({"code":0, "message":"Delete "+idPro+" succeed"})
-                }
-                else{
-                    return res.json({"code":6, "message":"id not exist"})
-                }
-            }
-            catch(err){
-                return res.json({"code":99, "message":"err query data"})
-            }
-        }
-        else
-            return res.json({"code":1, "message":"not enough params"})
+        return res.json({ "code": 0, "data": productData })
+    } catch (err) {
+        return res.json({ "code": 99, "message": "err query data" })
     }
 }
-module.exports = new ctlApiProduct
+
+const addProduct = async (req, res) => {
+    const session = req.session;
+    if (!session.username)
+        return res.json({ "code": 3, "message": "please login" });
+
+    if (session.position !== 2)
+        return res.json({ "code": 5, "message": "Unauthorized" });
+
+    const productInput = req.body;
+    const productValidation = validateAddProduct(productInput);
+    if (!productValidation) {
+        return res.json({
+            code: 0,
+            message: 'Fail to validate',
+        });
+    }
+
+    const dateIn = new Date().toISOString();
+    try {
+        const productInventory = await queryByObject({ "idProWH": productInput.idPro }, inventoryModel)[0];
+        if (!productInventory)
+            return res.json({
+                code: 10,
+                message: `Product ${productInput.idPro} sold out`,
+            });
+
+        const qtySubtraction = parseInt(productInventory.qty) - parseInt(productInput.qty)
+        if (qtySubtraction < 0)
+            return res.json({
+                code: 10,
+                message: `Inventory is ${productInventory.qty}`,
+            });
+
+        const productData = await queryByObject({ "name": productInventory.name }, productModel)[0];
+
+        if (productData) {
+            const productObj = {
+                qty: parseInt(productInput.qty) + parseInt(productData.qty),
+                price: productData.price,
+                dateIn,
+            };
+
+            const inventoryObj = { qty: qtySubtraction };
+            await Promise.all([
+                updateByObject({ "$set": productObj }, productModel, { "idPro": productData.idPro }),
+                updateByObject({ "$set": inventoryObj }, inventoryModel, { "idProWH": productInput.idPro }),
+            ]);
+
+            return res.json({
+                code: 0,
+                message: 'Update product successfully',
+            });
+        }
+        //add new product
+        else {
+            const newProduct = {
+                ...productInput,
+                name: productInventory.name,
+                type: productInventory.type,
+                price: parseInt(productInventory.price),
+                dateIn,
+            };
+            const inventoryObj = { qty: qtySubtraction };
+            await Promise.all([
+                (new productModel(newProduct)).save(),
+                updateByObject({ "idProWH": idPro }, inventoryModel, { "$set": inventoryObj }),
+            ]);
+            return res.json({
+                code: 0,
+                data: newProduct,
+            });
+        }
+    }
+    catch (err) {
+        return res.json({ "code": 99, "message": "err query data" })
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    try {
+        const session = req.session;
+        if (!session.username)
+            return res.json({ "code": 3, "message": "please login" });
+
+        if (session.position !== 2)
+            return res.json({ "code": 5, "message": "Unauthorized" });
+
+        const idProduct = req.body.idPro;
+        if (!idProduct) {
+            return res.json({ code: 1, message: 'fail to validate' });
+        }
+
+        const productData = await queryByObject({ "idPro": idProduct }, productModel)[0];
+
+        if (!productData) {
+            return res.json({ "code": 6, "message": "id not exist" })
+        }
+        await deleteByObject(productModel, { "idPro": idProduct });
+        return res.json({
+            code: 0,
+            message: `Delete ${idProduct} successfully`,
+        });
+    }
+    catch (err) {
+        return res.json({ "code": 99, "message": "err query data" })
+    }
+}
+
+module.exports = {
+    getProduct,
+    addProduct,
+    deleteProduct,
+};

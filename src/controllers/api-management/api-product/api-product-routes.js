@@ -1,17 +1,21 @@
-const express = require('express')
-const Router = express.Router()
-const CheckGet = require('../../auth/CheckGet')
-const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiProduct = require('../../controller/api/api-product')
+const express = require('express');
+const Router = express.Router();
+const checkGet = require('../../../services/auth/checkGet');
+const checkLogin = require('../../../services/auth/checkLogin');
+const {
+  getProduct,
+  addProduct,
+  deleteProduct,
+} = require('./api-product-controllers');
 
 //[GET]
-Router.get('/getPro/:idPro?', CheckGet, ctlApiProduct.getPro)
+Router.get('/getPro/:idPro?', checkGet, getProduct);
 
 //[POST]
-Router.post('/addProduct', CheckLogin, ctlApiProduct.addProduct)
+Router.post('/addProduct', checkLogin, addProduct);
 
 //[DELETE]
-Router.delete('/deletePro', CheckLogin, ctlApiProduct.deletePro)
+Router.delete('/deletePro', checkLogin, deleteProduct);
 
 //[UPDATE]
-module.exports = Router
+module.exports = Router;

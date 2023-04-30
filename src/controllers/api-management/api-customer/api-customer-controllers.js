@@ -39,8 +39,9 @@ const getCustomerBills = async (req, res) => {
 
 const loginCustomer = async (req, res) => {
     try {
+        const session = req.session;
         // TODO: refactor - add lib
-        if (req.session.username)
+        if (session.username)
             return res.json({ "code": 4, "message": "you have been login!" });
 
         const { CMND, password } = req.body;
@@ -63,7 +64,10 @@ const loginCustomer = async (req, res) => {
                 salt: salt,
             };
 
-            req.session = sessionInfo;
+            req.session = {
+                ...session,
+                ...sessionInfo,
+            };
             return res.json({ "code": 0, "user": customerInfo, "token": token });
         }
         return res.json({ "code": 2, "message": "username or pass wrong!" });

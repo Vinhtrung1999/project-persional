@@ -1,17 +1,20 @@
-const express = require('express')
-const Router = express.Router()
-const CheckGet = require('../../auth/CheckGet')
-const CheckLogin = require('../../auth/CheckLogin')
-const ctlApiSvd = require('../../controller/api/api-svd')
+const express = require('express');
+const Router = express.Router();
+const checkLogin = require('../../../services/auth/checkLogin');
+const {
+  getStadium,
+  addStadium,
+  updateStadium,
+} = require('./api-stadium-controllers');
 
 //[GET]
-Router.get('/getSvd/:idSvd?', ctlApiSvd.getSvd)
+Router.get('/getSvd/:idSvd?', getStadium);
 
 //[POST]
-Router.post('/addSvd', CheckLogin, ctlApiSvd.addSvd)
+Router.post('/addSvd', checkLogin, addStadium);
 
 //[UPDATE]
-Router.post('/updateSvd', CheckLogin, ctlApiSvd.updateSvd)
+Router.post('/updateSvd', checkLogin, updateStadium);
 
 //[DELETE]
-module.exports = Router
+module.exports = Router;
