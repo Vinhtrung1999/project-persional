@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { getConnection } = require('./src/services/database');
 const { logger } = require('./src/services/logger');
-const staffs = require('./models/staffs');
+const staffModel = require('./src/services/models/staff');
 const bcrypt = require('bcrypt');
 // require Router
 const staffManagement = require('./src/controllers/staff-management/staff-management-routes');
@@ -16,7 +16,7 @@ const productManagement = require('./src/controllers/product-management/product-
 const inventoryManagement = require('./src/controllers/inventory-management/inventory-management-routes');
 const equipmentManagement = require('./src/controllers/equipment-management/equipment-management-routes');
 const transactionManagement = require('./src/controllers/transaction-management/transaction-management-routes');
-// const apiRouter = require('./router/api-router');
+const apiManagement = require('./src/controllers/api-management/api-management-routes');
 
 const routes = async app => {
   await getConnection(logger);
@@ -54,17 +54,17 @@ const routes = async app => {
   app.use('/', publicAccessManagement);
 
   /*** API ***/
-  // app.use('/api', apiRouter)
+  app.use('/api', apiManagement)
 
   //===================
 
   //=========START SYSTEM/=============
   // app.get('/start', (req, res) => {
 
-  //   staffs.find({ "idStaff": "admin" }).exec((err, data) => {
+  //   staffModel.find({ "idStaff": "admin" }).exec((err, data) => {
   //     if (data.length)
   //       return res.json({ code: 0, "message": "started" })
-  //     var newStaff = new staffs({
+  //     var newStaff = new staffModel({
   //       idStaff: "admin",
   //       password: bcrypt.hashSync("admin", 10),
   //       name: "admin",
