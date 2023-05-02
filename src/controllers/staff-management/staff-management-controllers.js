@@ -1,8 +1,5 @@
 const profile = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-
     const layoutOptions = {
         content: '../pages/profile',
         name: session.name,
@@ -28,8 +25,6 @@ const destroySession = (req, res) => {
 const changePass = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
     const layoutOptions = {
         content: '../pages/changePass',
         name: session.name,
@@ -41,11 +36,6 @@ const changePass = (req, res) => {
 
 const staffList = (req, res) => {
     const session = req.session;
-
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/listStaffs',
@@ -59,11 +49,6 @@ const staffList = (req, res) => {
 const staffDetails = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
-
     const layoutOptions = {
         content: '../pages/staffDetail',
         name: session.name,
@@ -75,11 +60,6 @@ const staffDetails = (req, res) => {
 
 const addStaff = (req, res) => {
     const session = req.session;
-
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/addStaff',

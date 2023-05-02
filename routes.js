@@ -1,9 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const { getConnection } = require('./src/services/database');
-const { logger } = require('./src/services/logger');
-const staffModel = require('./src/services/models/staff');
-const bcrypt = require('bcrypt');
+const { Logger } = require('./src/services/logger');
+
 // require Router
 const staffManagement = require('./src/controllers/staff-management/staff-management-routes');
 const publicAccessManagement = require('./src/controllers/public-access-management/public-access-management-routes');
@@ -17,8 +16,10 @@ const inventoryManagement = require('./src/controllers/inventory-management/inve
 const equipmentManagement = require('./src/controllers/equipment-management/equipment-management-routes');
 const transactionManagement = require('./src/controllers/transaction-management/transaction-management-routes');
 const apiManagement = require('./src/controllers/api-management/api-management-routes');
+const startSystem = require('./src/controllers/trigger-start-system/start-system-routes');
 
 const routes = async app => {
+  const logger = new Logger('Start database');
   await getConnection(logger);
   /*** MANAGER ***/
   app.use('/manager', managerManagement);
@@ -59,26 +60,7 @@ const routes = async app => {
   //===================
 
   //=========START SYSTEM/=============
-  // app.get('/start', (req, res) => {
-
-  //   staffModel.find({ "idStaff": "admin" }).exec((err, data) => {
-  //     if (data.length)
-  //       return res.json({ code: 0, "message": "started" })
-  //     var newStaff = new staffModel({
-  //       idStaff: "admin",
-  //       password: bcrypt.hashSync("admin", 10),
-  //       name: "admin",
-  //       gender: 1,
-  //       age: 1,
-  //       salary: 1,
-  //       shift: "Ca1",
-  //       position: 0
-  //     })
-
-  //     newStaff.save()
-  //     return res.json({ code: 0, "message": "started" })
-  //   })
-  // });
+  app.use('/start', startSystem);
 }
 
 module.exports = routes;

@@ -1,9 +1,5 @@
 const stadiumList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1 && session.position !== 2 && session.position !== 99)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/listSvd',
@@ -17,11 +13,6 @@ const stadiumList = (req, res) => {
 const stadiumDetails = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1 && session.position !== 2 && session.position !== 99)
-        return res.redirect('/')
-
     const layoutOptions = {
         content: '../pages/svdDetail',
         name: session.name,
@@ -34,11 +25,6 @@ const stadiumDetails = (req, res) => {
 
 const addStadium = (req, res) => {
     const session = req.session;
-
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/addSvd',

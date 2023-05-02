@@ -52,7 +52,7 @@ const addProduct = async (req, res) => {
 
     const dateIn = new Date().toISOString();
     try {
-        const productInventory = await queryByObject({ "idProWH": productInput.idPro }, inventoryModel)[0];
+        const productInventory = (await queryByObject({ "idProWH": productInput.idPro }, inventoryModel))[0];
         if (!productInventory)
             return res.json({
                 code: 10,
@@ -66,7 +66,7 @@ const addProduct = async (req, res) => {
                 message: `Inventory is ${productInventory.qty}`,
             });
 
-        const productData = await queryByObject({ "name": productInventory.name }, productModel)[0];
+        const productData = (await queryByObject({ "name": productInventory.name }, productModel))[0];
 
         if (productData) {
             const productObj = {
@@ -125,7 +125,7 @@ const deleteProduct = async (req, res) => {
             return res.json({ code: 1, message: 'fail to validate' });
         }
 
-        const productData = await queryByObject({ "idPro": idProduct }, productModel)[0];
+        const productData = (await queryByObject({ "idPro": idProduct }, productModel))[0];
 
         if (!productData) {
             return res.json({ "code": 6, "message": "id not exist" })

@@ -78,7 +78,7 @@ const addInventory = async (req, res) => {
         const dateIn = new Date().toISOString();
         const idcount = String(Math.floor(Math.random() * (10000000 - 1000000)) + 100000);
 
-        const inventoryInfo = await queryByObject({ name: inventoryInput.name }, inventoryModel)[0];
+        const inventoryInfo = (await queryByObject({ name: inventoryInput.name }, inventoryModel))[0];
         if (inventoryInfo) {
             if (inventoryInfo.name !== inventoryInput.name)
                 return res.json({ 'code': 11, 'message': 'name wrong!' })
@@ -148,7 +148,7 @@ const deleteInventory = async (req, res) => {
             return res.json({ code: 1, message: "fail to validate" });
         }
 
-        const inventoryProduct = await queryByObject({ "idProWH": idInventoryInput.idProWH })[0];
+        const inventoryProduct = (await queryByObject({ "idProWH": idInventoryInput.idProWH }))[0];
         if (!inventoryProduct) {
             return res.json({ "code": 6, "message": "id not exist" });
         }
@@ -175,7 +175,7 @@ const updatePriceForProductInventory = async (req, res) => {
             return res.json({ code: 1, message: 'fail to validate' });
         }
 
-        const inventoryProduct = await queryByObject({ "idProWH": inventoryInput.idProWH }, inventoryModel)[0];
+        const inventoryProduct = (await queryByObject({ "idProWH": inventoryInput.idProWH }, inventoryModel))[0];
         if (!inventoryProduct) {
             return res.json({ "code": 6, "message": "id not exist" });
         }

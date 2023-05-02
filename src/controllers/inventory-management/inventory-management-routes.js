@@ -6,9 +6,15 @@ const {
   inventoryList,
   addInventory,
 } = require('./inventory-management-controllers');
+const {
+  checkStaffLogin,
+} = require('../../services/auth/checkUserLogin');
+const {
+  checkRoleEmployee,
+} = require('../../services/auth/checkRole');
 
-Router.get('/listWH', inventoryList);
-Router.get('/WHDetail', inventoryDetails);
-Router.get('/addProWH', addInventory);
+Router.get('/listWH', checkStaffLogin, checkRoleEmployee, inventoryList);
+Router.get('/WHDetail', checkStaffLogin, checkRoleEmployee, inventoryDetails);
+Router.get('/addProWH', checkStaffLogin, checkRoleEmployee, addInventory);
 
 module.exports = Router;

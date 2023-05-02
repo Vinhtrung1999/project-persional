@@ -1,6 +1,5 @@
 const express = require('express');
 const Router = express.Router();
-
 const {
   welcomeView,
   stadiumListView,

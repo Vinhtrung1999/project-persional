@@ -12,26 +12,18 @@ const destroySession = (req, res) => {
 // NOTE: only staff can access
 const customerList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login');
-    if (session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/listCustomers',
         name: session.name,
         token: session.token,
-        position: session.position
+        position: session.position,
     };
     return res.render('layouts/main', layoutOptions);
 }
 
 const customerDetails = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/CusDT',
@@ -44,10 +36,6 @@ const customerDetails = (req, res) => {
 
 const addCustomer = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/addCustomers',

@@ -109,7 +109,7 @@ const login = async (req, res) => {
         if (!username || !password)
             return res.json({ "code": 1, "message": "not enough params" });
 
-        const staffProfile = await queryByObject({ "idStaff": username }, staffModel)[0];
+        const staffProfile = (await queryByObject({ "idStaff": username }, staffModel))[0];
         if (!(staffProfile && bcrypt.compareSync(password, staffProfile.password))) {
             return res.json({ 'code': 2, 'message': 'username or pass wrong!' })
         }
@@ -117,17 +117,12 @@ const login = async (req, res) => {
         const JWT_SECRET = process.env.JWT_SECRET;
         const salt = Math.floor(Math.random() * 10000) + 1;
         const token = jwt.sign({ username, salt }, JWT_SECRET, { expiresIn: '1h' });
-        const sessionInfo = {
-            username,
-            name: staffProfile.name,
-            position: staffProfile.position,
-            token,
-            salt,
-        };
-        req.session = {
-            ...session,
-            ...sessionInfo,
-        };
+
+        req.session.username = username;
+        req.session.name = staffProfile.name;
+        req.session.position = staffProfile.position;
+        req.session.token = token;
+        req.session.salt = salt;
 
         return res.json({ 'code': 0, 'user': staffProfile, 'token': token })
     }
@@ -155,7 +150,7 @@ const addStaff = async (req, res) => {
             })
         }
 
-        const staffInfo = await queryByObject({ "idStaff": staffInput.idStaff }, staffModel)[0];
+        const staffInfo = (await queryByObject({ "idStaff": staffInput.idStaff }, staffModel))[0];
         if (staffInfo)
             return res.json({ "code": 8, "message": "id existed, please try again" });
 
@@ -240,7 +235,7 @@ const pay = async (req, res) => {
         let stadiumInfo;
         const getStadiumList = [];
         for (const stadium of stadiumList) {
-            stadiumInfo = await queryByObject({ "idSvd": stadium.idSvd }, stadiumModel)[0];
+            stadiumInfo = (await queryByObject({ "idSvd": stadium.idSvd }, stadiumModel))[0];
             if (!stadiumInfo) {
                 return res.json({
                     code: 1,
@@ -263,7 +258,7 @@ const pay = async (req, res) => {
         const getProductList = [];
         const qtySubtractionList = [];
         for (const product of productList) {
-            productInfo = await queryByObject({ "idPro": product.idPro }, productModel)[0];
+            productInfo = (await queryByObject({ "idPro": product.idPro }, productModel))[0];
             if (!productInfo) {
                 return res.json({
                     code: 1,
@@ -285,11 +280,11 @@ const pay = async (req, res) => {
             getProductList.push(productInfo);
         }
 
-        const billData = await queryByObject({ "idBill": billInput.idBill }, billModel)[0];
+        const billData = (await queryByObject({ "idBill": billInput.idBill }, billModel))[0];
         if (billData)
             return res.json({ "code": 8, "message": "Bill existed" })
 
-        let customerData = await queryByObject({ "idCus": billInput.idCus }, customerModel)[0];
+        let customerData = (await queryByObject({ "idCus": billInput.idCus }, customerModel))[0];
         if (customerData)
             return res.json({ "code": 6, "message": "Customer does not exist" })
 
@@ -366,7 +361,7 @@ const addCustomer = async (req, res) => {
         }
 
         const idCustomer = String(CMND);
-        const customerData = await queryByObject({ "idCus": idCustomer }, customerModel)[0];
+        const customerData = (await queryByObject({ "idCus": idCustomer }, customerModel))[0];
         if (customerData)
             return res.json({ "code": 8, "message": "Customer existed" });
 
@@ -407,7 +402,7 @@ const updateStaff = async (req, res) => {
         }
 
 
-        const staffInfo = await queryByObject({ "idStaff": staffInput.idStaff })[0];
+        const staffInfo = (await queryByObject({ "idStaff": staffInput.idStaff }))[0];
         if (!staffInfo) {
             return res.json({ "code": 6, "message": "id not exist" })
         }
@@ -438,7 +433,7 @@ const deleteStaff = async (req, res) => {
 
         const idStaff = req.body.idStaff || '';
 
-        let staffInfo = await queryByObject({ "idStaff": idStaff }, staffModel)[0];
+        let staffInfo = (await queryByObject({ "idStaff": idStaff }, staffModel))[0];
         if (!staffInfo) {
             return res.json({ "code": 6, "message": "id not exist" });
         }

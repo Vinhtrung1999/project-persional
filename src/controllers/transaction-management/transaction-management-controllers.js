@@ -1,9 +1,5 @@
 const pay = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/pay',
@@ -16,10 +12,6 @@ const pay = (req, res) => {
 
 const confirmOTPCode = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/confirmOTPcode',
@@ -31,11 +23,6 @@ const confirmOTPCode = (req, res) => {
 }
 
 const incorrectOTP = (req, res) => {
-    const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
     return res.render('pages/OTPwrong')
 }
 

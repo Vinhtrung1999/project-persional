@@ -1,25 +1,33 @@
 const express = require('express');
 const Router = express.Router();
 const {
-  inventory,
-  equipment,
-  products,
+  inventoryList,
+  equipmentList,
+  productList,
   profile,
-  stadiums,
-  staffs,
-  statistic,
-  customers,
+  stadiumList,
+  staffList,
+  statisticList,
+  customerList,
   viewInfo,
 } = require('./manager-management-controllers');;
+const {
+  checkStaffLogin,
+} = require('../../services/auth/checkUserLogin');
+const {
+  checkRoleAdmin,
+  checkRoleSale,
+  checkRoleEmployee,
+} = require('../../services/auth/checkRole');
 
-Router.get('/profile-manager', profile);
-Router.get('/staff-manager', staffs);
-Router.get('/statistic-manager', statistic);
-Router.get('/stadium-manager', stadiums);
-Router.get('/product-manager', products);
-Router.get('/equipment-manager', equipment);
-Router.get('/warehouse-manager', inventory);
-Router.get('/customer-manager', customers);
-Router.get('/view-info-manager', viewInfo);
+Router.get('/profile-manager', checkStaffLogin, profile);
+Router.get('/staff-manager', checkStaffLogin, checkRoleAdmin, staffList);
+Router.get('/statistic-manager', checkStaffLogin, checkRoleAdmin, statisticList);
+Router.get('/stadium-manager', checkStaffLogin, checkRoleEmployee, stadiumList);
+Router.get('/product-manager', checkStaffLogin, checkRoleEmployee, productList);
+Router.get('/equipment-manager', checkStaffLogin, checkRoleEmployee, equipmentList);
+Router.get('/warehouse-manager', checkStaffLogin, checkRoleEmployee, inventoryList);
+Router.get('/customer-manager', checkStaffLogin, checkRoleSale, customerList);
+Router.get('/view-info-manager', checkStaffLogin, checkRoleSale, viewInfo);
 
 module.exports = Router;

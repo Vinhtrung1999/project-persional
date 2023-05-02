@@ -13,7 +13,7 @@ const getStadium = async (req, res) => {
         let stadiumData;
         const idStadium = req.params.idSvd;
         if (idStadium) {
-            stadiumData = await queryByObject({ 'idSvd': idStadium }, stadiumModel)[0];
+            stadiumData = (await queryByObject({ 'idSvd': idStadium }, stadiumModel))[0];
             if (!stadiumData)
                 return res.json({ 'code': 6, 'message': 'id not exist' })
         } else {
@@ -82,7 +82,7 @@ const updateStadium = async (req, res) => {
             });
         }
 
-        const stadiumInfo = await queryByObject({ idSvd: stadiumInput.idSvd }, stadiumModel)[0];
+        const stadiumInfo = (await queryByObject({ idSvd: stadiumInput.idSvd }, stadiumModel))[0];
         if (!stadiumInfo) {
             return res.json({ 'code': 6, 'message': 'id not exist' })
         }

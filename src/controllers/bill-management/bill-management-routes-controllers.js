@@ -1,10 +1,6 @@
 'use strict'
 const billList = (req, res) => {
   const session = req.session;
-  if (!session.username)
-    return res.redirect('/staff/login')
-  if (session.position !== 1)
-    return res.redirect('/')
 
   const layoutOption = {
     content: '../pages/listBills',
@@ -17,10 +13,6 @@ const billList = (req, res) => {
 
 const billDetails = (req, res) => {
   const session = req.session;
-  if (!session.username)
-    return res.redirect('/staff/login')
-  if (session.position !== 1)
-    return res.redirect('/')
 
   const layoutOption = {
     content: '../pages/billDetail',
@@ -34,8 +26,6 @@ const billDetails = (req, res) => {
 //history
 const history = (req, res) => {
   const session = req.session;
-  if (!session.username)
-    return res.redirect('/customer/login')
 
   const layoutOption = {
     name: session.name,
@@ -47,8 +37,6 @@ const history = (req, res) => {
 
 const historyDetails = (req, res) => {
   const session = req.session;
-  if (!session.username)
-    return res.redirect('/customer/login')
 
   const layoutOption = {
     name: session.name,

@@ -1,9 +1,5 @@
 const inventoryList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/listWH',
@@ -17,11 +13,6 @@ const inventoryList = (req, res) => {
 const inventoryDetails = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
-
     const layoutOptions = {
         content: '../pages/WHDetail',
         name: session.name,
@@ -33,11 +24,6 @@ const inventoryDetails = (req, res) => {
 
 const addInventory = (req, res) => {
     const session = req.session;
-
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/addProWH',

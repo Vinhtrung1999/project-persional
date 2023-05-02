@@ -1,9 +1,5 @@
 const productList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2 && session.position !== 1)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/listProducts',
@@ -17,11 +13,6 @@ const productList = (req, res) => {
 const productDetails = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2 && session.position !== 1)
-        return res.redirect('/')
-
     const layoutOptions = {
         content: '../pages/ProDetail',
         name: session.name,
@@ -33,11 +24,6 @@ const productDetails = (req, res) => {
 
 const addProduct = (req, res) => {
     const session = req.session;
-
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/addProduct',

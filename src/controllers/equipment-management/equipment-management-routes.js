@@ -1,5 +1,5 @@
-const express = require('express')
-const Router = express.Router()
+const express = require('express');
+const Router = express.Router();
 const {
   equipmentList,
   damagedEquipmentList,
@@ -7,11 +7,17 @@ const {
   equipmentDetails,
   addEquipment,
 } = require('./equipment-management-controllers');
+const {
+  checkStaffLogin,
+} = require('../../services/auth/checkUserLogin');
+const {
+  checkRoleEmployee,
+} = require('../../services/auth/checkRole');
 
-Router.get('/listEquipment', equipmentList)
-Router.get('/listEquipmentDamage', damagedEquipmentList)
-Router.get('/equipmentDamageDetail', damagedEquipmentDetails)
-Router.get('/equipmentDetail', equipmentDetails)
-Router.get('/addEquipment', addEquipment)
+Router.get('/listEquipment', checkStaffLogin, checkRoleEmployee, equipmentList);
+Router.get('/listEquipmentDamage', checkStaffLogin, checkRoleEmployee, damagedEquipmentList);
+Router.get('/equipmentDamageDetail', checkStaffLogin, checkRoleEmployee, damagedEquipmentDetails);
+Router.get('/equipmentDetail', checkStaffLogin, checkRoleEmployee, equipmentDetails);
+Router.get('/addEquipment', checkStaffLogin, checkRoleEmployee, addEquipment);
 
 module.exports = Router;

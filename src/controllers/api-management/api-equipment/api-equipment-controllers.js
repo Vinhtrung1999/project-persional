@@ -8,9 +8,11 @@ const {
     validateAddEquipment,
     validateAddDamagedEquipment,
 } = require('./api-equipment-validation');
+const { Logger } = require('../../../services/logger');
 
 const getEquipment = async (req, res) => {
     try {
+        const logger = new Logger('Start get equipment');
         const session = req.session;
         // TODO: refactor code -> add lib
         if (!session.username)
@@ -22,14 +24,20 @@ const getEquipment = async (req, res) => {
         let equipmentData;
         const idEquipment = req.params.idTTB;
         if (idEquipment) {
+            logger.info('Get equipment with id', idEquipment);
             equipmentData = await queryByObject({ "idTTB": idEquipment }, equipmentModel);
-            if (!equipmentData.length)
-                return res.json({ "code": 6, "message": "id not exist" });
+            if (!equipmentData.length) {
+                logger.info('Error: equipment does not exist');
+                return res.json({ "code": 6, "message": "id does not exist" });
+            }
         } else {
+            logger.info('Get all equipment');
             equipmentData = await queryByObject({}, equipmentModel);
         }
+        logger.info('get bill successfully', equipmentData);
         return res.json({ "code": 0, "data": equipmentData });
     } catch (err) {
+        logger.info('Unexpected error', JSON.stringify(err));
         return res.json({ "code": 99, "message": "err query data" })
     }
 }
@@ -75,7 +83,7 @@ const addEquipment = async (req, res) => {
         if (!equipmentValidation)
             return res.json({ 'code': 1, 'message': 'input parameters incorrect format' });
 
-        const equipmentInfo = await queryByObject({ 'name': newEquipment.name }, equipmentModel)[0];
+        const equipmentInfo = (await queryByObject({ 'name': newEquipment.name }, equipmentModel))[0];
         const dateIn = new Date().toISOString();
 
         if (equipmentInfo) {
@@ -121,7 +129,7 @@ const updateDamagedEquipment = async (req, res) => {
         if (!damagedEquipmentValidation)
             return res.json({ 'code': 1, 'message': 'input parameters incorrect format' });
 
-        const equipmentInfo = await queryByObject({ "idTTB": damagedEquipment.idTTB }, equipmentModel)[0];
+        const equipmentInfo = (await queryByObject({ "idTTB": damagedEquipment.idTTB }, equipmentModel))[0];
         if (!equipmentInfo)
             return res.json({ "code": 6, "message": "id not exist" });
 

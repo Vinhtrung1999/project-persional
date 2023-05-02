@@ -1,12 +1,15 @@
-const logger = {
-  info: (msg) => {
-    console.log(`%c${msg}`, 'color: green');
-  },
-  error: (msg) => {
-    console.warn(`%c${msg}`, 'color: red');
-  },
+const Logger = function (msg) {
+  this.msgList = [msg];
+  this.info = (...data) => {
+    const [msg, values] = data;
+    values ? this.msgList.push(`${msg}:${values}`) : this.msgList.push(msg);
+    this.toString();
+  }
+  this.toString = () => {
+    console.log(this.msgList.join('|'));
+  }
 }
 
 module.exports = {
-  logger,
+  Logger,
 };

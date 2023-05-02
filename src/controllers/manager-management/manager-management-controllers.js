@@ -1,8 +1,5 @@
 const profile = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-
     const layoutOption = {
         content: '../page-managers/profile-manager',
         name: session.name,
@@ -12,13 +9,9 @@ const profile = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const staffs = (req, res) => {
+const staffList = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/staff-manager',
         name: session.name,
@@ -28,12 +21,8 @@ const staffs = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const statistic = (req, res) => {
+const statisticList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/statistic-manager',
         name: session.name,
@@ -43,12 +32,9 @@ const statistic = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const stadiums = (req, res) => {
+const stadiumList = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
+
     const layoutOption = {
         content: '../page-managers/stadium-manager',
         name: session.name,
@@ -58,13 +44,9 @@ const stadiums = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const products = (req, res) => {
+const productList = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/product-manager',
         name: session.name,
@@ -74,13 +56,9 @@ const products = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const equipment = (req, res) => {
+const equipmentList = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/equipment-manager',
         name: session.name,
@@ -90,13 +68,9 @@ const equipment = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const inventory = (req, res) => {
+const inventoryList = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 2)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/warehouse-manager',
         name: session.name,
@@ -106,13 +80,9 @@ const inventory = (req, res) => {
     return res.render('layouts/main', layoutOption);
 }
 
-const customers = (req, res) => {
+const customerList = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/customer-manager',
         name: session.name,
@@ -125,10 +95,6 @@ const customers = (req, res) => {
 const viewInfo = (req, res) => {
     const session = req.session;
 
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 1)
-        return res.redirect('/')
     const layoutOption = {
         content: '../page-managers/view-info-manager',
         name: session.name,
@@ -140,13 +106,13 @@ const viewInfo = (req, res) => {
 
 
 module.exports = {
-    inventory,
-    equipment,
-    products,
+    inventoryList,
+    equipmentList,
+    productList,
     profile,
-    stadiums,
-    staffs,
-    statistic,
-    customers,
+    stadiumList,
+    staffList,
+    statisticList,
+    customerList,
     viewInfo,
 };

@@ -1,9 +1,5 @@
 const fee = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/fee',
@@ -16,10 +12,6 @@ const fee = (req, res) => {
 
 const profit = (req, res) => {
     const session = req.session;
-    if (!session.username)
-        return res.redirect('/staff/login')
-    if (session.position !== 0)
-        return res.redirect('/')
 
     const layoutOptions = {
         content: '../pages/profit',

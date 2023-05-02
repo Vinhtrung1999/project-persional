@@ -11,7 +11,7 @@ const getConnection = async (logger) => {
         logger.info('connect mongodb successfully');
         return connection
     } catch (error) {
-        logger.error('connect mongodb fail');
+        logger.info('connect mongodb fail');
         throw new Error(error);
     }
 }
