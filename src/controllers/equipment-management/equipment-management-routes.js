@@ -9,10 +9,10 @@ const {
 } = require('./equipment-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleEmployee,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/listEquipment', checkStaffLogin, checkRoleEmployee, equipmentList);
 Router.get('/listEquipmentDamage', checkStaffLogin, checkRoleEmployee, damagedEquipmentList);

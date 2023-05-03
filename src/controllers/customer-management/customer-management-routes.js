@@ -10,10 +10,10 @@ const {
 } = require('./customer-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleSale,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 Router.get('/login', customerLogin);
 Router.get('/destroySsCus', destroySession);
 // NOTE: only staff can access---------------------------------------

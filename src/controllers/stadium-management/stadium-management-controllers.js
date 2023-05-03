@@ -3,9 +3,8 @@ const stadiumList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listSvd',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }
@@ -15,9 +14,8 @@ const stadiumDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/svdDetail',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
         mess: req.query.mess || '',
     };
     return res.render('layouts/main', layoutOptions)
@@ -28,9 +26,8 @@ const addStadium = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/addSvd',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }

@@ -1,7 +1,7 @@
 let token = localStorage.getItem('token-user')
 let btn = document.getElementById('btn')
 
-btn.addEventListener('click', () =>{
+btn.addEventListener('click', () => {
     document.getElementById('mess').innerHTML = ""
     document.getElementById('err').innerHTML = ""
 
@@ -15,44 +15,45 @@ btn.addEventListener('click', () =>{
     let image_detail_2 = document.getElementById('image_detail_2').value
     let price = document.getElementById('price').value
 
-    if(idSvd && name && type && capacity && name && type && image){
+    if (idSvd && name && type && capacity && name && type && image) {
         fetch('/api/svd/addSvd', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token-user'),
             },
-            body:JSON.stringify({
-                idSvd : idSvd,
-                name : name,
-                type : type,
-                capacity : capacity,
+            body: JSON.stringify({
+                idSvd: idSvd,
+                name: name,
+                type: type,
+                capacity: capacity,
                 status: status,
                 image: image,
                 image_detail_1: image_detail_1,
                 image_detail_2: image_detail_2,
                 price: price,
-                token: token                            
+                token: token
             })
         })
-        .then(req => req.json())
-        .then(json => {
-            if(json.code === 0){
-                document.getElementById('name').value = ''
-                document.getElementById('status').value = 0
-                document.getElementById('type').value = 0
-                document.getElementById('capacity').value = ''
-                document.getElementById('image').value = ''
-                document.getElementById('image_detail_1').value = ''
-                document.getElementById('image_detail_2').value = ''
-                document.getElementById('price').value = ''
-                
+            .then(req => req.json())
+            .then(json => {
+                if (json.code === 0) {
+                    document.getElementById('name').value = ''
+                    document.getElementById('status').value = 0
+                    document.getElementById('type').value = 0
+                    document.getElementById('capacity').value = ''
+                    document.getElementById('image').value = ''
+                    document.getElementById('image_detail_1').value = ''
+                    document.getElementById('image_detail_2').value = ''
+                    document.getElementById('price').value = ''
 
-                document.getElementById('mess').innerHTML = 'add '+ json.data.idSvd + " succeed"
-            }  
-            else
-                document.getElementById('err').innerHTML = 'please check information again'
-        })
-        .catch(e => console.log(e))
+
+                    document.getElementById('mess').innerHTML = 'add ' + json.data.idSvd + " succeed"
+                }
+                else
+                    document.getElementById('err').innerHTML = 'please check information again'
+            })
+            .catch(e => console.log(e))
     }
     else
         document.getElementById('err').innerHTML = 'please check information again'

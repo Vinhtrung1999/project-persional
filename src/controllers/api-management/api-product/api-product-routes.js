@@ -1,21 +1,24 @@
 const express = require('express');
 const Router = express.Router();
-const checkGet = require('../../../services/auth/checkGet');
-const checkLogin = require('../../../services/auth/checkLogin');
+const checkToken = require('../../../services/auth/check-token');
 const {
   getProduct,
   addProduct,
   deleteProduct,
 } = require('./api-product-controllers');
+const {
+  checkRoleEmployeeApi,
+  checkRoleSaleAndEmployeeApi,
+} = require('../../../services/auth/check-user-role');
 
 //[GET]
-Router.get('/getPro/:idPro?', checkGet, getProduct);
+Router.get('/getPro/:idPro?', checkToken, checkRoleSaleAndEmployeeApi, getProduct);
 
 //[POST]
-Router.post('/addProduct', checkLogin, addProduct);
+Router.post('/addProduct', checkToken, checkRoleEmployeeApi, addProduct);
 
 //[DELETE]
-Router.delete('/deletePro', checkLogin, deleteProduct);
+Router.delete('/deletePro', checkToken, checkRoleEmployeeApi, deleteProduct);
 
 //[UPDATE]
 module.exports = Router;

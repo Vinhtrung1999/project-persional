@@ -8,10 +8,10 @@ const {
 } = require('./inventory-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleEmployee,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/listWH', checkStaffLogin, checkRoleEmployee, inventoryList);
 Router.get('/WHDetail', checkStaffLogin, checkRoleEmployee, inventoryDetails);

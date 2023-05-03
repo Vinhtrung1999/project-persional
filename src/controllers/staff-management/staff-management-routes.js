@@ -11,10 +11,10 @@ const {
 } = require('./staff-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleAdmin,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/profile', checkStaffLogin, profile);
 Router.get('/login', login);

@@ -3,9 +3,8 @@ const productList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listProducts',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }
@@ -15,9 +14,8 @@ const productDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/ProDetail',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }
@@ -27,9 +25,8 @@ const addProduct = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/addProduct',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }

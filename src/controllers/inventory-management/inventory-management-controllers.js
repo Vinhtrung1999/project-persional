@@ -3,9 +3,8 @@ const inventoryList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listWH',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }
@@ -15,9 +14,8 @@ const inventoryDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/WHDetail',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }
@@ -27,9 +25,8 @@ const addInventory = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/addProWH',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }

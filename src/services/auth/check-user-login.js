@@ -1,6 +1,6 @@
 const checkStaffLogin = (req, res, next) => {
   const session = req.session;
-  if (!session.username) {
+  if (!session.user) {
     return res.redirect('/staff/login');
   }
   next();

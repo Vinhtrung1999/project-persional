@@ -15,9 +15,8 @@ const customerList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listCustomers',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }
@@ -27,9 +26,8 @@ const customerDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/CusDT',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }
@@ -39,9 +37,8 @@ const addCustomer = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/addCustomers',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     };
     return res.render('layouts/main', layoutOptions);
 }

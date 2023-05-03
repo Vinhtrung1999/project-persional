@@ -7,10 +7,10 @@ const {
 } = require('./transaction-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleSale,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/pay', checkStaffLogin, checkRoleSale, pay);
 

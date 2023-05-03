@@ -3,9 +3,8 @@ const equipmentList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listTTB',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }
@@ -15,9 +14,8 @@ const damagedEquipmentList = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/listTTBBr',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions)
 }
@@ -27,9 +25,8 @@ const damagedEquipmentDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/TTBBrDetail',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions);
 }
@@ -39,9 +36,8 @@ const equipmentDetails = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/TTBDetail',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions)
 }
@@ -51,9 +47,8 @@ const addEquipment = (req, res) => {
 
     const layoutOptions = {
         content: '../pages/addTTB',
-        name: session.name,
-        token: session.token,
-        position: session.position,
+        name: session.user.name,
+        position: session.user.position,
     }
     return res.render('layouts/main', layoutOptions)
 }

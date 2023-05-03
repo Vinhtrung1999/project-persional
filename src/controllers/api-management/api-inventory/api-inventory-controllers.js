@@ -12,13 +12,6 @@ const {
 
 const getInventory = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         let inventoryList;
         const idProduct = req.params.idProWH;
         if (idProduct) {
@@ -36,15 +29,6 @@ const getInventory = async (req, res) => {
 
 const getBatchInput = async (req, res) => {
     try {
-        // TODO: refactor code -> add lib
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-        //--
-
         let inventoryData;
         const idCount = req.params.idcount;
         if (idCount) {
@@ -62,13 +46,6 @@ const getBatchInput = async (req, res) => {
 
 const addInventory = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const inventoryInput = req.body;
         const inventoryValidation = validateAddInventory(inventoryInput);
         if (!inventoryValidation) {
@@ -136,13 +113,6 @@ const addInventory = async (req, res) => {
 
 const deleteInventory = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const idInventoryInput = req.body.idProWH;
         if (!idInventoryInput) {
             return res.json({ code: 1, message: "fail to validate" });
@@ -161,13 +131,6 @@ const deleteInventory = async (req, res) => {
 
 const updatePriceForProductInventory = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const inventoryInput = req.body;
         const updatePriceValidation = validateUpdatePrice(input);
 

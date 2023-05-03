@@ -8,46 +8,47 @@ let list_img_svd = []
 fetch(`/api/svd/getSvd/${idSvd}`, {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token-user'),
     }
 })
-.then(data => data.json())
-.then(data => {
-    if(data.code === 0){
-        let item = data.data[0]
-        let typeSvd = item.type
-        list_img_svd.push(item.image)
-        list_img_svd.push(item.image_detail_1)
-        list_img_svd.push(item.image_detail_2)
-        document.getElementById('name').innerHTML = item.name
-        document.getElementById('capacity').innerHTML = item.capacity
-        item.type ? document.getElementById('type').innerHTML = 'VIP'
+    .then(data => data.json())
+    .then(data => {
+        if (data.code === 0) {
+            let item = data.data[0]
+            let typeSvd = item.type
+            list_img_svd.push(item.image)
+            list_img_svd.push(item.image_detail_1)
+            list_img_svd.push(item.image_detail_2)
+            document.getElementById('name').innerHTML = item.name
+            document.getElementById('capacity').innerHTML = item.capacity
+            item.type ? document.getElementById('type').innerHTML = 'VIP'
                 : document.getElementById('type').innerHTML = 'Normal'
 
-        document.getElementById('price').innerHTML = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(item.price)
+            document.getElementById('price').innerHTML = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(item.price)
 
-        if(item.status){
-            document.getElementById('status').setAttribute('class', 'detail-item-2 cl-red')
-            document.getElementById('status').innerHTML = 'Ordered'
-        }
-        else{
-            document.getElementById('status').setAttribute('class', 'detail-item-2 cl-green')
-            document.getElementById('status').innerHTML = 'Available'
-        }
+            if (item.status) {
+                document.getElementById('status').setAttribute('class', 'detail-item-2 cl-red')
+                document.getElementById('status').innerHTML = 'Ordered'
+            }
+            else {
+                document.getElementById('status').setAttribute('class', 'detail-item-2 cl-green')
+                document.getElementById('status').innerHTML = 'Available'
+            }
 
-        document.getElementById('img-main').setAttribute('src', item.image)
-        document.getElementById('img-0').setAttribute('src', item.image)
-        document.getElementById('img-1').setAttribute('src', item.image_detail_1)
-        document.getElementById('img-2').setAttribute('src', item.image_detail_2)
-    }
-})
-.catch(err => console.log(err))
+            document.getElementById('img-main').setAttribute('src', item.image)
+            document.getElementById('img-0').setAttribute('src', item.image)
+            document.getElementById('img-1').setAttribute('src', item.image_detail_1)
+            document.getElementById('img-2').setAttribute('src', item.image_detail_2)
+        }
+    })
+    .catch(err => console.log(err))
 
 let img_stadiums = document.querySelectorAll('.img-item')
 img_stadiums.forEach(element => {
     element.addEventListener('click', e => {
         // remove active
-        document.querySelectorAll('.img-item').forEach(elm =>{
+        document.querySelectorAll('.img-item').forEach(elm => {
             elm.setAttribute('class', 'img-item')
         })
 
@@ -60,34 +61,35 @@ img_stadiums.forEach(element => {
 fetch(`/api/svd/getSvd`, {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token-user'),
     }
 })
-.then(data => data.json())
-.then(data => {
-    if(data.code === 0){
-        let item = data.data
-        let recommend_svd = document.getElementById('recommend-svd')
-        let tmp = ''
-        item.forEach((val, index) => {
-            if(parseInt(typeSvd) == val.type)
-                tmp += `<div class="std-1-items">
+    .then(data => data.json())
+    .then(data => {
+        if (data.code === 0) {
+            let item = data.data
+            let recommend_svd = document.getElementById('recommend-svd')
+            let tmp = ''
+            item.forEach((val, index) => {
+                if (parseInt(typeSvd) == val.type)
+                    tmp += `<div class="std-1-items">
                             <img src="${val.image}" width="500px" height="250px" draggable="false">
                             <a class="action-login-link" href="/view-details?idSvd=${val.idSvd}&type=${val.type}">
                                 <div class="std-1-items-info text-center">${val.name}  | <span id="money">${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(val.price)}</span></div>
                             </a>
                         </div>`
-        })
+            })
 
-        recommend_svd.innerHTML = tmp
-    }
-})
-.catch(err => console.log(err))
+            recommend_svd.innerHTML = tmp
+        }
+    })
+    .catch(err => console.log(err))
 
 
 // slider
 let slider = document.querySelector('.slider')
-let pos = {left: 0, x: 0}
+let pos = { left: 0, x: 0 }
 let flag = false
 
 slider.addEventListener('mousedown', (e) => {
@@ -107,7 +109,7 @@ let mouseUp = (e) => {
 }
 
 let mouseMove = (e) => {
-    if(flag){
+    if (flag) {
         let dx = e.clientX - pos.x
         slider.scrollLeft = pos.left - dx
     }

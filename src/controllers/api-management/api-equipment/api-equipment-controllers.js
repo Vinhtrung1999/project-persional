@@ -13,13 +13,6 @@ const { Logger } = require('../../../services/logger');
 const getEquipment = async (req, res) => {
     try {
         const logger = new Logger('Start get equipment');
-        const session = req.session;
-        // TODO: refactor code -> add lib
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0 && session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
 
         let equipmentData;
         const idEquipment = req.params.idTTB;
@@ -44,13 +37,6 @@ const getEquipment = async (req, res) => {
 
 const getDamagedEquipment = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0 && session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         let damagedEquipmentData;
         const idDamagedEquipment = req.params.idTTB_Br;
         if (idDamagedEquipment) {
@@ -69,15 +55,6 @@ const getDamagedEquipment = async (req, res) => {
 
 const addEquipment = async (req, res) => {
     try {
-        // TODO refactor code -> add lib
-        const session = req.session;
-        if (!session.username)
-            return res.json({ 'code': 3, 'message': 'please login' })
-
-        if (session.position !== 2)
-            return res.json({ 'code': 5, 'message': 'Unauthorized' })
-        //--
-
         const newEquipment = req.body;
         const equipmentValidation = validateAddEquipment(newEquipment);
         if (!equipmentValidation)
@@ -115,14 +92,6 @@ const addEquipment = async (req, res) => {
 
 const updateDamagedEquipment = async (req, res) => {
     try {
-        // TODO: refactor code -> add lib
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const damagedEquipment = req.body;
 
         const damagedEquipmentValidation = validateAddDamagedEquipment(damagedEquipment);

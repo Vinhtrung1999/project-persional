@@ -3,14 +3,6 @@ const { queryByObject } = require('../../../services/database');
 
 const getBill = async (req, res) => {
     try {
-        // TODO: refactor - add lib
-        if (!req.session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (req.session.position !== 1 && req.session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-        // --
-
         const { idBill } = req.params;
         if (idBill) {
             const queryObj = { "idBill": idBill };

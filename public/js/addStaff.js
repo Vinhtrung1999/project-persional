@@ -16,7 +16,8 @@ btn.addEventListener('click', () => {
         fetch('/api/staff/addStaff', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token-user'),
             },
             body: JSON.stringify({
                 idStaff: idStaff,

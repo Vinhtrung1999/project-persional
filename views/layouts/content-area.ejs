@@ -1,47 +1,48 @@
 <div class="block-task-area">
 	<div class="block-task-box">
 		<a href="/manager/profile-manager"><button class="block-task-box-items">Profile</button></a>
-		
-	<% if(locals.position == 0){ %>
-        <a href="/manager/staff-manager"><button class="block-task-box-items" type="button">Staffs</button></a>
-		<a href="/manager/statistic-manager"><button class="block-task-box-items" type="button">Statistic</button></a>
-    <% }else if (locals.position == 1){ %>
-        <a href="/transaction/pay"><button class="block-task-box-items">Transaction</button></a>
-		<a href="/manager/customer-manager"><button class="block-task-box-items" type="button">Customers</button></a>
-		<a href="/manager/view-info-manager"><button class="block-task-box-items" type="button">View</button></a>
-    <% }else{ %>
-        <a href="/manager/stadium-manager"><button class="block-task-box-items">Stadiums</button></a>
-		<a href="/manager/product-manager"><button class="block-task-box-items" type="button">Products</button></a>
-		<a href="/manager/warehouse-manager"><button class="block-task-box-items" type="button">Stored</button></a>
-        <a href="/manager/equipment-manager"><button class="block-task-box-items">Equipment</button></a>        
-    <% } %>
-	<a href="#"><button class="block-task-box-items cl-red" type="button" id="btn-logout">
-		<i class="fa-solid fa-power-off"></i>
-	</button></a>        
+
+		<% if(locals.position==0){ %>
+			<a href="/manager/staff-manager"><button class="block-task-box-items" type="button">Staffs</button></a>
+			<a href="/manager/statistic-manager"><button class="block-task-box-items" type="button">Statistic</button></a>
+			<% }else if (locals.position==1){ %>
+				<a href="/transaction/pay"><button class="block-task-box-items">Transaction</button></a>
+				<a href="/manager/customer-manager"><button class="block-task-box-items" type="button">Customers</button></a>
+				<a href="/manager/view-info-manager"><button class="block-task-box-items" type="button">View</button></a>
+				<% }else{ %>
+					<a href="/manager/stadium-manager"><button class="block-task-box-items">Stadiums</button></a>
+					<a href="/manager/product-manager"><button class="block-task-box-items" type="button">Products</button></a>
+					<a href="/manager/warehouse-manager"><button class="block-task-box-items" type="button">Stored</button></a>
+					<a href="/manager/equipment-manager"><button class="block-task-box-items">Equipment</button></a>
+					<% } %>
+						<a href="#"><button class="block-task-box-items cl-red" type="button" id="btn-logout">
+								<i class="fa-solid fa-power-off"></i>
+							</button></a>
 
 	</div>
-	<div class="block-task-content">	
+	<div class="block-task-content">
 		<%- include(locals.content) %>
 	</div>
 	<script>
 		btn_logout = document.getElementById('btn-logout')
-		
-		btn_logout.addEventListener('click',()=>{
-			fetch('/api/staff/logout',{
+
+		btn_logout.addEventListener('click', () => {
+			fetch('/api/staff/logout', {
 				method: 'GET',
 				headers: {
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					token: localStorage.getItem('token-user'),
 				}
 			})
-			.then(json => json.json())
-			.then(data => {
-				if(data.code === 0){
-					localStorage.clear()
-					location.reload()
-				}
-					
-			})
-			.catch(err => console.log(err))
+				.then(json => json.json())
+				.then(data => {
+					if (data.code === 0) {
+						localStorage.clear()
+						location.reload()
+					}
+
+				})
+				.catch(err => console.log(err))
 		})
 	</script>
 </div>

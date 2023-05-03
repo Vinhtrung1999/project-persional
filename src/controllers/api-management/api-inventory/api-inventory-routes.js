@@ -1,7 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const checkGet = require('../../../services/auth/checkGet');
-const checkLogin = require('../../../services/auth/checkLogin');
+const checkToken = require('../../../services/auth/check-token');
 const {
   getBatchInput,
   getInventory,
@@ -9,15 +8,19 @@ const {
   deleteInventory,
   updatePriceForProductInventory,
 } = require('./api-inventory-controllers');
+const {
+  checkRoleEmployeeApi,
+  checkRoleAdminApi,
+} = require('../../../services/auth/check-user-role');
 
-Router.get('/getProWH/:idProWH?', checkGet, getInventory);
+Router.get('/getProWH/:idProWH?', checkToken, checkRoleEmployeeApi, getInventory);
 
-Router.get('/getSessionInputPro/:idcount?', checkGet, getBatchInput);
+Router.get('/getSessionInputPro/:idcount?', checkToken, checkRoleAdminApi, getBatchInput);
 
-Router.post('/addWh', checkLogin, addInventory);
+Router.post('/addWh', checkToken, checkRoleEmployeeApi, addInventory);
 
-Router.delete('/deleteWH', checkLogin, deleteInventory);
+Router.delete('/deleteWH', checkToken, checkRoleEmployeeApi, deleteInventory);
 
-Router.post('/updatePriceProWH', checkLogin, updatePriceForProductInventory);
+Router.post('/updatePriceProWH', checkToken, checkRoleEmployeeApi, updatePriceForProductInventory);
 
 module.exports = Router;

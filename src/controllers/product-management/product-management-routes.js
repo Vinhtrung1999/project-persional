@@ -8,11 +8,11 @@ const {
 } = require('./product-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleSaleAndEmployee,
   checkRoleEmployee,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/listProducts', checkStaffLogin, checkRoleSaleAndEmployee, productList);
 Router.get('/ProDetail', checkStaffLogin, checkRoleSaleAndEmployee, productDetails);

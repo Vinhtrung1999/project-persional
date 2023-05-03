@@ -27,13 +27,6 @@ const getStadium = async (req, res) => {
 
 const addStadium = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ 'code': 3, 'message': 'please login' })
-
-        if (session.position !== 2)
-            return res.json({ 'code': 5, 'message': 'Unauthorized' })
-
         const stadiumInput = req.body;
         const stadiumValidation = validateAddStadium(stadiumInput);
         if (!stadiumValidation) {
@@ -66,13 +59,6 @@ const addStadium = async (req, res) => {
 
 const updateStadium = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ 'code': 3, 'message': 'please login' })
-
-        if (session.position !== 2)
-            return res.json({ 'code': 5, 'message': 'Unauthorized' })
-
         const stadiumInput = req.body;
         const stadiumValidation = validateUpdateStadium(stadiumInput);
         if (!stadiumValidation) {

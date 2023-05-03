@@ -1,12 +1,12 @@
 const express = require('express');
 const Router = express.Router();
-const checkGet = require('../../../services/auth/checkGet');
+const checkToken = require('../../../services/auth/check-token');
 const {
   getCustomerBills,
   loginCustomer,
 } = require('./api-customer-controllers');
 
-Router.get('/getBillsCus/:idBill?', checkGet, getCustomerBills);
+Router.get('/getBillsCus/:idBill?', checkToken, getCustomerBills);
 Router.post('/loginCus', loginCustomer);
 
 module.exports = Router;

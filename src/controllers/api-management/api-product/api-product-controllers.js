@@ -11,13 +11,6 @@ const {
 
 const getProduct = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 1 && session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         let productData;
         const idProduct = req.params.idPro;
         if (idProduct) {
@@ -34,13 +27,6 @@ const getProduct = async (req, res) => {
 }
 
 const addProduct = async (req, res) => {
-    const session = req.session;
-    if (!session.username)
-        return res.json({ "code": 3, "message": "please login" });
-
-    if (session.position !== 2)
-        return res.json({ "code": 5, "message": "Unauthorized" });
-
     const productInput = req.body;
     const productValidation = validateAddProduct(productInput);
     if (!productValidation) {
@@ -113,13 +99,6 @@ const addProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 2)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const idProduct = req.body.idPro;
         if (!idProduct) {
             return res.json({ code: 1, message: 'fail to validate' });

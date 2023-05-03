@@ -7,11 +7,11 @@ const {
 } = require('./stadium-management-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleSaleAndEmployee,
   checkRoleEmployee,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/listSvd', checkStaffLogin, checkRoleSaleAndEmployee, stadiumList);
 Router.get('/svdDetail', checkStaffLogin, checkRoleSaleAndEmployee, stadiumDetails);

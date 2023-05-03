@@ -8,10 +8,10 @@ const {
 } = require('./bill-management-routes-controllers');
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleSale,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/listBills', checkStaffLogin, checkRoleSale, billList);
 Router.get('/billDetail', checkStaffLogin, checkRoleSale, billDetails);

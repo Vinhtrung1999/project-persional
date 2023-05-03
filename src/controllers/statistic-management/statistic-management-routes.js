@@ -2,10 +2,10 @@ const express = require('express');
 const Router = express.Router();
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleAdmin,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 const {
   fee,
   profit,

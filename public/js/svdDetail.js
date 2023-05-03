@@ -5,14 +5,14 @@ let idSvd = url.searchParams.get('idSvd')
 let btn_show_modal = document.getElementById('btn-show-modal')
 let btn_close_modal = document.getElementById('btn-close-modal')
 
-if(btn_show_modal)
+if (btn_show_modal)
     btn_show_modal.addEventListener('click', () => {
         let myModal = document.getElementById('myModal')
         myModal.style.display = 'block',
-        document.getElementById('mess').innerHTML = ''
+            document.getElementById('mess').innerHTML = ''
     })
 
-if(btn_close_modal)
+if (btn_close_modal)
     btn_close_modal.addEventListener('click', () => {
         let myModal = document.getElementById('myModal')
         myModal.style.display = 'none'
@@ -21,7 +21,8 @@ if(btn_close_modal)
 fetch(`/api/svd/getSvd/${idSvd}?token=${token}`, {
     method: "GET",
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token-user'),
     },
 })
     .then(req => req.json())
@@ -39,17 +40,17 @@ fetch(`/api/svd/getSvd/${idSvd}?token=${token}`, {
 
             idSvd.innerHTML = data.idSvd
             name.innerHTML = data.name
-            if (data.type == 1){
+            if (data.type == 1) {
                 type.innerHTML = "VIP"
                 img_type_svd.setAttribute('src', '/images/vip.png')
                 img_type_svd_MD.setAttribute('src', data.image)
             }
-            else{
+            else {
                 type.innerHTML = "normal"
                 img_type_svd.setAttribute('src', '/images/normal.png')
                 img_type_svd_MD.setAttribute('src', data.image)
             }
-                
+
             if (data.status === 0)
                 status.innerHTML = "empty"
             else
@@ -97,7 +98,8 @@ btn_update.addEventListener("click", () => {
         fetch('/api/svd/updateSvd', {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                token: localStorage.getItem('token-user'),
             },
             body: JSON.stringify({
                 idSvd: idSvd_MD,

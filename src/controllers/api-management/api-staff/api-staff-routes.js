@@ -1,7 +1,6 @@
 const express = require('express');
 const Router = express.Router();
-const checkGet = require('../../../services/auth/checkGet');
-const checkLogin = require('../../../services/auth/checkLogin');
+const checkToken = require('../../../services/auth/check-token');
 const {
   getStaff,
   getCustomer,
@@ -16,33 +15,38 @@ const {
   updateStaff,
   deleteStaff,
 } = require('./api-staff-controllers');
+const {
+  checkRoleAdminApi,
+  checkRoleSaleApi,
+  checkRoleSaleAndEmployeeApi,
+} = require('../../../services/auth/check-user-role');
 
 //[GET]
-Router.get('/getStaffs/:idStaff?', checkGet, getStaff);
+Router.get('/getStaffs/:idStaff?', checkToken, checkRoleAdminApi, getStaff);
 
-Router.get('/getCus/:idCus?', checkGet, getCustomer);
+Router.get('/getCus/:idCus?', checkToken, checkRoleSaleApi, getCustomer);
 
-Router.get('/getProfileAPI', checkGet, getProfile);
+Router.get('/getProfileAPI', checkToken, getProfile);
 
-Router.get('/logout', logout);
+Router.get('/logout', checkToken, logout);
 
 //[POST]
 Router.post('/login', login);
 
-Router.post('/addStaff', checkLogin, addStaff);
+Router.post('/addStaff', checkToken, checkRoleAdminApi, addStaff);
 
-Router.post('/changePass', checkLogin, changePass);
+Router.post('/changePass', checkToken, changePass);
 
-Router.post('/pay', checkLogin, pay);
+Router.post('/pay', checkToken, checkRoleSaleApi, pay);
 
-Router.post('/resetPass', checkLogin, resetPass);
+Router.post('/resetPass', checkToken, checkRoleAdminApi, resetPass);
 
-Router.post('/addCustomers', checkLogin, addCustomer);
+Router.post('/addCustomers', checkToken, checkRoleSaleApi, addCustomer);
 
 //[UPDATE]
-Router.post('/updateStaff', checkLogin, updateStaff);
+Router.post('/updateStaff', checkToken, checkRoleAdminApi, updateStaff);
 
 //[DELETE]
-Router.delete('/deleteStaff', checkLogin, deleteStaff);
+Router.delete('/deleteStaff', checkToken, checkRoleAdminApi, deleteStaff);
 
 module.exports = Router;

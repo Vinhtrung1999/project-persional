@@ -8,14 +8,7 @@ const { Logger } = require('../../../services/logger');
 const getCustomerBills = async (req, res) => {
     try {
         const logger = new Logger('Start get customer bills');
-        const session = req.session;
-        // TODO: refactor -- add lib
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 99)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-        // --
+        const userData = req.user;
 
         let billList;
         const { idBill } = req.params;
@@ -24,7 +17,7 @@ const getCustomerBills = async (req, res) => {
             const queryObject = {
                 "$and": [
                     { "idBill": idBill },
-                    { "idCus": session.username },
+                    { "idCus": userData.username },
                 ],
             };
             billList = await queryByObject(queryObject, billModel);
@@ -34,7 +27,7 @@ const getCustomerBills = async (req, res) => {
             }
         } else {
             logger.info('Get all of bill');
-            billList = await queryByObject({ "idCus": session.username }, billModel);
+            billList = await queryByObject({ "idCus": userData.username }, billModel);
         }
         logger.info('Get bill successfully', JSON.stringify(billList));
         return res.json({ "code": 0, "data": billList });
@@ -44,6 +37,7 @@ const getCustomerBills = async (req, res) => {
     }
 }
 
+// TODO: re-code
 const loginCustomer = async (req, res) => {
     try {
         const logger = new Logger('Start login customer');

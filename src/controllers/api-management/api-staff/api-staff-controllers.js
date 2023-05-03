@@ -4,7 +4,7 @@ const productModel = require('../../../services/models/product');
 const billModel = require('../../../services/models/bill');
 const customerModel = require('../../../services/models/customer');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { generateToken } = require('../../../services/token');
 
 const {
     queryByObject,
@@ -20,13 +20,6 @@ const {
 
 const getStaff = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         let staffData;
         const idStaff = req.params.idStaff;
         if (idStaff) {
@@ -46,13 +39,6 @@ const getStaff = async (req, res) => {
 
 const getCustomer = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ 'code': 3, 'message': 'please login' });
-
-        if (session.position !== 1)
-            return res.json({ 'code': 5, 'message': 'Unauthorized' });
-
         let customerData;
         const idCustomer = req.params.idCus;
         if (idCustomer) {
@@ -71,60 +57,42 @@ const getCustomer = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ 'code': 3, 'message': 'please login' });
-
-        if (session.position !== 0
-            && session.position !== 1
-            && session.position !== 2)
-            return res.json({ 'code': 5, 'message': 'Unauthorized' });
-
-
-        const profile = await queryByObject({ 'idStaff': session.username }, staffModel);
+        const user = req.user;
+        const profile = (await queryByObject({ 'idStaff': user.idStaff }, staffModel))[0];
         return res.json({ 'code': 0, 'data': profile });
     }
     catch (err) {
-        return res.json({ 'code': 99, 'message': 'err query data' });
+        return res.json({ 'code': 99, 'message': 'error query data' });
     }
 }
 
 const logout = (req, res) => {
-    const session = req.session;
-    if (!session.username)
-        return res.json({ "code": 3, "message": "please login" });
-
     session.destroy();
     return res.json({ "code": 0, "message": "logout succeed" });
 }
 
 const login = async (req, res) => {
     try {
-        const session = req.session;
-        if (session.username)
-            return res.json({ "code": 4, "message": "you have been login!" });
-
-        let { username, password } = req.body;
+        const { username, password } = req.body;
 
         if (!username || !password)
             return res.json({ "code": 1, "message": "not enough params" });
 
-        const staffProfile = (await queryByObject({ "idStaff": username }, staffModel))[0];
+        const result = await queryByObject({ "idStaff": username }, staffModel);
+        const staffProfile = result[0];
         if (!(staffProfile && bcrypt.compareSync(password, staffProfile.password))) {
             return res.json({ 'code': 2, 'message': 'username or pass wrong!' })
         }
 
+        const userData = {
+            ...staffProfile.toObject(),
+            password: '******',
+        };
         const JWT_SECRET = process.env.JWT_SECRET;
         const salt = Math.floor(Math.random() * 10000) + 1;
-        const token = jwt.sign({ username, salt }, JWT_SECRET, { expiresIn: '1h' });
+        const token = generateToken(userData, JWT_SECRET, '1h');
 
-        req.session.username = username;
-        req.session.name = staffProfile.name;
-        req.session.position = staffProfile.position;
-        req.session.token = token;
-        req.session.salt = salt;
-
-        return res.json({ 'code': 0, 'user': staffProfile, 'token': token })
+        return res.json({ 'code': 0, 'user': userData, 'token': token })
     }
     catch (err) {
         return res.json({ "code": 99, "message": "err query data" })
@@ -134,13 +102,6 @@ const login = async (req, res) => {
 
 const addStaff = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const staffInput = req.body;
         const staffValidation = validateAddStaff(staffInput);
         if (!staffValidation) {
@@ -173,10 +134,7 @@ const addStaff = async (req, res) => {
 
 const changePass = async (req, res) => {
     try {
-        const session = req.session
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
+        const idStaff = req.user.idStaff;
         let password = req.body.password
         if (!password)
             return res.json({ "code": 1, "message": "not enough params" });
@@ -185,7 +143,7 @@ const changePass = async (req, res) => {
         const updateObject = {
             password: bcrypt.hashSync(password, 10),
         };
-        await updateByObject({ $set: updateObject }, staffModel, { "idStaff": session.username });
+        await updateByObject({ $set: updateObject }, staffModel, { "idStaff": idStaff });
         return res.json({ "code": 0, "message": "Change password successfully" });
     }
     catch (err) {
@@ -196,13 +154,6 @@ const changePass = async (req, res) => {
 
 const pay = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 1)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const billInput = req.body;
         const billValidation = validatePayment(billInput);
         if (!billValidation) {
@@ -315,13 +266,6 @@ const pay = async (req, res) => {
 
 const resetPass = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         let { idStaff, password } = req.body;
 
         if (!password || !idStaff)
@@ -344,13 +288,6 @@ const resetPass = async (req, res) => {
 
 const addCustomer = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 1)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const customerInput = req.body;
         const customerValidation = validateAddCustomer(customerInput);
         if (!customerValidation) {
@@ -385,13 +322,6 @@ const addCustomer = async (req, res) => {
 
 const updateStaff = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const staffInput = req.body;
         const staffValidation = validateUpdateStaff(staffInput);
         if (!staffValidation) {
@@ -424,13 +354,6 @@ const updateStaff = async (req, res) => {
 
 const deleteStaff = async (req, res) => {
     try {
-        const session = req.session;
-        if (!session.username)
-            return res.json({ "code": 3, "message": "please login" });
-
-        if (session.position !== 0)
-            return res.json({ "code": 5, "message": "Unauthorized" });
-
         const idStaff = req.body.idStaff || '';
 
         let staffInfo = (await queryByObject({ "idStaff": idStaff }, staffModel))[0];

@@ -1,17 +1,20 @@
 const express = require('express');
 const Router = express.Router();
-const checkGet = require('../../../services/auth/checkGet');
-const checkLogin = require('../../../services/auth/checkLogin');
+const checkToken = require('../../../services/auth/check-token');
 const {
   getEquipment,
   getDamagedEquipment,
   addEquipment,
   updateDamagedEquipment,
 } = require('./api-equipment-controllers');
+const {
+  checkRoleAdminAndEmployeeApi,
+  checkRoleEmployeeApi,
+} = require('../../../services/auth/check-user-role');
 
-Router.get('/getTTB/:idTTB?', checkGet, getEquipment);
-Router.get('/getTTB_Broken/:idTTB_Br?', checkGet, getDamagedEquipment);
-Router.post('/addTTB', checkLogin, addEquipment);
-Router.post('/updateTTB_broken', checkLogin, updateDamagedEquipment);
+Router.get('/getTTB/:idTTB?', checkToken, checkRoleAdminAndEmployeeApi, getEquipment);
+Router.get('/getTTB_Broken/:idTTB_Br?', checkToken, checkRoleAdminAndEmployeeApi, getDamagedEquipment);
+Router.post('/addTTB', checkToken, checkRoleEmployeeApi, addEquipment);
+Router.post('/updateTTB_broken', checkToken, checkRoleEmployeeApi, updateDamagedEquipment);
 
 module.exports = Router;

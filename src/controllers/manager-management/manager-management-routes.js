@@ -13,12 +13,12 @@ const {
 } = require('./manager-management-controllers');;
 const {
   checkStaffLogin,
-} = require('../../services/auth/checkUserLogin');
+} = require('../../services/auth/check-user-login');
 const {
   checkRoleAdmin,
   checkRoleSale,
   checkRoleEmployee,
-} = require('../../services/auth/checkRole');
+} = require('../../services/auth/check-user-role');
 
 Router.get('/profile-manager', checkStaffLogin, profile);
 Router.get('/staff-manager', checkStaffLogin, checkRoleAdmin, staffList);

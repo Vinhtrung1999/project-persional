@@ -5,12 +5,13 @@ let search = document.getElementById('search')
 fetch(`/api/staff/getStaffs?token=${token}`, {
     method: "GET",
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('token-user'),
     }
 })
     .then(req => req.json())
     .then(json => {
-        if(json.code === 0){
+        if (json.code === 0) {
             list_staffs_temp = json.data
             data = json.data
             let list_staff = document.getElementById('list-staff')
@@ -22,8 +23,8 @@ fetch(`/api/staff/getStaffs?token=${token}`, {
                 let div4 = document.createElement('div')
                 a.setAttribute('href', '/staff/staffDetail?idStaff=' + val.idStaff)
                 a.setAttribute('class', 'text-link')
-                if(index % 2 === 0)
-                    div1.setAttribute('class', 'list-staff-items bg-green cl-white')                
+                if (index % 2 === 0)
+                    div1.setAttribute('class', 'list-staff-items bg-green cl-white')
                 else
                     div1.setAttribute('class', 'list-staff-items')
                 div2.setAttribute('class', 'list-staff-item-id')
@@ -62,7 +63,7 @@ search.addEventListener('keyup', (e) => {
     let tag = ''
     let color = 0
     list_staffs_temp.forEach((val, index) => {
-        if(val.name.toLowerCase().indexOf(word.toLowerCase()) != -1){
+        if (val.name.toLowerCase().indexOf(word.toLowerCase()) != -1) {
             tag += `<a class="text-link" href="/staff/staffDetail?idStaff=${val.idStaff}">
                         <div class="${color % 2 == 0 ? 'list-staff-items bg-green cl-white' : 'list-staff-items'}">
                             <div class="list-staff-item-id">${val.idStaff}</div>
@@ -70,9 +71,9 @@ search.addEventListener('keyup', (e) => {
                             <div class="list-staff-item-position">${val.position == 0 ? 'Manager' : (val.position == 1 ? 'Saler' : 'Employee')}</div>
                         </div>
                     </a>`
-            color ++
+            color++
         }
         list_staff_2.innerHTML = tag
-        
+
     })
 })
