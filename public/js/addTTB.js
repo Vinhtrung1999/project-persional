@@ -5,12 +5,11 @@ btn.addEventListener('click', () => {
     document.getElementById('err').innerHTML = ''
     document.getElementById('mess').innerHTML = ''
 
-    var idTTB = String(Math.floor(Math.random() * (99999999 - 10000000 + 1)))
     var name = document.getElementById('name').value
     var priceIn = document.getElementById('priceIn').value
     var qty = document.getElementById('qty').value
 
-    if (idTTB && name && priceIn && qty) {
+    if (name && priceIn && qty) {
         fetch('/api/equipment/addTTB', {
             method: "POST",
             headers: {
@@ -18,7 +17,6 @@ btn.addEventListener('click', () => {
                 token: localStorage.getItem('token-user'),
             },
             body: JSON.stringify({
-                idTTB: idTTB,
                 name: name,
                 qty: qty,
                 priceIn: priceIn,
@@ -31,7 +29,7 @@ btn.addEventListener('click', () => {
                     document.getElementById('name').value = ''
                     document.getElementById('qty').value = ''
                     document.getElementById('priceIn').value = ''
-                    document.getElementById('mess').innerHTML = 'add ' + idTTB + ' succeed'
+                    document.getElementById('mess').innerHTML = 'add equipment successfully'
                 }
                 else
                     document.getElementById('err').innerHTML = "please check information again"

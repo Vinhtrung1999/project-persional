@@ -5,7 +5,9 @@ const billModel = require('../../../services/models/bill');
 const customerModel = require('../../../services/models/customer');
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../../../services/token');
-
+const {
+    generateId
+} = require('../../../services/models/count-input');
 const {
     queryByObject,
     updateByObject,
@@ -111,14 +113,16 @@ const addStaff = async (req, res) => {
             })
         }
 
-        const staffInfo = (await queryByObject({ "idStaff": staffInput.idStaff }, staffModel))[0];
+        const idStaff = generateId();
+        const staffInfo = (await queryByObject({ idStaff }, staffModel))[0];
         if (staffInfo)
             return res.json({ "code": 8, "message": "id existed, please try again" });
 
-        const hashPwd = bcrypt.hashSync(staffInput.password, 10);
+        const hashPwd = bcrypt.hashSync(idStaff, 10);
         let newStaff = {
             ...staffInput,
             password: hashPwd,
+            idStaff,
         };
 
         await (new staffModel(newStaff)).save();

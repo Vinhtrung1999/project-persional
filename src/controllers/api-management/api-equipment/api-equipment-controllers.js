@@ -9,6 +9,9 @@ const {
     validateAddDamagedEquipment,
 } = require('./api-equipment-validation');
 const { Logger } = require('../../../services/logger');
+const {
+    generateId
+} = require('../../../services/models/count-input');
 
 const getEquipment = async (req, res) => {
     try {
@@ -60,6 +63,7 @@ const addEquipment = async (req, res) => {
         if (!equipmentValidation)
             return res.json({ 'code': 1, 'message': 'input parameters incorrect format' });
 
+        const equipmentId = generateId();
         const equipmentInfo = (await queryByObject({ 'name': newEquipment.name }, equipmentModel))[0];
         const dateIn = new Date().toISOString();
 
@@ -80,6 +84,7 @@ const addEquipment = async (req, res) => {
             const equipmentObj = {
                 ...newEquipment,
                 dateIn,
+                idTTB: equipmentId,
             };
 
             await (new equipmentModel(equipmentObj)).save();

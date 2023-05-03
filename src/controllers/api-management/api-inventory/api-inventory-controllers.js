@@ -1,6 +1,9 @@
 const inventoryModel = require('../../../services/models/inventory');
 const countInputModel = require('../../../services/models/count-input');
 const {
+    generateId
+} = require('../../../services/models/count-input');
+const {
     queryByObject,
     updateByObject,
     deleteByObject,
@@ -52,8 +55,9 @@ const addInventory = async (req, res) => {
             return res.json({ code: 1, message: 'fail to validate' });
         }
 
+        const idInventory = generateId();
         const dateIn = new Date().toISOString();
-        const idcount = String(Math.floor(Math.random() * (10000000 - 1000000)) + 100000);
+        const idCount = String(Math.floor(Math.random() * (10000000 - 1000000)) + 100000);
 
         const inventoryInfo = (await queryByObject({ name: inventoryInput.name }, inventoryModel))[0];
         if (inventoryInfo) {
@@ -68,9 +72,9 @@ const addInventory = async (req, res) => {
             };
             await updateByObject({ '$set': inventoryObject }, inventoryModel, { 'idProWH': inventoryInfo.idProWH })
 
-            const newInventoryProduct = {
-                idcount,
-                idProWH: inventoryInput.idProWH,
+            const newCountInputProduct = {
+                idcount: idCount,
+                idProWH: inventoryInfo.idProWH,
                 name: inventoryInput.name,
                 qty: inventoryInput.qty,
                 priceIn: inventoryInput.priceIn,
@@ -78,7 +82,7 @@ const addInventory = async (req, res) => {
                 dateIn,
             };
 
-            await (new inventoryModel(newInventoryProduct)).save();
+            await (new countInputModel(newCountInputProduct)).save();
 
             return res.json({ code: 0, message: 'add product into inventory successfully' });
         }
@@ -86,13 +90,14 @@ const addInventory = async (req, res) => {
             const newInventoryProduct = {
                 ...inventoryInput,
                 dateIn,
+                idProWH: idInventory,
             };
 
             await (new inventoryModel(newInventoryProduct)).save();
 
             let newCountInputProduct = {
-                idcount: inventoryInput.idcount,
-                idProWH: inventoryInput.idProWH,
+                idcount: idCount,
+                idProWH: idInventory,
                 name: inventoryInput.name,
                 qty: inventoryInput.qty,
                 priceIn: inventoryInput.priceIn,

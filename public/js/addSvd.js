@@ -5,7 +5,6 @@ btn.addEventListener('click', () => {
     document.getElementById('mess').innerHTML = ""
     document.getElementById('err').innerHTML = ""
 
-    let idSvd = String(Math.floor(Math.random() * (99999999 - 10000000 + 1)))
     let name = document.getElementById('name').value
     let status = document.getElementById('status').value
     let type = document.getElementById('type').value
@@ -15,7 +14,7 @@ btn.addEventListener('click', () => {
     let image_detail_2 = document.getElementById('image_detail_2').value
     let price = document.getElementById('price').value
 
-    if (idSvd && name && type && capacity && name && type && image) {
+    if (name && type && capacity && name && type && image) {
         fetch('/api/svd/addSvd', {
             method: "POST",
             headers: {
@@ -23,7 +22,6 @@ btn.addEventListener('click', () => {
                 token: localStorage.getItem('token-user'),
             },
             body: JSON.stringify({
-                idSvd: idSvd,
                 name: name,
                 type: type,
                 capacity: capacity,
@@ -48,7 +46,7 @@ btn.addEventListener('click', () => {
                     document.getElementById('price').value = ''
 
 
-                    document.getElementById('mess').innerHTML = 'add ' + json.data.idSvd + " succeed"
+                    document.getElementById('mess').innerHTML = 'add stadium successfully'
                 }
                 else
                     document.getElementById('err').innerHTML = 'please check information again'

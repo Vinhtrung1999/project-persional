@@ -1,7 +1,7 @@
 const { emailValidator } = require('../../../services/utils');
 const validateAddStaff = input => {
-  const { idStaff, password, name, gender, age, salary, shift, position } = input;
-  const isExistedValues = (idStaff && password && name && gender && age && salary && shift && position);
+  const { name, gender, age, salary, shift, position } = input;
+  const isExistedValues = (name && gender && age && salary && shift && position);
   const validValues = (!isNaN(parseInt(age))
     && !isNaN(parseInt(gender))
     && !isNaN(parseInt(position))

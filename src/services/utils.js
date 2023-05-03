@@ -15,6 +15,11 @@ const emailValidator = email => {
   return true;
 }
 
+const generateId = () => {
+  return String(Math.floor(Math.random() * (99999999 - 10000000 + 1)));
+}
+
 module.exports = {
+  generateId,
   emailValidator,
 }

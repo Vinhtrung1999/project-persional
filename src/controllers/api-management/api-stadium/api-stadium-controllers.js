@@ -7,6 +7,9 @@ const {
     validateAddStadium,
     validateUpdateStadium
 } = require('./api-stadium-validation');
+const {
+    generateId
+} = require('../../../services/models/count-input');
 
 const getStadium = async (req, res) => {
     try {
@@ -36,13 +39,15 @@ const addStadium = async (req, res) => {
             });
         }
 
-        const stadiumInfo = await queryByObject({ 'idSvd': stadiumInput.idSvd }, stadiumModel);
+        const idStadium = generateId();
+        const stadiumInfo = await queryByObject({ 'idSvd': idStadium }, stadiumModel);
 
         if (stadiumInfo.length > 0)
             return res.json({ 'code': 8, 'message': 'id existed, please try again' })
 
         const newStadium = {
             ...stadiumInput,
+            idSvd: idStadium,
         }
 
         await (new stadiumModel(newStadium)).save();
