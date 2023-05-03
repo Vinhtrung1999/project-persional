@@ -39,7 +39,7 @@ const checkRoleAdminApi = (req, res, next) => {
 
 const checkRoleSaleApi = (req, res, next) => {
   const userRole = req.user.position;
-  if (userRole !== 0) {
+  if (userRole !== 1) {
     return res.json({
       code: 5,
       message: 'User unauthorized - please contact to admin',
@@ -50,7 +50,7 @@ const checkRoleSaleApi = (req, res, next) => {
 
 const checkRoleEmployeeApi = (req, res, next) => {
   const userRole = req.user.position;
-  if (userRole !== 0) {
+  if (userRole !== 2) {
     return res.json({
       code: 5,
       message: 'User unauthorized - please contact to admin',

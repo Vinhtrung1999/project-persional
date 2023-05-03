@@ -67,6 +67,7 @@ const getProfile = async (req, res) => {
 }
 
 const logout = (req, res) => {
+    const session = req.session;
     session.destroy();
     return res.json({ "code": 0, "message": "logout succeed" });
 }
@@ -89,7 +90,6 @@ const login = async (req, res) => {
             password: '******',
         };
         const JWT_SECRET = process.env.JWT_SECRET;
-        const salt = Math.floor(Math.random() * 10000) + 1;
         const token = generateToken(userData, JWT_SECRET, '1h');
 
         return res.json({ 'code': 0, 'user': userData, 'token': token })
@@ -297,7 +297,7 @@ const addCustomer = async (req, res) => {
             })
         }
 
-        const idCustomer = String(CMND);
+        const idCustomer = String(customerInput.CMND);
         const customerData = (await queryByObject({ "idCus": idCustomer }, customerModel))[0];
         if (customerData)
             return res.json({ "code": 8, "message": "Customer existed" });

@@ -29,7 +29,7 @@ btn.addEventListener('click', () => {
             .then(json => {
                 if (json.code == 0) {
                     localStorage.setItem('token-user', json.token)
-                    return window.location = "/"
+                    return window.location = `/?type=customer&token=${json.token}`
                 }
                 else
                     document.getElementById('mess').innerHTML = 'CMND or password wrong!'

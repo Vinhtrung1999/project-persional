@@ -2,8 +2,8 @@ const customerModel = require('../../../services/models/customer');
 const billModel = require('../../../services/models/bill');
 const { queryByObject } = require('../../../services/database');
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const { Logger } = require('../../../services/logger');
+const { generateToken } = require('../../../services/token');
 
 const getCustomerBills = async (req, res) => {
     try {
@@ -42,9 +42,6 @@ const loginCustomer = async (req, res) => {
     try {
         const logger = new Logger('Start login customer');
         const session = req.session;
-        // TODO: refactor - add lib
-        if (session.username)
-            return res.json({ "code": 4, "message": "you have been login!" });
 
         const { CMND, password } = req.body;
 
@@ -52,27 +49,17 @@ const loginCustomer = async (req, res) => {
             return res.json({ "code": 1, "message": "not enough params" });
 
         const customerInfo = (await queryByObject({ "idCus": CMND }, customerModel))[0];
-        const jsonInfo = JSON.stringify(customerInfo);
-        logger.info('get customer info', jsonInfo);
+        logger.info('get customer info', JSON.stringify(customerInfo));
         if (customerInfo && bcrypt.compareSync(password, customerInfo.password)) {
+            const customerData = {
+                ...customerInfo.toObject(),
+                password: '******',
+            }
             const JWT_SECRET = process.env.JWT_SECRET;
-            const salt = Math.floor(Math.random() * 10000) + 1;
-            const token = jwt.sign({ username: CMND, salt: salt }, JWT_SECRET, { expiresIn: '1h' });
+            const token = generateToken(customerData, JWT_SECRET, '1h');
 
-            const sessionInfo = {
-                username: CMND,
-                name: customerInfo.name,
-                position: 99,
-                token: token,
-                salt: salt,
-            };
-
-            req.session = {
-                ...session,
-                ...sessionInfo,
-            };
             logger.info('Login successfully');
-            return res.json({ "code": 0, "user": customerInfo, "token": token });
+            return res.json({ "code": 0, "user": customerData, "token": token });
         }
         logger.info(`Error: username or password is invalid`);
         return res.json({ "code": 2, "message": "username or pass wrong!" });
@@ -83,7 +70,31 @@ const loginCustomer = async (req, res) => {
     }
 }
 
+const customerProfile = async (req, res) => {
+    try {
+        const idCustomer = req.user.idCus;
+        if (!idCustomer) {
+            return res.json({ code: 1, message: 'not enough params' });
+        }
+
+        const customerInfo = (await queryByObject({ idCus: idCustomer }, customerModel))[0];
+        if (!customerInfo) {
+            return res.json({ code: 1, message: 'customer does not exist' });
+        }
+        return res.json({
+            code: 0,
+            data: customerInfo,
+        });
+    } catch (error) {
+        return res.json({
+            code: 1,
+            message: 'Error while get customer profile',
+        });
+    }
+}
+
 module.exports = {
     getCustomerBills,
     loginCustomer,
+    customerProfile,
 };

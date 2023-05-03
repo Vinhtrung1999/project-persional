@@ -14,3 +14,7 @@ const emailValidator = email => {
 
   return true;
 }
+
+module.exports = {
+  emailValidator,
+}

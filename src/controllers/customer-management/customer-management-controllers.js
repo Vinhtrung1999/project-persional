@@ -1,5 +1,6 @@
 const customerLogin = (req, res) => {
-    if (req.session.username)
+    const session = req.session;
+    if (session.user)
         return res.redirect('/')
     return res.render('pages/loginCus')
 }
