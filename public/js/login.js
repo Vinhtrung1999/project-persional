@@ -33,9 +33,9 @@ btn.addEventListener('click', () => {
         })
             .then(req => req.json())
             .then(json => {
-                if (json.code == 0){
-                    localStorage.setItem('token-user', json.token)
-                    return window.location = "/"
+                if (json.code == 0) {
+                    localStorage.setItem('token-user', json.token);
+                    return window.location = `/?type=staff&token=${json.token}`;
                 }
                 else {
                     document.getElementById('mess').innerHTML = 'username or password wrong!'
