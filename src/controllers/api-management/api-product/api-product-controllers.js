@@ -1,5 +1,5 @@
 const inventoryModel = require('../../../services/models/inventory');
-const productModel = require('../../../services/models/product');
+const { productModel } = require('../../../services/models/product');
 const {
     queryByObject,
     updateByObject,
@@ -84,7 +84,7 @@ const addProduct = async (req, res) => {
             const inventoryObj = { qty: qtySubtraction };
             await Promise.all([
                 (new productModel(newProduct)).save(),
-                updateByObject({ "idProWH": idPro }, inventoryModel, { "$set": inventoryObj }),
+                updateByObject({ "$set": inventoryObj }, inventoryModel, { "idProWH": productInput.idPro }),
             ]);
             return res.json({
                 code: 0,

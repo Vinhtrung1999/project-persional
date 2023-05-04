@@ -17,7 +17,7 @@ const getCustomerBills = async (req, res) => {
             const queryObject = {
                 "$and": [
                     { "idBill": idBill },
-                    { "idCus": userData.username },
+                    { "idCus": userData.idCus },
                 ],
             };
             billList = await queryByObject(queryObject, billModel);
@@ -27,7 +27,7 @@ const getCustomerBills = async (req, res) => {
             }
         } else {
             logger.info('Get all of bill');
-            billList = await queryByObject({ "idCus": userData.username }, billModel);
+            billList = await queryByObject({ "idCus": userData.idCus }, billModel);
         }
         logger.info('Get bill successfully', JSON.stringify(billList));
         return res.json({ "code": 0, "data": billList });

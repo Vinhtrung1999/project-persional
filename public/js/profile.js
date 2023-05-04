@@ -1,5 +1,5 @@
 let token = localStorage.getItem('token-user')
-fetch(`/api/staff/getProfileAPI?token=${token}`, {
+fetch(`/api/staff/getProfileAPI`, {
     method: "GET",
     headers: {
         'Content-Type': 'application/json',
@@ -8,8 +8,9 @@ fetch(`/api/staff/getProfileAPI?token=${token}`, {
 })
     .then(req => req.json())
     .then(json => {
+        console.log(json)
         if (json.code === 0) {
-            data = json.data[0]
+            data = json.data;
             let idStaff = document.getElementById('idStaff')
             let name = document.getElementById('name')
             let age = document.getElementById('age')

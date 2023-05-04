@@ -8,13 +8,13 @@
         <div class="block-container-title-img">
             <img id="img-type-svd" src="/images/normal.png" alt="NM" width="80px" height="80px">
         </div>
-    <% if(locals.position === 2){ %>
-        <div class="">           
-            <button class="btn-custom f-1-2 bg-green cl-white p-10 m-10" id="btn-show-modal">
-                <i class="fa-solid fa-pen-to-square"></i>
-            </button>
-        </div>
-    <% } %>    
+        <% if(locals.position===2){ %>
+            <div class="">
+                <button class="btn-custom f-1-2 bg-green cl-white p-10 m-10" id="btn-show-modal">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </div>
+            <% } %>
     </div>
     <div class="block-container-body">
         <div class="body-items">
@@ -48,7 +48,9 @@
                 </button>
             </a>
         </div>
-        <div id="mess" class="success"><%= locals.mess %></div>
+        <div id="mess" class="success">
+            <%= locals.mess %>
+        </div>
     </div>
 </div>
 
@@ -56,7 +58,7 @@
     <div class="modal-content p-10">
         <!-- Modal Header -->
         <div class="modal-header t-center">
-            <img id="img-type-svd-MD" src="/images/normal.png" alt="NM" width="80px" height="80px">
+            <img id="img-type-svd-MD" src="/images/normal.png" alt="NM" width="360px" height="180px">
         </div>
 
         <!-- Modal body -->

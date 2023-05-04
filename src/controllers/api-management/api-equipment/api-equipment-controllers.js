@@ -11,7 +11,7 @@ const {
 const { Logger } = require('../../../services/logger');
 const {
     generateId
-} = require('../../../services/models/count-input');
+} = require('../../../services/utils');
 
 const getEquipment = async (req, res) => {
     try {
@@ -91,7 +91,10 @@ const addEquipment = async (req, res) => {
             return res.json({ 'code': 0, 'data': equipmentObj });
         }
     } catch (err) {
-        return res.json({ 'code': 99, 'message': 'Error add equipment' })
+        return res.json({ 
+            code: 99,
+            message: err.message,
+         })
     }
 }
 

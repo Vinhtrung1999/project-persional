@@ -2,7 +2,7 @@ const inventoryModel = require('../../../services/models/inventory');
 const countInputModel = require('../../../services/models/count-input');
 const {
     generateId
-} = require('../../../services/models/count-input');
+} = require('../../../services/utils');
 const {
     queryByObject,
     updateByObject,
@@ -24,7 +24,7 @@ const getInventory = async (req, res) => {
         } else {
             inventoryList = await queryByObject({}, inventoryModel);
         }
-        return res.json({ "code": 0, "data": data });
+        return res.json({ "code": 0, "data": inventoryList });
     } catch (error) {
         return res.json({ "code": 99, "message": "err query data" });
     }
@@ -101,13 +101,13 @@ const addInventory = async (req, res) => {
                 name: inventoryInput.name,
                 qty: inventoryInput.qty,
                 priceIn: inventoryInput.priceIn,
-                sum: parseInt(qty) * parseInt(priceIn),
+                sum: parseInt(inventoryInput.qty) * parseInt(inventoryInput.priceIn),
                 dateIn,
             };
 
             await (new countInputModel(newCountInputProduct)).save();
 
-            return res.json({ 'code': 0, 'data': newWH })
+            return res.json({ 'code': 0, message: 'add product into inventory successfully' })
         }
     }
     catch (err) {
@@ -118,26 +118,29 @@ const addInventory = async (req, res) => {
 
 const deleteInventory = async (req, res) => {
     try {
-        const idInventoryInput = req.body.idProWH;
+        const idInventoryInput = req.body;
         if (!idInventoryInput) {
             return res.json({ code: 1, message: "fail to validate" });
         }
 
-        const inventoryProduct = (await queryByObject({ "idProWH": idInventoryInput.idProWH }))[0];
+        const inventoryProduct = (await queryByObject({ "idProWH": idInventoryInput.idProWH }, inventoryModel))[0];
         if (!inventoryProduct) {
             return res.json({ "code": 6, "message": "id not exist" });
         }
-        await deleteByObject(inventoryModel, { "idProWH": idProWH })
+        await deleteByObject(inventoryModel, { "idProWH": idInventoryInput.idProWH })
         return res.json({ "code": 0, "message": `Delete ${inventoryProduct.idProWH} successfully` });
     } catch (err) {
-        return res.json({ "code": 99, "message": "err query data" });
+        return res.json({
+            code: 99,
+            message: err.message,
+        });
     }
 }
 
 const updatePriceForProductInventory = async (req, res) => {
     try {
         const inventoryInput = req.body;
-        const updatePriceValidation = validateUpdatePrice(input);
+        const updatePriceValidation = validateUpdatePrice(inventoryInput);
 
         if (!updatePriceValidation) {
             return res.json({ code: 1, message: 'fail to validate' });
@@ -147,7 +150,10 @@ const updatePriceForProductInventory = async (req, res) => {
         if (!inventoryProduct) {
             return res.json({ "code": 6, "message": "id not exist" });
         }
-        await updateByObject({ "idProWH": inventoryInput.idProWH }, { "$set": { "price": inventoryInput.price } });
+        const updateObject = {
+            price: inventoryInput.price,
+        };
+        await updateByObject({ "$set": updateObject }, inventoryModel, { "idProWH": inventoryInput.idProWH });
         return res.json({
             code: 0,
             message: `Update ${inventoryInput.idProWH} successfully`,

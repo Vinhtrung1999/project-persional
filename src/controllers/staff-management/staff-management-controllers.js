@@ -17,6 +17,7 @@ const login = (req, res) => {
 }
 
 const destroySession = (req, res) => {
+    const session = req.session;
     session.destroy()
     return res.redirect('/staff/login')
 }

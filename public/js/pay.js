@@ -50,7 +50,7 @@ btnAdd.addEventListener('click', () => {
     document.getElementById('messAddSvd').innerHTML = ''
     let idsvd = document.getElementById('idsvdSearch').value
     if (idsvd) {
-        fetch(`/api/svd/getSvd/${idsvd}?token=${token}`, {
+        fetch(`/api/svd/getSvd/${idsvd}`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -59,16 +59,17 @@ btnAdd.addEventListener('click', () => {
         })
             .then(req => req.json())
             .then(json => {
-                if (json.code === 0 && json.data[0].status === 0) {
+                console.log(json)
+                if (json.code === 0 && json.data.status === 0) {
                     if (count != 0) {
                         for (let i = 1; i <= count; i++) {
-                            if (document.getElementById('sdvOrder' + i).innerHTML === json.data[0].idSvd)
+                            if (document.getElementById('sdvOrder' + i).innerHTML === json.data.idSvd)
                                 return
                         }
                     }
                     count += 1
                     let tb = document.getElementById('tb')
-                    let data = json.data[0]
+                    let data = json.data
 
                     let tr = document.createElement('tr')
                     let td1 = document.createElement('td')
@@ -263,12 +264,12 @@ pay.addEventListener('click', () => {
     })
         .then(req => req.json())
         .then(json => {
-            if (json.code == 0)
+            if (json.code === 0) {
                 return window.location.href = "/transaction/pay?mess=Pay " + idBill + " success"
-            else if (json.code === 10)
                 document.getElementById('err').innerHTML = json.message
+            }
             else
-                document.getElementById('err').innerHTML = 'fail!'
+                document.getElementById('err').innerHTML = json.message;
         })
         .catch(e => console.log(e))
 })

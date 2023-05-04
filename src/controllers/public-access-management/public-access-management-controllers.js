@@ -26,7 +26,7 @@ const homeView = async (req, res) => {
                 try {
                     const responseApi = await request({
                         method: 'get',
-                        url: 'http://localhost:3000/api/staff/getProfileAPI',
+                        url: 'http://localhost:3100/api/staff/getProfileAPI',
                         headers: {
                             'Content-Type': 'application/json',
                             token,
@@ -55,7 +55,7 @@ const homeView = async (req, res) => {
         case 'customer':
             const responseApi = await request({
                 method: 'get',
-                url: 'http://localhost:3000/api/customer/customer-profile',
+                url: 'http://localhost:3100/api/customer/customer-profile',
                 headers: {
                     'Content-Type': 'application/json',
                     token,
@@ -77,7 +77,7 @@ const homeView = async (req, res) => {
 }
 
 const stadiumListView = (req, res) => {
-    const name = req.session.user.name || ''
+    const name = req.session?.user?.name || ''
     const page = 'list-view-stadium'
     return res.render('layouts/main-view-customer', { name, page })
 }
@@ -85,7 +85,7 @@ const stadiumListView = (req, res) => {
 const viewDetails = (req, res) => {
     const idSvd = req.query.idSvd || ''
     if (idSvd) {
-        const name = req.session.user.name || ''
+        const name = req.session?.user?.name || '';
         const page = 'viewDetail'
         return res.render('layouts/main-view-customer', { name, page })
     }

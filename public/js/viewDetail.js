@@ -15,7 +15,7 @@ fetch(`/api/svd/getSvd/${idSvd}`, {
     .then(data => data.json())
     .then(data => {
         if (data.code === 0) {
-            let item = data.data[0]
+            let item = data.data;
             let typeSvd = item.type
             list_img_svd.push(item.image)
             list_img_svd.push(item.image_detail_1)

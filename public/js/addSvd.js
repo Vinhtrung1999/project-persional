@@ -14,7 +14,7 @@ btn.addEventListener('click', () => {
     let image_detail_2 = document.getElementById('image_detail_2').value
     let price = document.getElementById('price').value
 
-    if (name && type && capacity && name && type && image) {
+    if (name && type && capacity && type && image) {
         fetch('/api/svd/addSvd', {
             method: "POST",
             headers: {
@@ -54,5 +54,5 @@ btn.addEventListener('click', () => {
             .catch(e => console.log(e))
     }
     else
-        document.getElementById('err').innerHTML = 'please check information again'
+        document.getElementById('err').innerHTML = 'Invalid Information! Please check information again'
 })

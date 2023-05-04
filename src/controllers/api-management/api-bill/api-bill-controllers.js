@@ -11,7 +11,7 @@ const getBill = async (req, res) => {
                 return res.json({ "code": 0, "data": data });
             return res.json({ "code": 6, "message": "id not exist" });
         } else {
-            let data = await queryByObject({});
+            let data = await queryByObject({}, billModel);
             return res.json({ "code": 0, "data": data });
         }
     } catch (err) {

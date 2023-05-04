@@ -1,13 +1,13 @@
 const staffModel = require('../../../services/models/staff');
-const stadiumModel = require('../../../services/models/stadium');
-const productModel = require('../../../services/models/product');
+const { stadiumModel } = require('../../../services/models/stadium');
+const { productModel } = require('../../../services/models/product');
 const billModel = require('../../../services/models/bill');
 const customerModel = require('../../../services/models/customer');
 const bcrypt = require('bcrypt');
 const { generateToken } = require('../../../services/token');
 const {
     generateId
-} = require('../../../services/models/count-input');
+} = require('../../../services/utils');
 const {
     queryByObject,
     updateByObject,
@@ -224,7 +224,7 @@ const pay = async (req, res) => {
             if (qtySubtraction < 0) {
                 return res.json({
                     code: 1,
-                    message: '`Product - ${product.idPro} does not enough quantity`',
+                    message: `Product - ${product.idPro} does not enough quantity`,
                 });
             }
 
@@ -240,23 +240,23 @@ const pay = async (req, res) => {
             return res.json({ "code": 8, "message": "Bill existed" })
 
         let customerData = (await queryByObject({ "idCus": billInput.idCus }, customerModel))[0];
-        if (customerData)
+        if (!customerData)
             return res.json({ "code": 6, "message": "Customer does not exist" })
 
         const billObject = {
             ...billInput,
             listSvd: getStadiumList,
             listProducts: getProductList,
-            idStaff: session.username,
+            idStaff: req.user.idStaff,
         };
 
         await (new billModel(billObject)).save();
         for (const st of getStadiumList) {
-            await updateByObject({ idSvd: st.idSvd }, stadiumModel, { '$set': { status: 1 } });
+            await updateByObject({ '$set': { status: 1 } }, stadiumModel, { idSvd: st.idSvd });
         }
 
         for (const qtySubtraction of qtySubtractionList) {
-            await updateByObject({ idPro: pro.idPro }, productModel, { '$set': { qty: qtySubtraction.qty } });
+            await updateByObject({ '$set': { qty: qtySubtraction.qty } }, productModel, { idPro: qtySubtraction.idProduct });
         }
         return res.json({
             code: 0,
@@ -264,7 +264,10 @@ const pay = async (req, res) => {
         });
     }
     catch (err) {
-        return res.json({ "code": 99, "message": "err query data" })
+        return res.json({
+            code: 99,
+            message: err.message,
+        })
     }
 }
 

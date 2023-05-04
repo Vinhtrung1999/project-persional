@@ -1,4 +1,4 @@
-const stadiumModel = require('../../../services/models/stadium');
+const { stadiumModel } = require('../../../services/models/stadium');
 const {
     queryByObject,
     updateByObject,
@@ -9,7 +9,7 @@ const {
 } = require('./api-stadium-validation');
 const {
     generateId
-} = require('../../../services/models/count-input');
+} = require('../../../services/utils');
 
 const getStadium = async (req, res) => {
     try {
@@ -22,7 +22,7 @@ const getStadium = async (req, res) => {
         } else {
             stadiumData = await queryByObject({}, stadiumModel);
         }
-        return res.json({ 'code': 0, 'data': data })
+        return res.json({ 'code': 0, 'data': stadiumData })
     } catch (err) {
         return res.json({ 'code': 99, 'message': 'err query data' })
     }
@@ -87,7 +87,7 @@ const updateStadium = async (req, res) => {
             image_detail_1: stadiumInput.image_detail_1,
             image_detail_2: stadiumInput.image_detail_2
         }
-        await updateByObject({ '$set': newData }, stadiumModel, { 'idSvd': stadiumInput.idSvd },).exec()
+        await updateByObject({ '$set': newStadium }, stadiumModel, { 'idSvd': stadiumInput.idSvd })
 
         return res.json({
             code: 0,

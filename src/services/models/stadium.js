@@ -12,7 +12,7 @@ const stadiumSchema = new mongoose.Schema({
     price: Number
 });
 
-module.exports = mongoose.model('stadiums', stadiumSchema);
 module.exports = {
     stadiumSchema,
+    stadiumModel: mongoose.model('stadiums', stadiumSchema),
 };

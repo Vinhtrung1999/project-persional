@@ -21,7 +21,7 @@ fetch(`/api/equipment/getTTB?token=${token}`, {
                                 <div class="item item-1">${val.idTTB}</div>
                                 <div class="item item-2">${val.name}</div>
                                 <div class="item item-3">${val.qty}</div>
-                                <div class="item item-4">${val.dateIn}</div>
+                                <div class="item item-4">${val.dateIn?.split('T')?.[0]}</div>
                             </div>
                         </a>`
             })
@@ -43,7 +43,7 @@ search.addEventListener('keyup', (e) => {
                                 <div class="item item-1">${val.idTTB}</div>
                                 <div class="item item-2">${val.name}</div>
                                 <div class="item item-3">${val.qty}</div>
-                                <div class="item item-4">${val.dateIn}</div>
+                                <div class="item item-4">${val.dateIn?.split('T')?.[0]}</div>
                             </div>
                         </a>`
             count_cl++

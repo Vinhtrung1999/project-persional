@@ -18,7 +18,7 @@ if (btn_close_modal)
         myModal.style.display = 'none'
     })
 
-fetch(`/api/svd/getSvd/${idSvd}?token=${token}`, {
+fetch(`/api/svd/getSvd/${idSvd}`, {
     method: "GET",
     headers: {
         'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ fetch(`/api/svd/getSvd/${idSvd}?token=${token}`, {
     .then(req => req.json())
     .then(json => {
         if (json.code === 0) {
-            data = json.data[0]
+            data = json.data
             let idSvd = document.getElementById('idSvd')
             let name = document.getElementById('name')
             let type = document.getElementById('type')

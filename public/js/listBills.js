@@ -1,7 +1,7 @@
 let token = localStorage.getItem('token-user')
 let list_bill = []
 
-fetch(`/api/bill/getBills/?token=${token}`, {
+fetch(`/api/bill/getBills`, {
     method: "GET",
     headers: {
         'Content-Type': 'application/json',
@@ -10,6 +10,7 @@ fetch(`/api/bill/getBills/?token=${token}`, {
 })
     .then(req => req.json())
     .then(json => {
+        console.log(json)
         let data = json.data
         let content_bill = document.getElementById('content-bill')
         let temp = ''

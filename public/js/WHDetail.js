@@ -103,7 +103,6 @@ btn_delete.addEventListener("click", () => {
             token: localStorage.getItem('token-user'),
         },
         body: JSON.stringify({
-            token: token,
             idProWH: idProWH
         })
     })
